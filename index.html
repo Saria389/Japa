@@ -199,6 +199,21 @@ footer{text-align:center;padding:24px;color:var(--sub);font-size:14px;border-top
   .quiz-options{grid-template-columns:1fr}
   .brand{font-size:18px}
 }
+
+/* ===== إضافات ===== */
+select{font-family:inherit;padding:10px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--text)}
+nav a{font-size:13.5px;padding:7px 9px}
+canvas#wCv{width:min(100%,320px);aspect-ratio:1;border:2px solid var(--line);border-radius:16px;background:var(--card);touch-action:none;display:block;margin:10px auto}
+#petals{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:-1}
+#petals i{position:absolute;top:-30px;font-style:normal;animation:fall linear infinite}
+@keyframes fall{to{transform:translateY(105vh) rotate(360deg)}}
+html[data-atmos=sakura]{--atm:linear-gradient(180deg,#ffe3ec,#fff5f8 60%)}
+html[data-atmos=fuji]{--atm:linear-gradient(180deg,#9fd0f5,#fbe4d4 70%)}
+html[data-atmos=zen]{--atm:linear-gradient(180deg,#e3ecd8,#f6f3ef)}
+html[data-atmos=night]{--atm:linear-gradient(180deg,#0b1030,#2a1a4a)}
+html[data-atmos] body{background-image:var(--atm)}
+html[data-theme=dark][data-atmos] body{background-image:linear-gradient(rgba(10,12,16,.8),rgba(10,12,16,.8)),var(--atm)}
+.locked{opacity:.45}
 </style>
 </head>
 <body>
@@ -216,6 +231,12 @@ footer{text-align:center;padding:24px;color:var(--sub);font-size:14px;border-top
     <a href="#conversations" data-page="conversations">المحادثات</a>
     <a href="#quiz" data-page="quiz">الاختبارات</a>
     <a href="#diary" data-page="diary">المفكرة</a>
+    <a href="#bank" data-page="bank">بنك المفردات</a>
+    <a href="#kanji" data-page="kanji">كانجي وكتابة</a>
+    <a href="#challenge" data-page="challenge">التحديات</a>
+    <a href="#lab" data-page="lab">الجمل والقراءة</a>
+    <a href="#grammar" data-page="grammar">القواعد</a>
+    <a href="#me" data-page="me">تقدّمي</a>
     <a href="#about" data-page="about">عن المنصة</a>
   </nav>
 </header>
@@ -333,6 +354,46 @@ footer{text-align:center;padding:24px;color:var(--sub);font-size:14px;border-top
     <p style="font-size:14px">نصيحة: خصّص 20 دقيقة يومياً، وكرّر الجمل بصوت عالٍ — الاستمرارية أهم من الكمية. 💪</p>
   </section>
 </div>
+
+
+<div id="petals"></div>
+<div id="bank" class="page-section"><section class="box"><h2>بنك المفردات 📚</h2>
+<div class="tabs sub"><button class="tab-btn active" data-t="pBank">البنك</button><button class="tab-btn" data-t="pFav">⭐ المفضلة</button><button class="tab-btn" data-t="pMyw">📒 قاموسي</button><button class="tab-btn" data-t="pSrs">🔁 مراجعة متباعدة</button></div>
+<div id="ctxBox"></div>
+<div id="pBank" class="tab-content active"><div class="speed-row"><input type="text" id="bQ" placeholder="🔍 ابحث: ياباني / روماجي / عربي" style="flex:1;min-width:200px"><select id="bLv"></select></div><div class="words-grid" id="bList"></div></div>
+<div id="pFav" class="tab-content"><p>اضغط ☆ على أي كلمة لإضافتها هنا، و 🔁 لإدخالها في المراجعة، و 💬 لأمثلة السياق.</p><div class="words-grid" id="fList"></div></div>
+<div id="pMyw" class="tab-content"><p>أضف كلماتك الخاصة، تظهر في البنك والمراجعة والاختبارات.</p>
+<div class="grid-auto"><input type="text" id="mJp" placeholder="الكلمة (ياباني)"><input type="text" id="mKa" placeholder="القراءة بالكانا"><input type="text" id="mRo" placeholder="روماجي"><input type="text" id="mAr" placeholder="المعنى بالعربي"></div>
+<button class="btn-action" id="mAdd" style="margin-top:10px">إضافة ＋</button><div id="mList" style="margin-top:14px"></div></div>
+<div id="pSrs" class="tab-content"><p id="srsInfo"></p><div class="quiz-card" id="srsBox"></div><p style="font-size:14px">نظام ليتنر: كل إجابة صحيحة تباعد موعد المراجعة (1، 2، 4، 8، 16، 32 يوماً).</p></div>
+</section></div>
+
+<div id="kanji" class="page-section"><section class="box"><h2>الكانجي والكتابة ✍️</h2>
+<div class="tabs sub"><button class="tab-btn active" data-t="pKanji">الكانجي</button><button class="tab-btn" data-t="pWrite">تدريب الكتابة</button></div>
+<div id="pKanji" class="tab-content active"><div class="grid-auto" id="kList"></div></div>
+<div id="pWrite" class="tab-content"><p>اختر حرفاً، تتبّع الدليل بإصبعك أو الماوس.</p><div class="speed-row"><select id="wSel"></select><button class="btn-action btn-ghost" id="wClr">مسح</button><button class="btn-action btn-ghost" id="wGd">الدليل</button><button class="btn-action btn-ghost" id="wSay">🔊</button></div><canvas id="wCv" width="300" height="300"></canvas></div>
+</section></div>
+
+<div id="challenge" class="page-section"><section class="box"><h2>التحديات 🏁</h2>
+<div class="tabs"><button class="tab-btn" data-ch="listen">🎧 اختبار استماع</button><button class="tab-btn" data-ch="timed">⏱️ تحدي زمني (10 ثوانٍ)</button><button class="tab-btn" data-ch="order">🧩 تحدي ترتيب الجمل</button></div>
+<div class="quiz-card" id="chBox"><p>اختر نوع التحدي للبدء.</p></div>
+<div class="quiz-card" id="ordBox" hidden></div></section></div>
+
+<div id="lab" class="page-section"><section class="box"><h2>الجمل والقراءة 📖</h2>
+<div class="tabs sub"><button class="tab-btn active" data-t="pGen">مولد الجمل</button><button class="tab-btn" data-t="pRead">قراءة متدرجة</button></div>
+<div id="pGen" class="tab-content active"><p>اختر الفعل والفاعل والمفعول لتتكوّن جملة بنمط ＡはＢを〜ます.</p>
+<div class="speed-row"><select id="gS"></select><select id="gV"></select><select id="gO"></select><button class="btn-action" id="gRnd">🎲 عشوائي</button></div><div id="gOut"></div></div>
+<div id="pRead" class="tab-content"><div class="speed-row"><select id="rSel"><option value="0">نص 1 — مبتدئ (N5)</option><option value="1">نص 2 — N4</option></select><label><input type="checkbox" id="rKa" checked> القراءة</label><label><input type="checkbox" id="rAr"> الترجمة</label></div><p>ابدأ بإخفاء القراءة والترجمة، وأظهرها عند الحاجة. اضغط الجملة لسماعها.</p><div id="rOut"></div></div>
+</section></div>
+
+<div id="grammar" class="page-section"><section class="box"><h2>دليل القواعد الشامل 🧩</h2>
+<div class="speed-row"><input type="text" id="gQ" placeholder="🔍 ابحث في القواعد" style="flex:1;min-width:200px"><select id="gLv"></select></div><div id="gList"></div></section></div>
+
+<div id="me" class="page-section"><section class="box"><h2>تقدّمي وإنجازاتي 🏆</h2>
+<div class="grid-auto" id="meStats"></div><h3 style="margin-top:22px">الإنجازات</h3><div class="grid-auto" id="meAch"></div></section>
+<section class="box"><h2>الأجواء اليابانية 🎎</h2><div class="tabs" id="atBtns"></div></section>
+<section class="box"><h2>النسخ الاحتياطي 💾</h2><p>يُحفظ تقدّمك تلقائياً على جهازك. صدّر نسخة لنقلها لجهاز آخر أو لحفظها.</p>
+<button class="btn-action" id="bkExp">تصدير ⬇️</button> <label class="btn-action btn-ghost" style="cursor:pointer">استيراد ⬆️<input type="file" id="bkImp" accept=".json" hidden></label></section></div>
 
 </main>
 
@@ -806,7 +867,7 @@ function finish(){
   $("#qBar").style.width="100%";$("#quizBox").hidden=true;$("#quizResult").hidden=false;
   const max=Q.qs.length*10;$("#qScore").textContent=`${Q.score} / ${max}`;
   $("#qComment").textContent=Q.score===max?"🏆 ممتاز! كل الإجابات صحيحة!":Q.score>=max/2?"👍 نتيجة جيدة، واصل المراجعة!":"💪 لا بأس، راجع الدروس وأعد المحاولة!";
-  const best=store.get("best",{});if(!best[Q.mode]||Q.score>best[Q.mode])best[Q.mode]=Q.score;store.set("best",best);
+  const best=store.get("best",{});if(!best[Q.mode]||Q.score>best[Q.mode])best[Q.mode]=Q.score;store.set("best",best);document.dispatchEvent(new CustomEvent("quizdone",{detail:Q.score}));
   $("#qBest").textContent=`أفضل نتيجة لك في هذا الاختبار: ${best[Q.mode]} / ${max}`;
 }
 $$("#quizModes .tab-btn").forEach(b=>b.onclick=()=>startQuiz(b.dataset.mode));
@@ -851,6 +912,132 @@ $("#themeBtn").onclick=()=>{const d=root.getAttribute("data-theme")!=="dark";set
 const topBtn=$("#topBtn");
 window.addEventListener("scroll",()=>topBtn.classList.toggle("show",window.scrollY>500));
 topBtn.onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
+
+
+/* ================= الإضافات ================= */
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+let fav=store.get("fav",[]),srs=store.get("srs",{}),myw=store.get("myw",[]),st=store.get("stats",{xp:0,quiz:0,rev:0,perfect:0,days:[]});
+const td=()=>new Date().toISOString().slice(0,10);
+if(!st.days.includes(td()))st.days.push(td());
+const save=()=>{store.set("fav",fav);store.set("srs",srs);store.set("myw",myw);store.set("stats",st)};
+const addXP=n=>{st.xp+=n;save()};save();
+const ALL=()=>[...Object.keys(LEVELS).flatMap(lv=>LEVELS[lv].lessons.flatMap(l=>l.vocab.map(v=>({jp:v[0],ka:v[1],ro:v[2],ar:v[3],lv})))),...myw.map(w=>({...w,lv:"قاموسي"}))];
+const say1=w=>w.ka.split(" / ")[0];
+document.addEventListener("quizdone",e=>{st.quiz++;if(e.detail>=100)st.perfect++;addXP(Math.round(e.detail/2))});
+$$(".tabs.sub").forEach(g=>g.onclick=e=>{const b=e.target.closest("[data-t]");if(!b)return;
+  g.querySelectorAll("[data-t]").forEach(x=>{x.classList.toggle("active",x===b);$("#"+x.dataset.t).classList.toggle("active",x===b)});
+  ({pFav:renderFav,pMyw:renderMyw,pSrs:srsStart,pWrite:wRedraw,pRead:readRender}[b.dataset.t]||(()=>{}))()});
+
+/* بنك المفردات */
+function wordRow(w){const f=fav.includes(w.jp);return `<div class="word-card"><div data-say="${esc(say1(w))}" style="flex:1"><div class="word-jp">${w.jp}</div>${w.jp!==w.ka?`<div class="word-kana">${w.ka}</div>`:""}<div class="word-ro">${w.ro}</div><div class="word-ar">${w.ar}</div></div><div class="sent-btns" style="flex-direction:column"><button data-fav="${esc(w.jp)}">${f?"★":"☆"}</button><button data-srs="${esc(w.jp)}" title="للمراجعة">${srs[w.jp]?"✔":"🔁"}</button><button data-ctx="${esc(w.jp)}" title="أمثلة">💬</button></div></div>`}
+$("#bLv").innerHTML='<option value="">كل المستويات</option>'+[...Object.keys(LEVELS),"قاموسي"].map(l=>`<option>${l}</option>`).join("");
+function renderBank(){const q=$("#bQ").value.trim().toLowerCase(),lv=$("#bLv").value;
+  const r=ALL().filter(w=>(!lv||w.lv===lv)&&(!q||[w.jp,w.ka,w.ro,w.ar].some(x=>String(x).toLowerCase().includes(q))));
+  $("#bList").innerHTML=r.slice(0,150).map(wordRow).join("")||"<p>لا نتائج.</p>"}
+function renderFav(){$("#fList").innerHTML=ALL().filter(w=>fav.includes(w.jp)).map(wordRow).join("")||"<p>لا مفضلات بعد.</p>"}
+function renderMyw(){$("#mList").innerHTML=myw.map((w,i)=>`<div class="entry"><button class="del" data-delw="${i}">✕</button><b class="jp">${esc(w.jp)}</b> — ${esc(w.ka)} — ${esc(w.ar)}</div>`).join("")||"<p>قاموسك فارغ.</p>"}
+$("#bQ").oninput=renderBank;$("#bLv").onchange=renderBank;
+$("#mAdd").onclick=()=>{const jp=$("#mJp").value.trim(),ar=$("#mAr").value.trim();if(!jp||!ar)return;
+  myw.push({jp,ka:$("#mKa").value.trim()||jp,ro:$("#mRo").value.trim(),ar});["#mJp","#mKa","#mRo","#mAr"].forEach(i=>$(i).value="");save();renderMyw();renderBank()};
+function ctx(jp){const out=[];
+  Object.values(LEVELS).forEach(L=>L.lessons.forEach(l=>l.sentences.concat(l.grammar.map(g=>g[2])).forEach(s=>{if(out.length<5&&(s[0].includes(jp)||s[1].includes(jp)))out.push(s)})));
+  DIALOGS.forEach(d=>d.l.forEach(([w,j,k,r,a])=>{if(out.length<5&&(j.includes(jp)||k.includes(jp)))out.push([j,k,r,a])}));
+  $("#ctxBox").innerHTML=`<div class="gram" style="--lv:var(--primary)"><b>💬 أمثلة السياق: ${esc(jp)}</b>${out.map(sentHTML).join("")||"<p>لا توجد أمثلة لهذه الكلمة بعد.</p>"}</div>`}
+
+/* مراجعة متباعدة (ليتنر) */
+const IV=[1,2,4,8,16,32];let sq=[];
+function srsStart(){const m=Object.fromEntries(ALL().map(w=>[w.jp,w]));sq=Object.keys(srs).filter(k=>srs[k].due<=td()&&m[k]).map(k=>m[k]);srsShow()}
+function srsShow(){const b=$("#srsBox"),w=sq[0];$("#srsInfo").textContent=`إجمالي البطاقات: ${Object.keys(srs).length} — المستحقة الآن: ${sq.length}`;
+  if(!w){b.innerHTML="<p>🎉 لا مراجعات مستحقة. أضف كلمات من البنك بزر 🔁.</p>";return}
+  b.innerHTML=`<div class="quiz-q">${w.jp}</div><div id="srsBack" hidden><div class="quiz-hint">${w.ka} — ${w.ro}</div><div class="word-ar" style="font-size:22px">${w.ar}</div><div class="speed-row" style="justify-content:center"><button class="btn-action btn-ghost" data-rate="0">😕 نسيتها</button><button class="btn-action" data-rate="1">✅ تذكرتها</button></div></div><button class="btn-action" id="srsFlip">اكشف المعنى</button>`;
+  speak(say1(w));$("#srsFlip").onclick=()=>{$("#srsBack").hidden=false;$("#srsFlip").hidden=true}}
+$("#srsBox").onclick=e=>{const r=e.target.closest("[data-rate]");if(!r)return;const w=sq.shift(),c=srs[w.jp];
+  if(r.dataset.rate==="1"){c.box=Math.min(c.box+1,5);const d=new Date();d.setDate(d.getDate()+IV[c.box]);c.due=d.toISOString().slice(0,10);st.rev++;addXP(5)}else{c.box=0;sq.push(w)}
+  save();srsShow()};
+
+/* الكانجي والكتابة */
+const KJ="日|ニチ|ひ|شمس / يوم;月|ゲツ|つき|قمر / شهر;火|カ|ひ|نار;水|スイ|みず|ماء;木|モク|き|شجرة;金|キン|かね|ذهب / مال;土|ド|つち|تراب;人|ジン|ひと|إنسان;山|サン|やま|جبل;川|セン|かわ|نهر;大|ダイ|おおきい|كبير;小|ショウ|ちいさい|صغير;中|チュウ|なか|وسط / داخل;学|ガク|まなぶ|يتعلّم;生|セイ|いきる|حياة / ولادة;本|ホン|もと|كتاب / أصل;口|コウ|くち|فم;目|モク|め|عين;手|シュ|て|يد;足|ソク|あし|قدم;上|ジョウ|うえ|فوق;下|カ|した|تحت;年|ネン|とし|سنة;食|ショク|たべる|يأكل;見|ケン|みる|يرى;行|コウ|いく|يذهب;来|ライ|くる|يأتي;休|キュウ|やすむ|يستريح;国|コク|くに|دولة;先|セン|さき|سابق / أمام".split(";").map(x=>x.split("|"));
+$("#kList").innerHTML=KJ.map(([c,on,kun,ar])=>`<div class="card" style="text-align:center"><div class="jp-char" style="font-size:46px">${c}</div><div class="word-ar">${ar}</div><div class="word-kana">音 ${on} · 訓 ${kun}</div><div class="sent-btns" style="justify-content:center;margin-top:8px"><button data-say="${kun}">🔊</button><button data-wr="${c}">✍</button></div></div>`).join("");
+$("#wSel").innerHTML=`<optgroup label="هيراغانا">${kanaPool(false).map(([c])=>`<option>${c}</option>`).join("")}</optgroup><optgroup label="كاتاكانا">${kanaPool(true).map(([c])=>`<option>${c}</option>`).join("")}</optgroup><optgroup label="كانجي">${KJ.map(k=>`<option>${k[0]}</option>`).join("")}</optgroup>`;
+const cv=$("#wCv"),cx=cv.getContext("2d");let guide=true,pen=false;
+function wRedraw(){cx.clearRect(0,0,300,300);cx.strokeStyle="rgba(128,128,128,.3)";cx.lineWidth=1;cx.setLineDash([6,6]);cx.strokeRect(0,0,300,300);cx.beginPath();cx.moveTo(150,0);cx.lineTo(150,300);cx.moveTo(0,150);cx.lineTo(300,150);cx.stroke();cx.setLineDash([]);
+  if(guide){const v=$("#wSel").value;cx.fillStyle="rgba(128,128,128,.3)";cx.font=(v.length>1?130:230)+"px 'Noto Sans JP',sans-serif";cx.textAlign="center";cx.textBaseline="middle";cx.fillText(v,150,160)}}
+const pos=e=>{const r=cv.getBoundingClientRect();return[(e.clientX-r.left)*300/r.width,(e.clientY-r.top)*300/r.height]};
+cv.onpointerdown=e=>{pen=true;cv.setPointerCapture(e.pointerId);cx.beginPath();cx.moveTo(...pos(e));cx.strokeStyle="#e5484d";cx.lineWidth=10;cx.lineCap=cx.lineJoin="round"};
+cv.onpointermove=e=>{if(pen){cx.lineTo(...pos(e));cx.stroke()}};cv.onpointerup=()=>{pen=false};
+$("#wSel").onchange=wRedraw;$("#wClr").onclick=wRedraw;$("#wGd").onclick=()=>{guide=!guide;wRedraw()};$("#wSay").onclick=()=>speak($("#wSel").value);
+
+/* التحديات */
+let C=null,tm=null;
+function chStart(type){const pool=ALL();C={type,i:0,sc:0,lock:false,qs:shuffle(pool).slice(0,10).map(p=>({p,opts:shuffle([p.ar,...shuffle([...new Set(pool.filter(x=>x.ar!==p.ar).map(x=>x.ar))]).slice(0,3)])}))};chShow()}
+function chShow(){clearInterval(tm);const q=C.qs[C.i];if(!q)return chEnd();const p=q.p,L=C.type==="listen";C.lock=false;
+  $("#chBox").innerHTML=`<div class="quiz-hint">السؤال ${C.i+1}/10 — النقاط ${C.sc}</div>${L?`<button class="btn-action" data-say="${esc(say1(p))}" style="font-size:34px;margin:10px">🔊</button><p>ماذا سمعت؟</p>`:`<div class="quiz-q">${p.jp}</div>`}${C.type==="timed"?'<div class="bar"><i id="chT" style="width:100%;transition:none"></i></div>':""}<div class="quiz-options">${q.opts.map(o=>`<button class="opt">${o}</button>`).join("")}</div><div class="feedback" id="chF"></div>`;
+  if(L)speak(say1(p));
+  if(C.type==="timed"){let t=100;tm=setInterval(()=>{t--;$("#chT").style.width=t+"%";if(t<=0)chAns(null)},100)}
+  $$("#chBox .opt").forEach(b=>b.onclick=()=>chAns(b))}
+function chAns(b){if(C.lock)return;C.lock=true;clearInterval(tm);const q=C.qs[C.i],ok=!!b&&b.textContent===q.p.ar;
+  $$("#chBox .opt").forEach(x=>{if(x.textContent===q.p.ar)x.classList.add("ok")});if(b&&!ok)b.classList.add("no");
+  if(ok)C.sc++;const f=$("#chF");f.className="feedback "+(ok?"correct":"wrong");f.textContent=ok?"✨ صحيح!":(b?"❌ ":"⏰ انتهى الوقت — ")+q.p.ar;
+  setTimeout(()=>{C.i++;chShow()},1200)}
+function chEnd(){st.quiz++;if(C.sc===10)st.perfect++;addXP(C.sc*2);
+  $("#chBox").innerHTML=`<h3>🎉 انتهى التحدي</h3><div class="score">${C.sc} / 10</div><p>+${C.sc*2} XP</p><button class="btn-action" data-ch="${C.type}">إعادة 🔄</button>`}
+let od=null;
+function ordNew(){const s=pick(G.s),v=pick(V),o=G.o[pick(v.obj)];const t=[s[0]+"は",o[0]+"を",v[0]+"。"];od={t,p:shuffle(t),u:[],g:`${s[2]} · ${o[2]} · ${v[2]}`};ordShow()}
+function ordShow(){const rem=od.p.map((c,i)=>[c,i]).filter(([c,i])=>!od.u.includes(i));
+  $("#ordBox").innerHTML=`<p>رتّب الجملة — المعنى: ${od.g}</p><div class="sent-jp" style="min-height:48px;border-bottom:2px dashed var(--line)">${od.u.map(i=>od.p[i]).join("")}</div><div class="speed-row" style="justify-content:center">${rem.map(([c,i])=>`<button class="tab-btn jp" data-oi="${i}">${c}</button>`).join("")}</div><div class="feedback" id="ordF"></div><button class="btn-action btn-ghost" data-oreset="1">↺ إعادة</button> <button class="btn-action" data-onew="1">جملة جديدة</button>`;
+  if(!rem.length){const ok=od.u.map(i=>od.p[i]).join("")===od.t.join(""),f=$("#ordF");f.className="feedback "+(ok?"correct":"wrong");f.textContent=ok?"✨ صحيح! +10 XP":"❌ الترتيب الصحيح: "+od.t.join("");if(ok){addXP(10);speak(od.t.join(""))}}}
+
+/* مولد الجمل */
+const G={s:[["わたし","watashi","أنا"],["ともだち","tomodachi","صديق"],["せんせい","sensei","معلّم"],["がくせい","gakusei","طالب"]],o:[["りんご","ringo","تفاحة"],["みず","mizu","ماء"],["ほん","hon","كتاب"],["パン","pan","خبز"],["おちゃ","ocha","شاي"]]};
+const V=[["たべます","tabemasu","أكل",[0,3]],["のみます","nomimasu","شرب",[1,4]],["よみます","yomimasu","قراءة",[2]],["かいます","kaimasu","شراء",[0,1,2,3,4]]].map(([a,b,c,d])=>Object.assign([a,b,c],{obj:d}));
+const opt=(a,f)=>a.map((x,i)=>`<option value="${i}">${f(x)}</option>`).join("");
+function fillO(){$("#gO").innerHTML=V[+$("#gV").value].obj.map(i=>`<option value="${i}">${G.o[i][0]} — ${G.o[i][2]}</option>`).join("")}
+$("#gS").innerHTML=opt(G.s,x=>`${x[0]} — ${x[2]}`);$("#gV").innerHTML=opt(V,x=>`${x[0]} — ${x[2]}`);fillO();
+function gen(sp){const s=G.s[+$("#gS").value],v=V[+$("#gV").value],o=G.o[+$("#gO").value],jp=`${s[0]}は${o[0]}を${v[0]}。`;
+  $("#gOut").innerHTML=sentHTML([jp,jp,`${s[1]} wa ${o[1]} o ${v[1]}.`,`${s[2]} · ${o[2]} · ${v[2]}`]);if(sp)speak(jp)}
+$("#gV").onchange=()=>{fillO();gen(1)};$("#gS").onchange=$("#gO").onchange=()=>gen(1);
+$("#gRnd").onclick=()=>{$("#gS").value=Math.floor(Math.random()*4);$("#gV").value=Math.floor(Math.random()*4);fillO();const os=$("#gO").options;$("#gO").selectedIndex=Math.floor(Math.random()*os.length);gen(1)};
+const READ=[{s:[["わたしは日本語を勉強しています。","わたしはにほんごをべんきょうしています。","أنا أدرس اللغة اليابانية."],["まいにち二十分、本を読みます。","まいにちにじゅっぷん、ほんをよみます。","كل يوم أقرأ كتاباً عشرين دقيقة."],["日本のアニメが好きです。","にほんのアニメがすきです。","أحب الأنمي الياباني."],["いつか日本に住みたいです。","いつかにほんにすみたいです。","أريد أن أعيش في اليابان يوماً ما."]]},
+{s:[["昨日、友だちと東京へ行きました。","きのう、ともだちととうきょうへいきました。","ذهبت أمس مع صديقي إلى طوكيو."],["駅の近くのレストランで昼ご飯を食べました。","えきのちかくのレストランでひるごはんをたべました。","تناولنا الغداء في مطعم قرب المحطة."],["ラーメンはとてもおいしかったです。","ラーメンはとてもおいしかったです。","كان الرامن لذيذاً جداً."],["また行きたいと思います。","またいきたいとおもいます。","أفكّر في الذهاب مرة أخرى."]]}];
+function readRender(){$("#rOut").innerHTML=READ[+$("#rSel").value].s.map(([jp,ka,ar])=>`<div class="sent" data-say="${esc(ka)}" style="cursor:pointer"><div><div class="sent-jp">${jp}</div>${$("#rKa").checked?`<div class="sent-kana">${ka}</div>`:""}${$("#rAr").checked?`<div class="sent-ar">${ar}</div>`:""}</div><span class="spk">🔊</span></div>`).join("")}
+$("#rSel").onchange=$("#rKa").onchange=$("#rAr").onchange=readRender;
+
+/* القواعد */
+$("#gLv").innerHTML='<option value="">كل المستويات</option>'+Object.keys(LEVELS).map(l=>`<option>${l}</option>`).join("");
+function renderGram(){const q=$("#gQ").value.trim().toLowerCase(),lv=$("#gLv").value;let h="";
+  Object.keys(LEVELS).filter(l=>!lv||l===lv).forEach(l=>LEVELS[l].lessons.forEach(ls=>ls.grammar.forEach(([t,d,ex])=>{if(q&&!(t+d).toLowerCase().includes(q))return;h+=`<div class="gram lv-${l}"><span class="lv-badge">${l}</span> <b>${t}</b><p>${d}</p>${sentHTML(ex)}</div>`})));
+  $("#gList").innerHTML=h||"<p>لا نتائج.</p>"}
+$("#gQ").oninput=$("#gLv").onchange=renderGram;
+
+/* التقدّم والأجواء والنسخ الاحتياطي */
+function streak(){let n=0;const d=new Date();while(st.days.includes(d.toISOString().slice(0,10))){n++;d.setDate(d.getDate()-1)}return n}
+function renderMe(){const ls=Object.keys(done).length,sk=streak();
+  $("#meStats").innerHTML=[["⭐",st.xp,"نقاط XP"],["🎚️",Math.floor(st.xp/100)+1,"مستواك"],["🔥",sk,"أيام متتالية"],["📘",ls,"دروس منجزة"],["🔁",Object.keys(srs).length,"بطاقات المراجعة"],["🎯",st.quiz,"اختبارات"]].map(([i,n,t])=>`<div class="card" style="text-align:center"><div style="font-size:26px">${i}</div><div class="score" style="font-size:30px">${n}</div><small>${t}</small></div>`).join("");
+  $("#meAch").innerHTML=[["📘","٥ دروس منجزة",ls,5],["🔥","٣ أيام متتالية",sk,3],["🔥","٧ أيام متتالية",sk,7],["🧠","٢٠ مراجعة",st.rev,20],["⭐","١٠ مفضلات",fav.length,10],["🎯","اختبار كامل",st.perfect,1],["🏆","٥٠٠ نقطة",st.xp,500],["📒","٥ كلمات بقاموسك",myw.length,5]].map(([i,t,c,n])=>`<div class="card ${c>=n?"":"locked"}"><div style="font-size:26px">${c>=n?i:"🔒"}</div><b>${t}</b><div class="bar"><i style="width:${Math.min(100,c/n*100)}%"></i></div><small>${Math.min(c,n)} / ${n}</small></div>`).join("")}
+const AT=[["","بدون"],["sakura","🌸 ساكورا"],["fuji","🗻 فوجي"],["zen","🎍 زِن"],["night","🌃 طوكيو ليلاً"]];
+function setAt(a){if(a)root.setAttribute("data-atmos",a);else root.removeAttribute("data-atmos");store.set("atmos",a);
+  $("#petals").innerHTML=a==="sakura"?Array.from({length:16},(_,i)=>`<i style="left:${i*6.5}%;animation-duration:${8+i%5*2}s;animation-delay:${-i*1.3}s">🌸</i>`).join(""):"";
+  $$("#atBtns .tab-btn").forEach(b=>b.classList.toggle("active",b.dataset.at===a))}
+$("#atBtns").innerHTML=AT.map(([k,t])=>`<button class="tab-btn" data-at="${k}">${t}</button>`).join("");
+$("#bkExp").onclick=()=>{const o={};for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);o[k]=localStorage.getItem(k)}const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(o)],{type:"application/json"}));a.download="sari-japanese-backup.json";a.click()};
+$("#bkImp").onchange=async e=>{try{const o=JSON.parse(await e.target.files[0].text());Object.entries(o).forEach(([k,v])=>localStorage.setItem(k,v));location.reload()}catch(x){alert("ملف غير صالح")}};
+try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(x){}
+
+/* أحداث مشتركة */
+document.addEventListener("click",e=>{const t=e.target,g=a=>t.closest("["+a+"]");let b;
+  if(b=g("data-fav")){const k=b.dataset.fav;fav=fav.includes(k)?fav.filter(x=>x!==k):[...fav,k];save();renderBank();renderFav()}
+  else if(b=g("data-srs")){const k=b.dataset.srs;if(!srs[k])srs[k]={box:0,due:td()};save();renderBank();renderFav()}
+  else if(b=g("data-ctx")){ctx(b.dataset.ctx)}
+  else if(b=g("data-delw")){myw.splice(+b.dataset.delw,1);save();renderMyw();renderBank()}
+  else if(b=g("data-wr")){$("#wSel").value=b.dataset.wr;document.querySelector('[data-t="pWrite"]').click()}
+  else if(b=g("data-ch")){const ty=b.dataset.ch,o=ty==="order";$("#chBox").hidden=o;$("#ordBox").hidden=!o;$$("[data-ch].tab-btn").forEach(x=>x.classList.toggle("active",x.dataset.ch===ty));o?ordNew():chStart(ty)}
+  else if(b=g("data-oi")){od.u.push(+b.dataset.oi);ordShow()}
+  else if(g("data-oreset")){od.u=[];ordShow()}
+  else if(g("data-onew")){ordNew()}
+  else if(b=g("data-at")){setAt(b.dataset.at)}
+  else if(b=g("data-page")){setTimeout(()=>({me:renderMe,bank:renderBank,grammar:renderGram}[b.dataset.page]||(()=>{}))(),0)}});
+window.addEventListener("hashchange",()=>({me:renderMe,bank:renderBank,grammar:renderGram}[location.hash.slice(1)]||(()=>{}))());
+renderBank();renderFav();renderMyw();wRedraw();gen(0);readRender();renderGram();renderMe();setAt(store.get("atmos",""));
 
 renderLevel("N5");renderHome();renderDiary();
 if(location.hash)go(location.hash.slice(1));

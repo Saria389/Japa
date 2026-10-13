@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#e5484d">
+<title>منصة تعلّم اليابانية مع ساري 🇯🇵 | من الصفر حتى الإتقان</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#e5484d; --primary-hover:#c93a3f; --primary-soft:#fdecec;
+  --accent:#f5a524; --bg:#f6f3ef; --card:#ffffff; --card-2:#faf8f5;
+  --text:#27303b; --sub:#66707d; --line:#e8e2da;
+  --success:#2e7d32; --success-bg:#e8f5e9; --error:#c62828; --error-bg:#ffebee;
+  --shadow:0 8px 28px rgba(60,40,20,.07); --radius:18px;
+  --jp:'Noto Sans JP','Cairo',sans-serif;
+}
+html[data-theme="dark"]{
+  --bg:#14171c; --card:#1d2229; --card-2:#232a33; --text:#eef1f5; --sub:#a3adba;
+  --line:#2f3742; --primary-soft:#3a2326; --success-bg:#16301a; --error-bg:#3a1c1f;
+  --shadow:0 8px 28px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{font-family:'Cairo',sans-serif;background:var(--bg);color:var(--text);margin:0;line-height:1.8;font-size:16px;
+  background-image:radial-gradient(circle at 10% 0%,rgba(229,72,77,.08),transparent 40%),radial-gradient(circle at 100% 30%,rgba(245,165,36,.08),transparent 40%);
+  background-attachment:fixed;transition:background .3s,color .3s}
+.jp,.jp-char,.word-jp,.sent-jp,.sent-kana{font-family:var(--jp)}
+button{font-family:inherit}
+p{margin:8px 0;color:var(--sub)}
+[hidden]{display:none!important}
+
+/* ===== Header ===== */
+header{position:sticky;top:0;z-index:1000;background:color-mix(in srgb,var(--card) 88%,transparent);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line);
+  padding:10px 22px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900;font-size:21px;color:var(--primary);cursor:pointer;margin:0}
+.brand .logo{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,var(--primary),#ff8a65);color:#fff;
+  display:grid;place-items:center;font-family:var(--jp);font-size:20px;box-shadow:0 6px 14px rgba(229,72,77,.35)}
+nav{display:flex;gap:4px;flex-wrap:wrap}
+nav a{text-decoration:none;font-size:14.5px;font-weight:700;color:var(--sub);padding:7px 13px;border-radius:10px;cursor:pointer;transition:.2s}
+nav a:hover,nav a.active-link{color:var(--primary);background:var(--primary-soft)}
+.head-tools{display:flex;gap:8px;align-items:center}
+.icon-btn{border:1px solid var(--line);background:var(--card);color:var(--text);width:40px;height:40px;border-radius:12px;font-size:18px;cursor:pointer;transition:.2s}
+.icon-btn:hover{border-color:var(--primary);color:var(--primary)}
+#menuBtn{display:none}
+
+/* ===== Layout ===== */
+main{max-width:1100px;margin:26px auto;padding:0 18px}
+.page-section{display:none;animation:fade .35s ease}
+.page-section.active-page{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+section.box{background:var(--card);padding:26px;margin-bottom:22px;border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--line)}
+h2{margin:0 0 6px;font-size:23px;border-right:5px solid var(--primary);padding-right:12px}
+h3{margin:0}
+
+/* ===== Hero ===== */
+.hero{border-radius:26px;padding:42px 30px;color:#fff;margin-bottom:22px;position:relative;overflow:hidden;
+  background:linear-gradient(135deg,#e5484d 0%,#ff7a59 55%,#f5a524 100%);box-shadow:0 14px 36px rgba(229,72,77,.3)}
+.hero::after{content:"桜";position:absolute;left:-10px;bottom:-60px;font-family:var(--jp);font-size:240px;font-weight:900;opacity:.12;line-height:1}
+.hero h2{border:none;padding:0;font-size:32px;color:#fff;position:relative}
+.hero p{color:rgba(255,255,255,.92);font-size:17px;max-width:620px;position:relative}
+.hero .btn-action{background:#fff;color:var(--primary);margin-top:10px;position:relative}
+.hero .btn-action:hover{background:#fff3ef}
+
+.btn-action{background:var(--primary);color:#fff;border:none;padding:10px 18px;border-radius:12px;font-weight:700;font-size:15px;cursor:pointer;transition:.2s;display:inline-flex;gap:6px;align-items:center}
+.btn-action:hover{background:var(--primary-hover);transform:translateY(-1px)}
+.btn-ghost{background:var(--card-2);color:var(--text);border:1px solid var(--line)}
+.btn-ghost:hover{background:var(--primary-soft);color:var(--primary)}
+
+.grid-auto{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;margin-top:16px}
+.card{background:var(--card-2);border:1px solid var(--line);border-radius:16px;padding:18px;transition:.25s}
+.card:hover{border-color:var(--primary);transform:translateY(-3px)}
+.card h3{font-size:18px;margin-bottom:4px}
+
+/* ===== Level badges & progress ===== */
+.lv-N5{--lv:#2e9e5b}.lv-N4{--lv:#2f80ed}.lv-N3{--lv:#f2994a}.lv-N2{--lv:#9b51e0}.lv-N1{--lv:#e5484d}
+.lv-badge{display:inline-block;background:var(--lv);color:#fff;font-weight:900;border-radius:10px;padding:2px 12px;font-size:15px}
+.bar{height:9px;background:var(--line);border-radius:20px;overflow:hidden;margin:10px 0 4px}
+.bar>i{display:block;height:100%;width:0;background:var(--lv,var(--primary));transition:width .4s}
+
+/* ===== Tabs ===== */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+.tab-btn{padding:9px 16px;border:1px solid var(--line);background:var(--card-2);color:var(--sub);border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;transition:.2s}
+.tab-btn:hover{color:var(--primary)}
+.tab-btn.active{background:var(--primary);color:#fff;border-color:var(--primary);box-shadow:0 5px 14px rgba(229,72,77,.3)}
+.lv-tabs .tab-btn.active{background:var(--lv);border-color:var(--lv);box-shadow:none}
+.tab-content{display:none}.tab-content.active{display:block}
+
+/* ===== Kana ===== */
+.kana-title{margin:22px 0 4px;font-size:18px;color:var(--primary)}
+.letters-grid{display:grid;gap:10px;margin-top:10px;max-width:640px}
+.letters-grid.c5{grid-template-columns:repeat(5,1fr)}
+.letters-grid.c4{grid-template-columns:repeat(4,1fr)}
+.letters-grid.c3{grid-template-columns:repeat(3,1fr)}
+.letter-card{background:var(--card);border:2px solid var(--line);border-radius:14px;min-height:84px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:.2s;user-select:none}
+.letter-card:hover,.letter-card:active{border-color:var(--primary);background:var(--primary-soft);transform:translateY(-3px)}
+.letter-card.empty{border:none;background:none;cursor:default;pointer-events:none}
+.jp-char{font-size:30px;font-weight:700;line-height:1.2}
+.romaji{font-size:12.5px;color:var(--sub);font-weight:700}
+.speed-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:12px 0}
+.warn{background:#fff7e0;color:#7a5600;border:1px solid #f1d98a;padding:10px 14px;border-radius:12px;font-size:14px;margin:10px 0}
+
+/* ===== Lessons ===== */
+details.lesson{background:var(--card-2);border:1px solid var(--line);border-radius:16px;margin-bottom:14px;overflow:hidden;transition:.2s}
+details.lesson[open]{border-color:var(--lv)}
+details.lesson summary{list-style:none;cursor:pointer;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:10px;font-weight:800;font-size:17.5px}
+details.lesson summary::-webkit-details-marker{display:none}
+details.lesson summary .num{background:var(--lv);color:#fff;border-radius:50%;width:32px;height:32px;display:grid;place-items:center;font-size:15px;flex:none}
+details.lesson summary .t{flex:1;display:flex;gap:10px;align-items:center}
+details.lesson summary .chev{transition:.2s;color:var(--sub)}
+details.lesson[open] summary .chev{transform:rotate(180deg)}
+.done-mark{color:var(--success);font-size:14px;font-weight:800}
+.lesson-body{padding:4px 20px 20px}
+.sub-title{font-weight:800;margin:20px 0 8px;color:var(--lv);font-size:16.5px}
+.words-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
+.word-card{background:var(--card);padding:11px 14px;border-radius:12px;border:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:8px;cursor:pointer;transition:.2s}
+.word-card:hover{border-color:var(--lv,var(--primary));background:var(--primary-soft)}
+.word-jp{font-weight:700;font-size:20px;line-height:1.35}
+.word-kana{font-size:13px;color:var(--sub);font-family:var(--jp)}
+.word-ro{font-size:12.5px;color:var(--lv,var(--primary));font-weight:700;direction:ltr;text-align:right}
+.word-ar{font-size:14px;font-weight:700;margin-top:2px}
+.spk{font-size:18px;opacity:.7}
+.gram{background:var(--card);border:1px dashed var(--lv);border-radius:14px;padding:14px 16px;margin-bottom:10px}
+.gram b{color:var(--lv)}
+.sent{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 16px;margin-bottom:9px;display:flex;justify-content:space-between;gap:12px;align-items:center}
+.sent-jp{font-size:20px;font-weight:700;line-height:1.5}
+.sent-kana{font-size:14px;color:var(--sub)}
+.sent-ro{font-size:13.5px;color:var(--lv,var(--primary));font-weight:600;direction:ltr;text-align:right}
+.sent-ar{font-weight:700;margin-top:3px}
+.sent-btns{display:flex;gap:6px;flex:none}
+.sent-btns button{border:1px solid var(--line);background:var(--card-2);border-radius:10px;width:38px;height:38px;cursor:pointer;font-size:16px;transition:.2s}
+.sent-btns button:hover{background:var(--primary-soft);border-color:var(--primary)}
+.done-btn{margin-top:14px}
+.done-btn.is-done{background:var(--success)}
+
+/* ===== Dialogues ===== */
+.dlg{background:var(--card-2);border:1px solid var(--line);border-radius:16px;padding:18px;margin-bottom:16px}
+.dlg h3{margin-bottom:10px;color:var(--primary)}
+.line{display:flex;gap:10px;margin-bottom:10px}
+.line.b{flex-direction:row-reverse}
+.line .av{width:36px;height:36px;border-radius:50%;background:var(--primary);color:#fff;display:grid;place-items:center;font-weight:800;flex:none;font-size:14px}
+.line.b .av{background:var(--accent)}
+.line .bub{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:9px 14px;cursor:pointer;max-width:560px;transition:.2s}
+.line .bub:hover{border-color:var(--primary)}
+
+/* ===== Quiz ===== */
+.quiz-card{background:var(--card-2);border:1px solid var(--line);border-radius:18px;padding:26px;text-align:center;max-width:620px;margin:16px auto 0}
+.quiz-q{font-size:46px;font-weight:900;margin:10px 0;font-family:var(--jp);line-height:1.3}
+.quiz-hint{color:var(--sub);font-size:15px;font-family:var(--jp)}
+.quiz-options{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:18px}
+.opt{padding:14px;background:var(--card);border:2px solid var(--line);border-radius:12px;font-size:17px;font-weight:700;cursor:pointer;color:var(--text);transition:.2s}
+.opt:hover{border-color:var(--primary);background:var(--primary-soft)}
+.opt.ok{background:var(--success-bg);border-color:var(--success)}
+.opt.no{background:var(--error-bg);border-color:var(--error)}
+.feedback{margin-top:16px;padding:11px;border-radius:10px;font-weight:800;display:none}
+.feedback.correct{display:block;background:var(--success-bg);color:var(--success)}
+.feedback.wrong{display:block;background:var(--error-bg);color:var(--error)}
+.score{font-size:54px;font-weight:900;color:var(--primary)}
+
+/* ===== Diary ===== */
+textarea,input[type=text]{width:100%;font-family:inherit;font-size:16px;padding:12px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--text)}
+textarea{min-height:90px;resize:vertical}
+.entry{border-right:4px solid var(--primary);padding:6px 14px;margin:14px 0;background:var(--card-2);border-radius:0 12px 12px 0;position:relative}
+.entry small{color:var(--sub)}
+.entry .del{position:absolute;left:10px;top:8px;background:none;border:none;color:var(--sub);cursor:pointer;font-size:16px}
+
+footer{text-align:center;padding:24px;color:var(--sub);font-size:14px;border-top:1px solid var(--line);margin-top:30px;background:var(--card)}
+.top-btn{position:fixed;bottom:18px;left:18px;width:44px;height:44px;border-radius:50%;border:none;background:var(--primary);color:#fff;font-size:20px;cursor:pointer;box-shadow:0 8px 20px rgba(229,72,77,.4);opacity:0;pointer-events:none;transition:.3s;z-index:900}
+.top-btn.show{opacity:1;pointer-events:auto}
+
+/* ===== Responsive ===== */
+@media (max-width:860px){
+  #menuBtn{display:inline-block}
+  nav{display:none;width:100%;flex-direction:column;order:3;padding:6px 0 10px}
+  nav.open{display:flex}
+  nav a{padding:11px 14px;font-size:16px}
+  header{padding:10px 14px}
+}
+@media (max-width:600px){
+  main{padding:0 12px;margin-top:16px}
+  section.box{padding:18px 15px}
+  .hero{padding:30px 20px}.hero h2{font-size:25px}
+  h2{font-size:20px}
+  .words-grid{grid-template-columns:1fr 1fr}
+  .word-jp{font-size:18px}
+  .letters-grid{gap:7px}
+  .jp-char{font-size:24px}
+  .letter-card{min-height:70px}
+  .sent{flex-direction:column;align-items:stretch}
+  .sent-btns{justify-content:flex-start}
+  .quiz-q{font-size:38px}
+  .line .bub{max-width:100%}
+}
+@media (max-width:420px){
+  .words-grid{grid-template-columns:1fr}
+  .quiz-options{grid-template-columns:1fr}
+  .brand{font-size:18px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1 class="brand" data-page="home"><span class="logo">日</span><span>تعلّم اليابانية مع ساري</span></h1>
+  <div class="head-tools">
+    <button class="icon-btn" id="themeBtn" title="الوضع الليلي" aria-label="الوضع الليلي">🌙</button>
+    <button class="icon-btn" id="menuBtn" aria-label="القائمة">☰</button>
+  </div>
+  <nav id="nav">
+    <a href="#home" data-page="home" class="active-link">الرئيسية</a>
+    <a href="#letters" data-page="letters">الحروف والنطق</a>
+    <a href="#curriculum" data-page="curriculum">مراحل التعلم</a>
+    <a href="#conversations" data-page="conversations">المحادثات</a>
+    <a href="#quiz" data-page="quiz">الاختبارات</a>
+    <a href="#diary" data-page="diary">المفكرة</a>
+    <a href="#about" data-page="about">عن المنصة</a>
+  </nav>
+</header>
+
+<main>
+
+<!-- الرئيسية -->
+<div id="home" class="page-section active-page">
+  <div class="hero">
+    <h2>ابدأ رحلتك مع اليابانية من الصفر حتى N1 🌸</h2>
+    <p>حروف كاملة بنطق صوتي، خمس مستويات (N5 → N1)، جمل مترجمة مع طريقة النطق، محادثات يومية، واختبارات تفاعلية — كل شيء في مكان واحد.</p>
+    <button class="btn-action" data-page="letters">ابدأ بالحروف ←</button>
+  </div>
+
+  <section class="box">
+    <h2>تقدّمك في المستويات</h2>
+    <div class="grid-auto" id="homeLevels"></div>
+  </section>
+
+  <section class="box">
+    <h2>خارطة التعلم</h2>
+    <div class="grid-auto">
+      <div class="card"><h3>1. الحروف 🔤</h3><p>الهيراغانا والكاتاكانا كاملة مع النطق البطيء والعادي.</p><button class="btn-action" data-page="letters">الحروف</button></div>
+      <div class="card"><h3>2. المراحل 📚</h3><p>دروس مرتبة من N5 إلى N1: مفردات، قواعد، جمل.</p><button class="btn-action" data-page="curriculum">الدروس</button></div>
+      <div class="card"><h3>3. المحادثات 💬</h3><p>حوارات واقعية: تعارف، مطعم، تسوق، مواصلات.</p><button class="btn-action" data-page="conversations">المحادثات</button></div>
+      <div class="card"><h3>4. الاختبارات 🎯</h3><p>اختبر حفظك للحروف والمفردات حسب كل مستوى.</p><button class="btn-action" data-page="quiz">اختبر نفسك</button></div>
+    </div>
+  </section>
+</div>
+
+<!-- الحروف -->
+<div id="letters" class="page-section">
+  <section class="box">
+    <h2>الحروف اليابانية والنطق الصوتي</h2>
+    <p>اضغط على أي حرف لسماع نطقه. ملاحظة: は تُنطق <b>wa</b> عندما تكون أداة، و を تُنطق <b>o</b>، و へ تُنطق <b>e</b> كأداة.</p>
+    <div class="warn" id="voiceWarn" hidden>⚠️ لم يُعثر على صوت ياباني في جهازك. ثبّت صوت اللغة اليابانية من إعدادات النظام (Text-to-speech) ليعمل النطق.</div>
+    <div class="speed-row">
+      <strong>سرعة النطق:</strong>
+      <button class="tab-btn active" id="speedNormal">عادي</button>
+      <button class="tab-btn" id="speedSlow">بطيء للمبتدئين</button>
+    </div>
+    <div class="tabs" id="kanaTabs">
+      <button class="tab-btn active" data-tab="hiragana">ひらがな هيراغانا</button>
+      <button class="tab-btn" data-tab="katakana">カタカナ كاتاكانا</button>
+    </div>
+    <div id="hiragana" class="tab-content active"></div>
+    <div id="katakana" class="tab-content"></div>
+  </section>
+</div>
+
+<!-- المراحل -->
+<div id="curriculum" class="page-section">
+  <section class="box">
+    <h2>المراحل والدروس</h2>
+    <p>اختر مستواك، افتح الدرس، اضغط على أي كلمة أو جملة لسماعها (🔊 عادي، 🐢 بطيء). عند الانتهاء علّم الدرس كمُنجز.</p>
+    <div class="tabs lv-tabs" id="lvTabs"></div>
+    <div id="lvContent"></div>
+  </section>
+</div>
+
+<!-- المحادثات -->
+<div id="conversations" class="page-section">
+  <section class="box">
+    <h2>محادثات الحياة اليومية</h2>
+    <p>اضغط على أي سطر لسماعه. جرّب أن تكرر بصوت عالٍ بعد الاستماع.</p>
+    <div id="dialogs"></div>
+  </section>
+</div>
+
+<!-- الاختبار -->
+<div id="quiz" class="page-section">
+  <section class="box">
+    <h2>الاختبارات التفاعلية 🎯</h2>
+    <p>اختر نوع الاختبار (10 أسئلة عشوائية). النتيجة تظهر داخل الصفحة وتُحفظ أفضل نتيجة لك.</p>
+    <div class="tabs" id="quizModes"></div>
+    <div class="quiz-card">
+      <div class="bar"><i id="qBar"></i></div>
+      <div id="quizBox">
+        <div class="quiz-hint" id="qCounter"></div>
+        <div class="quiz-q" id="qText">—</div>
+        <div class="quiz-hint" id="qSub"></div>
+        <p id="qPrompt">اختر نوع الاختبار من الأعلى للبدء</p>
+        <div class="quiz-options" id="qOpts"></div>
+        <div class="feedback" id="qFeed"></div>
+      </div>
+      <div id="quizResult" hidden>
+        <h3>🎉 انتهى الاختبار!</h3>
+        <div class="score" id="qScore"></div>
+        <p id="qComment"></p>
+        <p id="qBest"></p>
+        <button class="btn-action" id="qRestart">إعادة الاختبار 🔄</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- المفكرة -->
+<div id="diary" class="page-section">
+  <section class="box">
+    <h2>مفكرة رحلة التعلم 📓</h2>
+    <p>دوّن ما تعلمته اليوم. تُحفظ تدويناتك على جهازك.</p>
+    <input type="text" id="diaryTitle" placeholder="عنوان التدوينة (مثلاً: اليوم الثالث)" style="margin-bottom:8px">
+    <textarea id="diaryText" placeholder="ماذا تعلمت اليوم؟"></textarea>
+    <button class="btn-action" id="diaryAdd" style="margin-top:10px">إضافة تدوينة ＋</button>
+    <div id="diaryList" style="margin-top:18px"></div>
+  </section>
+</div>
+
+<!-- عن المنصة -->
+<div id="about" class="page-section">
+  <section class="box">
+    <h2>عن صاحب المشروع والهدف</h2>
+    <p>اسمي <b>ساري</b>، أتعلم اليابانية للانتقال والعيش والدراسة في اليابان.</p>
+    <p>صُممت هذه المنصة لتكون شريكك اليومي في التعلم: نطق صوتي، جمل مترجمة، محادثات، واختبارات تثبّت معلوماتك أولاً بأول.</p>
+    <p style="font-size:14px">نصيحة: خصّص 20 دقيقة يومياً، وكرّر الجمل بصوت عالٍ — الاستمرارية أهم من الكمية. 💪</p>
+  </section>
+</div>
+
+</main>
+
+<footer><p>جميع الحقوق محفوظة &copy; 2026 — تعلّم اللغة اليابانية مع ساري 🇯🇵</p></footer>
+<button class="top-btn" id="topBtn" aria-label="للأعلى">↑</button>
+
+<script>
+document.addEventListener("DOMContentLoaded",()=>{
+"use strict";
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");
+const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+
+/* ================= الصوت ================= */
+let rate=0.9,voice=null;
+function pickVoice(){
+  if(!("speechSynthesis" in window))return;
+  const vs=speechSynthesis.getVoices();
+  voice=vs.find(v=>v.lang.replace("_","-").toLowerCase().startsWith("ja"))||null;
+  $("#voiceWarn").hidden=!!voice||vs.length===0;
+}
+if("speechSynthesis" in window){pickVoice();speechSynthesis.onvoiceschanged=pickVoice;setTimeout(pickVoice,1500)}
+function speak(text,r){
+  if(!("speechSynthesis" in window))return;
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang="ja-JP";u.rate=r||rate;if(voice)u.voice=voice;
+  speechSynthesis.speak(u);
+}
+$("#speedNormal").onclick=()=>{rate=0.9;$("#speedNormal").classList.add("active");$("#speedSlow").classList.remove("active")};
+$("#speedSlow").onclick=()=>{rate=0.5;$("#speedSlow").classList.add("active");$("#speedNormal").classList.remove("active")};
+document.addEventListener("click",e=>{
+  const s=e.target.closest("[data-say]");
+  if(s){speak(s.dataset.say,s.dataset.slow?0.45:undefined)}
+});
+
+/* ================= الحروف ================= */
+const R=s=>s.split(" ").map(x=>x.split("/"));
+const toK=s=>s.replace(/[\u3041-\u3096]/g,c=>String.fromCharCode(c.charCodeAt(0)+0x60));
+const KANA={
+  basic:{title:"الحروف الأساسية (46 حرفاً)",cols:5,rows:[
+    "あ/a い/i う/u え/e お/o","か/ka き/ki く/ku け/ke こ/ko","さ/sa し/shi す/su せ/se そ/so",
+    "た/ta ち/chi つ/tsu て/te と/to","な/na に/ni ぬ/nu ね/ne の/no","は/ha ひ/hi ふ/fu へ/he ほ/ho",
+    "ま/ma み/mi む/mu め/me も/mo","や/ya _/_ ゆ/yu _/_ よ/yo","ら/ra り/ri る/ru れ/re ろ/ro",
+    "わ/wa _/_ _/_ _/_ を/wo","ん/n"]},
+  dakuten:{title:"الحروف المشدّدة (ダクテン ゛ و ハンダクテン ゜)",cols:5,rows:[
+    "が/ga ぎ/gi ぐ/gu げ/ge ご/go","ざ/za じ/ji ず/zu ぜ/ze ぞ/zo","だ/da ぢ/ji づ/zu で/de ど/do",
+    "ば/ba び/bi ぶ/bu べ/be ぼ/bo","ぱ/pa ぴ/pi ぷ/pu ぺ/pe ぽ/po"]},
+  yoon:{title:"الحروف المركّبة (ヨウオン)",cols:3,rows:[
+    "きゃ/kya きゅ/kyu きょ/kyo","しゃ/sha しゅ/shu しょ/sho","ちゃ/cha ちゅ/chu ちょ/cho",
+    "にゃ/nya にゅ/nyu にょ/nyo","ひゃ/hya ひゅ/hyu ひょ/hyo","みゃ/mya みゅ/myu みょ/myo",
+    "りゃ/rya りゅ/ryu りょ/ryo","ぎゃ/gya ぎゅ/gyu ぎょ/gyo","じゃ/ja じゅ/ju じょ/jo",
+    "びゃ/bya びゅ/byu びょ/byo","ぴゃ/pya ぴゅ/pyu ぴょ/pyo"]}
+};
+const KATA_EXTRA={title:"حروف إضافية للكلمات الأجنبية",cols:4,rows:[
+  "ファ/fa フィ/fi フェ/fe フォ/fo","ウィ/wi ウェ/we ウォ/wo ヴ/vu","シェ/she ジェ/je チェ/che ツァ/tsa","ティ/ti ディ/di トゥ/tu ドゥ/du"]};
+function kanaHTML(kata){
+  let h="";
+  const groups=[KANA.basic,KANA.dakuten,KANA.yoon].concat(kata?[KATA_EXTRA]:[]);
+  groups.forEach(g=>{
+    h+=`<div class="kana-title">${g.title}</div><div class="letters-grid c${g.cols}">`;
+    g.rows.forEach(row=>{
+      R(row).forEach(([c,r])=>{
+        if(c==="_"){h+=`<div class="letter-card empty"></div>`;return}
+        const ch=kata?toK(c):c;
+        h+=`<div class="letter-card" data-say="${esc(ch)}"><span class="jp-char">${ch}</span><span class="romaji">${r}</span></div>`;
+      });
+    });
+    h+="</div>";
+  });
+  if(kata)h+=`<p style="margin-top:16px">💡 العلامة <b class="jp">ー</b> تعني إطالة الصوت، مثل: コーヒー (kōhī) قهوة. والحرف الصغير <b class="jp">ッ</b> يعني وقفة قصيرة قبل الحرف التالي.</p>`;
+  else h+=`<p style="margin-top:16px">💡 الحرف الصغير <b class="jp">っ</b> يعني وقفة قصيرة (مثل きって kitte طابع بريد)، و <b class="jp">ん</b> هو النون الوحيدة التي تأتي بدون حرف علة.</p>`;
+  return h;
+}
+$("#hiragana").innerHTML=kanaHTML(false);
+$("#katakana").innerHTML=kanaHTML(true);
+$$("#kanaTabs .tab-btn").forEach(b=>b.onclick=()=>{
+  $$("#kanaTabs .tab-btn").forEach(x=>x.classList.remove("active"));
+  $$("#hiragana,#katakana").forEach(x=>x.classList.remove("active"));
+  b.classList.add("active");$("#"+b.dataset.tab).classList.add("active");
+});
+function kanaPool(kata){
+  const out=[];
+  [KANA.basic,KANA.dakuten,KANA.yoon].forEach(g=>g.rows.forEach(row=>R(row).forEach(([c,r])=>{if(c!=="_")out.push([kata?toK(c):c,r])})));
+  if(kata)KATA_EXTRA.rows.forEach(row=>R(row).forEach(([c,r])=>out.push([c,r])));
+  return out;
+}
+
+/* ================= المحتوى: المستويات ================= */
+// المفردة: [اليابانية, القراءة بالكانا, الروماجي, العربية]  |  الجملة: نفس الترتيب
+const LEVELS={
+N5:{name:"المستوى N5 — المبتدئ",desc:"أساسيات اللغة: التحيات، الأرقام، العائلة، الأفعال والصفات البسيطة.",lessons:[
+ {title:"التحيات والتعارف",intro:"أهم العبارات التي ستستخدمها كل يوم عند لقاء الناس في اليابان.",
+  vocab:[
+   ["おはようございます","おはようございます","ohayou gozaimasu","صباح الخير"],
+   ["こんにちは","こんにちは","konnichiwa","مرحباً (نهاراً)"],
+   ["こんばんは","こんばんは","konbanwa","مساء الخير"],
+   ["おやすみなさい","おやすみなさい","oyasuminasai","تصبح على خير"],
+   ["ありがとうございます","ありがとうございます","arigatou gozaimasu","شكراً جزيلاً"],
+   ["どういたしまして","どういたしまして","dou itashimashite","على الرحب والسعة"],
+   ["すみません","すみません","sumimasen","المعذرة / عفواً"],
+   ["ごめんなさい","ごめんなさい","gomennasai","آسف"],
+   ["はじめまして","はじめまして","hajimemashite","تشرفت بمعرفتك (أول لقاء)"],
+   ["よろしくおねがいします","よろしくおねがいします","yoroshiku onegaishimasu","سعيد بمعرفتك / أتطلع للتعاون"],
+   ["さようなら","さようなら","sayounara","وداعاً"],
+   ["いただきます","いただきます","itadakimasu","بسم الله (قبل الأكل)"]],
+  grammar:[["التعريف: AはBです","الأداة は تُنطق (wa) وتحدد الموضوع، وです تعني (يكون) وتجعل الجملة مهذبة.",["わたしは学生です。","わたしはがくせいです。","watashi wa gakusei desu.","أنا طالب."]]],
+  sentences:[
+   ["はじめまして。わたしはサリです。","はじめまして。わたしはサリです。","hajimemashite. watashi wa sari desu.","تشرفت بمعرفتك، أنا ساري."],
+   ["シリアから来ました。","シリアからきました。","shiria kara kimashita.","جئت من سوريا. (غيّر اسم البلد حسب بلدك)"],
+   ["日本語を勉強しています。","にほんごをべんきょうしています。","nihongo o benkyou shite imasu.","أنا أدرس اللغة اليابانية."],
+   ["よろしくおねがいします。","よろしくおねがいします。","yoroshiku onegaishimasu.","سعيد بمعرفتك."],
+   ["ありがとうございます。","ありがとうございます。","arigatou gozaimasu.","شكراً جزيلاً."]]},
+ {title:"الأرقام",intro:"العد من 1 إلى 10 ثم المئات والآلاف. للرقم 4 و 7 و 9 نطقان.",
+  vocab:[
+   ["一","いち","ichi","1"],["二","に","ni","2"],["三","さん","san","3"],["四","よん / し","yon / shi","4"],["五","ご","go","5"],
+   ["六","ろく","roku","6"],["七","なな / しち","nana / shichi","7"],["八","はち","hachi","8"],["九","きゅう / く","kyuu / ku","9"],
+   ["十","じゅう","juu","10"],["百","ひゃく","hyaku","100"],["千","せん","sen","1000"],["万","まん","man","10000"],["零","れい","rei","صفر"]],
+  grammar:[["الساعة: ～時 (じ)","نضيف じ بعد الرقم. استثناءات: 4 = よじ، 7 = しちじ، 9 = くじ.",["三時です。","さんじです。","sanji desu.","الساعة الثالثة."]]],
+  sentences:[
+   ["これは三百円です。","これはさんびゃくえんです。","kore wa sanbyaku en desu.","هذا بـ 300 ين."],
+   ["いま、四時です。","いま、よじです。","ima, yoji desu.","الآن الساعة الرابعة."],
+   ["わたしは二十五歳です。","わたしはにじゅうごさいです。","watashi wa nijuugo sai desu.","عمري 25 سنة."],
+   ["りんごを五つください。","りんごをいつつください。","ringo o itsutsu kudasai.","أعطني خمس تفاحات من فضلك."]]},
+ {title:"الألوان والأشياء",intro:"أسماء الألوان وبعض الأشياء الشائعة، مع كلمات الإشارة これ / それ / あれ.",
+  vocab:[
+   ["赤","あか","aka","أحمر"],["青","あお","ao","أزرق"],["白","しろ","shiro","أبيض"],["黒","くろ","kuro","أسود"],
+   ["黄色","きいろ","kiiro","أصفر"],["緑","みどり","midori","أخضر"],["水","みず","mizu","ماء"],["本","ほん","hon","كتاب"],
+   ["猫","ねこ","neko","قطة"],["犬","いぬ","inu","كلب"],["車","くるま","kuruma","سيارة"],["家","いえ","ie","بيت"]],
+  grammar:[["هذا / ذاك / ذلك","これ = هذا (قريب مني)، それ = ذاك (قريب منك)، あれ = ذلك (بعيد عنا).",["これは本です。","これはほんです。","kore wa hon desu.","هذا كتاب."]]],
+  sentences:[
+   ["これは何ですか。","これはなんですか。","kore wa nan desu ka.","ما هذا؟"],
+   ["あれは赤い車です。","あれはあかいくるまです。","are wa akai kuruma desu.","تلك سيارة حمراء."],
+   ["それは水ですか。","それはみずですか。","sore wa mizu desu ka.","هل هذا ماء؟"],
+   ["わたしの家は白いです。","わたしのいえはしろいです。","watashi no ie wa shiroi desu.","بيتي أبيض."]]},
+ {title:"العائلة والضمائر",intro:"في اليابانية كلمة لعائلتك أنت (متواضعة) وكلمة لعائلة الآخرين (محترمة).",
+  vocab:[
+   ["私","わたし","watashi","أنا"],["あなた","あなた","anata","أنت"],["母","はは","haha","أمي (عند التحدث عنها للغير)"],
+   ["お母さん","おかあさん","okaasan","أم (محترمة / للنداء)"],["父","ちち","chichi","أبي (للغير)"],["お父さん","おとうさん","otousan","أب (محترم / للنداء)"],
+   ["兄","あに","ani","أخي الأكبر"],["姉","あね","ane","أختي الكبرى"],["弟","おとうと","otouto","أخي الأصغر"],["妹","いもうと","imouto","أختي الصغرى"],
+   ["友達","ともだち","tomodachi","صديق"],["先生","せんせい","sensei","معلّم / أستاذ"],["学生","がくせい","gakusei","طالب"]],
+  grammar:[["الملكية: の","الأداة の تربط بين شيئين مثل (ـي / ـك / ـه): わたしの本 = كتابي.",["わたしの母","わたしのはは","watashi no haha","أمي"]]],
+  sentences:[
+   ["これはわたしの母です。","これはわたしのははです。","kore wa watashi no haha desu.","هذه أمي."],
+   ["あの人は先生です。","あのひとはせんせいです。","ano hito wa sensei desu.","ذلك الشخص معلّم."],
+   ["かれはわたしの友達です。","かれはわたしのともだちです。","kare wa watashi no tomodachi desu.","هو صديقي."],
+   ["妹は学生です。","いもうとはがくせいです。","imouto wa gakusei desu.","أختي طالبة."]]},
+ {title:"الأيام والوقت",intro:"أيام الأسبوع وتعابير الوقت اليومية.",
+  vocab:[
+   ["今日","きょう","kyou","اليوم"],["明日","あした","ashita","غداً"],["昨日","きのう","kinou","أمس"],["毎日","まいにち","mainichi","كل يوم"],
+   ["月曜日","げつようび","getsuyoubi","الاثنين"],["火曜日","かようび","kayoubi","الثلاثاء"],["水曜日","すいようび","suiyoubi","الأربعاء"],
+   ["木曜日","もくようび","mokuyoubi","الخميس"],["金曜日","きんようび","kinyoubi","الجمعة"],["土曜日","どようび","doyoubi","السبت"],["日曜日","にちようび","nichiyoubi","الأحد"],
+   ["朝","あさ","asa","صباح"],["夜","よる","yoru","ليل"],["今","いま","ima","الآن"],["週末","しゅうまつ","shuumatsu","عطلة نهاية الأسبوع"]],
+  grammar:[["الزمن: に","نضع الأداة に بعد الوقت المحدد (ساعة، يوم): 七時に起きます.",["六時に起きます。","ろくじにおきます。","rokuji ni okimasu.","أستيقظ الساعة السادسة."]]],
+  sentences:[
+   ["今日は月曜日です。","きょうはげつようびです。","kyou wa getsuyoubi desu.","اليوم هو الاثنين."],
+   ["明日は学校へ行きます。","あしたはがっこうへいきます。","ashita wa gakkou e ikimasu.","غداً سأذهب إلى المدرسة."],
+   ["毎朝、六時に起きます。","まいあさ、ろくじにおきます。","maiasa, rokuji ni okimasu.","أستيقظ كل صباح الساعة السادسة."],
+   ["週末は何をしますか。","しゅうまつはなにをしますか。","shuumatsu wa nani o shimasu ka.","ماذا ستفعل في عطلة نهاية الأسبوع؟"]]},
+ {title:"الأفعال الأساسية (صيغة ます)",intro:"صيغة ます هي الصيغة المهذبة. الفعل يأتي دائماً في نهاية الجملة.",
+  vocab:[
+   ["食べます","たべます","tabemasu","يأكل"],["飲みます","のみます","nomimasu","يشرب"],["行きます","いきます","ikimasu","يذهب"],["来ます","きます","kimasu","يأتي"],
+   ["見ます","みます","mimasu","يشاهد / ينظر"],["します","します","shimasu","يفعل"],["話します","はなします","hanashimasu","يتحدث"],["読みます","よみます","yomimasu","يقرأ"],
+   ["書きます","かきます","kakimasu","يكتب"],["聞きます","ききます","kikimasu","يستمع / يسأل"],["買います","かいます","kaimasu","يشتري"],["寝ます","ねます","nemasu","ينام"]],
+  grammar:[
+   ["التصريف","ます = مضارع مثبت، ません = منفي، ました = ماضٍ مثبت، ませんでした = ماضٍ منفي.",["食べません。","たべません。","tabemasen.","لا آكل."]],
+   ["الأداة を والأداة へ","を تدل على المفعول به، و へ (تُنطق e) تدل على الاتجاه.",["パンを食べます。","パンをたべます。","pan o tabemasu.","آكل الخبز."]]],
+  sentences:[
+   ["水を飲みます。","みずをのみます。","mizu o nomimasu.","أشرب الماء."],
+   ["本を読みました。","ほんをよみました。","hon o yomimashita.","قرأت كتاباً."],
+   ["テレビを見ません。","テレビをみません。","terebi o mimasen.","لا أشاهد التلفاز."],
+   ["日本へ行きたいです。","にほんへいきたいです。","nihon e ikitai desu.","أريد الذهاب إلى اليابان."],
+   ["昨日、友達と話しました。","きのう、ともだちとはなしました。","kinou, tomodachi to hanashimashita.","تحدثت مع صديقي أمس."]]},
+ {title:"الصفات",intro:"نوعان: صفات い (تنتهي بـ い) وصفات な (تحتاج な قبل الاسم).",
+  vocab:[
+   ["大きい","おおきい","ookii","كبير"],["小さい","ちいさい","chiisai","صغير"],["新しい","あたらしい","atarashii","جديد"],["古い","ふるい","furui","قديم"],
+   ["高い","たかい","takai","غالٍ / عالٍ"],["安い","やすい","yasui","رخيص"],["おいしい","おいしい","oishii","لذيذ"],["楽しい","たのしい","tanoshii","ممتع"],
+   ["きれい","きれい","kirei","جميل / نظيف (な)"],["静か","しずか","shizuka","هادئ (な)"],["元気","げんき","genki","بصحة جيدة / نشيط (な)"],["有名","ゆうめい","yuumei","مشهور (な)"]],
+  grammar:[["نفي صفات い","نحذف い ونضيف くない: 高い ← 高くない (ليس غالياً).",["高くないです。","たかくないです。","takakunai desu.","ليس غالياً."]]],
+  sentences:[
+   ["日本料理はおいしいです。","にほんりょうりはおいしいです。","nihon ryouri wa oishii desu.","الطعام الياباني لذيذ."],
+   ["この町は静かです。","このまちはしずかです。","kono machi wa shizuka desu.","هذه المدينة هادئة."],
+   ["この本は高くないです。","このほんはたかくないです。","kono hon wa takakunai desu.","هذا الكتاب ليس غالياً."],
+   ["きれいな花ですね。","きれいなはなですね。","kirei na hana desu ne.","يا لها من زهرة جميلة!"]]},
+ {title:"الأماكن والتسوق",intro:"عبارات تحتاجها في الشارع والمتجر.",
+  vocab:[
+   ["駅","えき","eki","محطة"],["学校","がっこう","gakkou","مدرسة"],["病院","びょういん","byouin","مستشفى"],["店","みせ","mise","متجر"],
+   ["銀行","ぎんこう","ginkou","بنك"],["トイレ","トイレ","toire","حمّام / دورة مياه"],["右","みぎ","migi","يمين"],["左","ひだり","hidari","يسار"],
+   ["まっすぐ","まっすぐ","massugu","مباشرةً / للأمام"],["ここ","ここ","koko","هنا"],["円","えん","en","ين (العملة)"]],
+  grammar:[["السؤال: ～はどこですか","どこ = أين. نضيف か في نهاية الجملة لتصبح سؤالاً.",["駅はどこですか。","えきはどこですか。","eki wa doko desu ka.","أين المحطة؟"]]],
+  sentences:[
+   ["駅はどこですか。","えきはどこですか。","eki wa doko desu ka.","أين المحطة؟"],
+   ["これをください。","これをください。","kore o kudasai.","أعطني هذا من فضلك."],
+   ["いくらですか。","いくらですか。","ikura desu ka.","بكم هذا؟"],
+   ["トイレはどこですか。","トイレはどこですか。","toire wa doko desu ka.","أين الحمّام؟"],
+   ["右に曲がってください。","みぎにまがってください。","migi ni magatte kudasai.","انعطف يميناً من فضلك."]]}
+]},
+
+N4:{name:"المستوى N4 — الأساسي",desc:"صيغة て، التجارب والنصائح، الأسباب والنوايا، وصيغة القدرة.",lessons:[
+ {title:"صيغة て وتطبيقاتها",intro:"صيغة て مفتاح اللغة: للطلب والإذن والمنع والحدث المستمر.",
+  vocab:[
+   ["準備","じゅんび","junbi","تحضير"],["予約","よやく","yoyaku","حجز"],["旅行","りょこう","ryokou","سفر / رحلة"],["空港","くうこう","kuukou","مطار"],
+   ["切符","きっぷ","kippu","تذكرة"],["荷物","にもつ","nimotsu","أمتعة"],["道","みち","michi","طريق"],["地図","ちず","chizu","خريطة"]],
+  grammar:[
+   ["～てください","طلب مهذب: افعل... من فضلك.",["少し待ってください。","すこしまってください。","sukoshi matte kudasai.","انتظر قليلاً من فضلك."]],
+   ["～てもいいですか / ～てはいけません","طلب الإذن / المنع.",["ここで食べてはいけません。","ここでたべてはいけません。","koko de tabete wa ikemasen.","لا يجوز الأكل هنا."]]],
+  sentences:[
+   ["ホテルを予約しておきました。","ホテルをよやくしておきました。","hoteru o yoyaku shite okimashita.","حجزت الفندق مسبقاً."],
+   ["写真を撮ってもいいですか。","しゃしんをとってもいいですか。","shashin o totte mo ii desu ka.","هل يمكنني التقاط صورة؟"],
+   ["地図を見ています。","ちずをみています。","chizu o mite imasu.","أنظر إلى الخريطة."],
+   ["空港までどう行きますか。","くうこうまでどういきますか。","kuukou made dou ikimasu ka.","كيف أصل إلى المطار؟"]]},
+ {title:"التجارب والنصائح",intro:"التحدث عن الخبرات السابقة وإعطاء النصيحة وذكر الواجبات.",
+  vocab:[
+   ["経験","けいけん","keiken","خبرة / تجربة"],["薬","くすり","kusuri","دواء"],["熱","ねつ","netsu","حرارة / حمّى"],["頭","あたま","atama","رأس"],
+   ["痛い","いたい","itai","مؤلم"],["風邪","かぜ","kaze","نزلة برد"],["相談","そうだん","soudan","استشارة"],["休む","やすむ","yasumu","يستريح / يتغيب"]],
+  grammar:[
+   ["～たことがある","سبق لي أن... (تجربة).",["日本へ行ったことがあります。","にほんへいったことがあります。","nihon e itta koto ga arimasu.","سبق أن ذهبت إلى اليابان."]],
+   ["～たほうがいい / ～なければならない","نصيحة / واجب.",["早く寝たほうがいいです。","はやくねたほうがいいです。","hayaku neta hou ga ii desu.","من الأفضل أن تنام مبكراً."]]],
+  sentences:[
+   ["薬を飲んだほうがいいです。","くすりをのんだほうがいいです。","kusuri o nonda hou ga ii desu.","من الأفضل أن تتناول الدواء."],
+   ["明日、早く起きなければなりません。","あした、はやくおきなければなりません。","ashita, hayaku okinakereba narimasen.","يجب أن أستيقظ مبكراً غداً."],
+   ["風邪をひいたので、学校を休みました。","かぜをひいたので、がっこうをやすみました。","kaze o hiita node, gakkou o yasumimashita.","لأنني أصبت بنزلة برد تغيّبت عن المدرسة."],
+   ["頭が痛いです。","あたまがいたいです。","atama ga itai desu.","رأسي يؤلمني."]]},
+ {title:"الأسباب والنوايا",intro:"التعبير عن الأسباب والخطط والرأي.",
+  vocab:[
+   ["理由","りゆう","riyuu","سبب"],["予定","よてい","yotei","خطة / موعد"],["約束","やくそく","yakusoku","وعد / موعد"],["会議","かいぎ","kaigi","اجتماع"],
+   ["仕事","しごと","shigoto","عمل"],["忙しい","いそがしい","isogashii","مشغول"],["残念","ざんねん","zannen","مؤسف"],["将来","しょうらい","shourai","المستقبل"]],
+  grammar:[
+   ["～つもりです / ～と思います","النية والرأي.",["日本で働くつもりです。","にほんではたらくつもりです。","nihon de hataraku tsumori desu.","أنوي العمل في اليابان."]],
+   ["～ながら / ～そうです","أثناء... / يبدو أنه...",["音楽を聞きながら勉強します。","おんがくをききながらべんきょうします。","ongaku o kikinagara benkyou shimasu.","أدرس وأنا أستمع للموسيقى."]]],
+  sentences:[
+   ["将来、日本で働くつもりです。","しょうらい、にほんではたらくつもりです。","shourai, nihon de hataraku tsumori desu.","أنوي العمل في اليابان مستقبلاً."],
+   ["忙しいので、行けません。","いそがしいので、いけません。","isogashii node, ikemasen.","لأنني مشغول لا أستطيع الذهاب."],
+   ["あの人は元気そうです。","あのひとはげんきそうです。","ano hito wa genki sou desu.","يبدو ذلك الشخص نشيطاً."],
+   ["日本はすばらしいと思います。","にほんはすばらしいとおもいます。","nihon wa subarashii to omoimasu.","أعتقد أن اليابان رائعة."]]},
+ {title:"القدرة والمهارات",intro:"صيغة الإمكان: أستطيع أن...",
+  vocab:[
+   ["泳ぐ","およぐ","oyogu","يسبح"],["料理","りょうり","ryouri","طبخ / طعام"],["運転","うんてん","unten","قيادة"],["歌","うた","uta","أغنية"],
+   ["漢字","かんじ","kanji","حروف الكانجي"],["上手","じょうず","jouzu","ماهر"],["下手","へた","heta","ضعيف في..."],["練習","れんしゅう","renshuu","تدريب"]],
+  grammar:[["صيغة الإمكان","مجموعة 2: ～られる، مجموعة 1: نغيّر المقطع الأخير إلى حرف え (読む ← 読める).",["漢字が読めます。","かんじがよめます。","kanji ga yomemasu.","أستطيع قراءة الكانجي."]]],
+  sentences:[
+   ["日本語が話せます。","にほんごがはなせます。","nihongo ga hanasemasu.","أستطيع التحدث باليابانية."],
+   ["漢字が読めません。","かんじがよめません。","kanji ga yomemasen.","لا أستطيع قراءة الكانجي."],
+   ["料理が上手になりたいです。","りょうりがじょうずになりたいです。","ryouri ga jouzu ni naritai desu.","أريد أن أصبح ماهراً في الطبخ."],
+   ["毎日、練習しています。","まいにち、れんしゅうしています。","mainichi, renshuu shite imasu.","أتدرّب كل يوم."]]}
+]},
+
+N3:{name:"المستوى N3 — المتوسط",desc:"المبني للمجهول والسببي، الشروط، والتعابير المتوسطة.",lessons:[
+ {title:"المبني للمجهول والسببي",intro:"أفعال تُفعل بنا (受身) أو نجعل غيرنا يفعلها (使役).",
+  vocab:[
+   ["環境","かんきょう","kankyou","بيئة"],["習慣","しゅうかん","shuukan","عادة"],["文化","ぶんか","bunka","ثقافة"],["社会","しゃかい","shakai","مجتمع"],
+   ["関係","かんけい","kankei","علاقة"],["意見","いけん","iken","رأي"],["理解","りかい","rikai","فهم"],["伝統","でんとう","dentou","تقليد / تراث"]],
+  grammar:[
+   ["المبني للمجهول (受身)","～られる: الفاعل الحقيقي يأتي مع に.",["先生にほめられました。","せんせいにほめられました。","sensei ni homeraremashita.","مدحني المعلّم."]],
+   ["السببي (使役)","～させる: أجعله يفعل.",["母は弟に野菜を食べさせました。","はははおとうとにやさいをたべさせました。","haha wa otouto ni yasai o tabesasemashita.","جعلت أمي أخي يأكل الخضار."]]],
+  sentences:[
+   ["この本は世界中で読まれています。","このほんはせかいじゅうでよまれています。","kono hon wa sekaijuu de yomarete imasu.","هذا الكتاب يُقرأ في العالم كله."],
+   ["彼はわたしを笑わせました。","かれはわたしをわらわせました。","kare wa watashi o warawasemashita.","أضحكني."],
+   ["日本の文化を理解したいです。","にほんのぶんかをりかいしたいです。","nihon no bunka o rikai shitai desu.","أريد فهم الثقافة اليابانية."],
+   ["母に野菜を食べさせられました。","ははにやさいをたべさせられました。","haha ni yasai o tabesaseraremashita.","أُجبرت على أكل الخضار من أمي."]]},
+ {title:"الشرط والهدف",intro:"إذا / لكي / أصبح قادراً / يُفترض أن.",
+  vocab:[
+   ["結果","けっか","kekka","نتيجة"],["目的","もくてき","mokuteki","هدف"],["条件","じょうけん","jouken","شرط"],["可能性","かのうせい","kanousei","احتمال"],
+   ["努力","どりょく","doryoku","جهد"],["成功","せいこう","seikou","نجاح"],["失敗","しっぱい","shippai","فشل"],["計画","けいかく","keikaku","خطة"]],
+  grammar:[
+   ["～ば / ～たら","إذا حدث ... فإن ...",["努力すれば、成功できます。","どりょくすれば、せいこうできます。","doryoku sureba, seikou dekimasu.","إذا بذلت جهداً ستنجح."]],
+   ["～ために / ～ようになる / ～はず","لأجل... / صرت أستطيع... / من المفترض...",["日本語が話せるようになりました。","にほんごがはなせるようになりました。","nihongo ga hanaseru you ni narimashita.","صرت أستطيع التحدث باليابانية."]]],
+  sentences:[
+   ["日本へ行くために、お金をためています。","にほんへいくために、おかねをためています。","nihon e iku tame ni, okane o tamete imasu.","أدّخر المال لكي أذهب إلى اليابان."],
+   ["彼はもう着くはずです。","かれはもうつくはずです。","kare wa mou tsuku hazu desu.","من المفترض أنه وصل تقريباً."],
+   ["計画を変えれば、うまくいくかもしれません。","けいかくをかえれば、うまくいくかもしれません。","keikaku o kaereba, umaku iku kamoshiremasen.","ربما ينجح الأمر إن غيّرنا الخطة."],
+   ["失敗しても、あきらめません。","しっぱいしても、あきらめません。","shippai shite mo, akiramemasen.","حتى لو فشلت لن أستسلم."]]},
+ {title:"تعابير الحياة اليومية",intro:"تعابير شائعة في الأخبار والمحادثة.",
+  vocab:[
+   ["最近","さいきん","saikin","مؤخراً"],["増える","ふえる","fueru","يزداد"],["減る","へる","heru","يقل"],["続ける","つづける","tsuzukeru","يواصل"],
+   ["決める","きめる","kimeru","يقرر"],["変わる","かわる","kawaru","يتغيّر"],["比べる","くらべる","kuraberu","يقارن"],["物価","ぶっか","bukka","الأسعار / غلاء المعيشة"]],
+  grammar:[["～らしい / ～ばかり / ～うちに","يبدو أنّ (سمعت) / فقط / ما دام...",["若いうちに旅行したいです。","わかいうちにりょこうしたいです。","wakai uchi ni ryokou shitai desu.","أريد السفر ما دمت شاباً."]]],
+  sentences:[
+   ["最近、外国人が増えています。","さいきん、がいこくじんがふえています。","saikin, gaikokujin ga fuete imasu.","مؤخراً يزداد عدد الأجانب."],
+   ["彼はゲームばかりしています。","かれはゲームばかりしています。","kare wa geemu bakari shite imasu.","هو لا يفعل سوى لعب الألعاب."],
+   ["日本は物価が高いらしいです。","にほんはぶっかがたかいらしいです。","nihon wa bukka ga takai rashii desu.","يبدو أن الأسعار في اليابان مرتفعة."],
+   ["高いからといって、おいしいわけではありません。","たかいからといって、おいしいわけではありません。","takai kara to itte, oishii wake de wa arimasen.","غلاء الثمن لا يعني أنه لذيذ."]]}
+]},
+
+N2:{name:"المستوى N2 — فوق المتوسط",desc:"لغة العمل والمجتمع والنقاش، وأدوات نحوية رسمية.",lessons:[
+ {title:"المجتمع والأعمال",intro:"مفردات وقواعد تُستخدم في الأخبار والعمل.",
+  vocab:[
+   ["影響","えいきょう","eikyou","تأثير"],["傾向","けいこう","keikou","اتجاه / ميل"],["課題","かだい","kadai","مسألة / تحدٍّ"],["状況","じょうきょう","joukyou","وضع / حالة"],
+   ["責任","せきにん","sekinin","مسؤولية"],["対応","たいおう","taiou","تعامل / استجابة"],["検討","けんとう","kentou","دراسة / بحث"]],
+  grammar:[["に対して / によって / について / として","تجاه... / بحسب... / حول... / بصفة...",["人によって考え方が違います。","ひとによってかんがえかたがちがいます。","hito ni yotte kangaekata ga chigaimasu.","تختلف طريقة التفكير حسب الشخص."]]],
+  sentences:[
+   ["客に対して、ていねいに対応します。","きゃくにたいして、ていねいにたいおうします。","kyaku ni taishite, teinei ni taiou shimasu.","نتعامل مع الزبائن باحترام."],
+   ["会議の結果について、報告します。","かいぎのけっかについて、ほうこくします。","kaigi no kekka ni tsuite, houkoku shimasu.","سأقدّم تقريراً عن نتيجة الاجتماع."],
+   ["彼は学者として有名です。","かれはがくしゃとしてゆうめいです。","kare wa gakusha toshite yuumei desu.","هو مشهور بصفته عالماً."],
+   ["この問題は大きな課題です。","このもんだいはおおきなかだいです。","kono mondai wa ookina kadai desu.","هذه المشكلة تحدٍّ كبير."]]},
+ {title:"أدوات نحوية رسمية",intro:"تعابير للتناقض والإلزام والنتيجة.",
+  vocab:[
+   ["一方","いっぽう","ippou","من جهة أخرى"],["反対","はんたい","hantai","معارضة"],["賛成","さんせい","sansei","موافقة"],["主張","しゅちょう","shuchou","ادّعاء / مطالبة"],
+   ["判断","はんだん","handan","حكم / قرار"],["原因","げんいん","gen'in","سبب"],["解決","かいけつ","kaiketsu","حل"],["改善","かいぜん","kaizen","تحسين"]],
+  grammar:[["にもかかわらず / ものの / わけにはいかない","رغم أنّ... / مع أنّ... / لا يمكنني أن...",["雨にもかかわらず、試合は行われた。","あめにもかかわらず、しあいはおこなわれた。","ame ni mo kakawarazu, shiai wa okonawareta.","أقيمت المباراة رغم المطر."]]],
+  sentences:[
+   ["勉強したものの、試験に落ちた。","べんきょうしたものの、しけんにおちた。","benkyou shita mono no, shiken ni ochita.","درست ومع ذلك رسبت في الامتحان."],
+   ["約束した以上、行かないわけにはいきません。","やくそくしたいじょう、いかないわけにはいきません。","yakusoku shita ijou, ikanai wake ni wa ikimasen.","بما أني وعدت، لا يمكنني ألا أذهب."],
+   ["彼は賛成する一方で、心配もしている。","かれはさんせいするいっぽうで、しんぱいもしている。","kare wa sansei suru ippou de, shinpai mo shite iru.","هو موافق من جهة، لكنه قلق من جهة أخرى."],
+   ["原因を調べて、問題を解決する。","げんいんをしらべて、もんだいをかいけつする。","gen'in o shirabete, mondai o kaiketsu suru.","نبحث عن السبب ونحل المشكلة."]]},
+ {title:"الحذر والاحتمال",intro:"تعابير الاستنتاج والخطر.",
+  vocab:[
+   ["危険","きけん","kiken","خطر"],["可能","かのう","kanou","ممكن"],["確実","かくじつ","kakujitsu","مؤكد"],["慎重","しんちょう","shinchou","حذر"],
+   ["積極的","せっきょくてき","sekkyokuteki","إيجابي / مبادر"],["否定","ひてい","hitei","نفي / إنكار"],["肯定","こうてい","koutei","إثبات / موافقة"]],
+  grammar:[["～かねない / ～に違いない / ～ざるを得ない","قد يحدث (سلبي) / لا بد أنّ / لا مفر من...",["事故が起きかねない。","じこがおきかねない。","jiko ga okikanenai.","قد يقع حادث."]]],
+  sentences:[
+   ["彼は嘘をついているに違いない。","かれはうそをついているにちがいない。","kare wa uso o tsuite iru ni chigainai.","لا بد أنه يكذب."],
+   ["状況を見て、慎重に判断する。","じょうきょうをみて、しんちょうにはんだんする。","joukyou o mite, shinchou ni handan suru.","نراقب الوضع ونحكم بحذر."],
+   ["やむを得ず、計画を変更せざるを得ない。","やむをえず、けいかくをへんこうせざるをえない。","yamu o ezu, keikaku o henkou sezaru o enai.","مضطرون لتغيير الخطة."],
+   ["積極的に意見を言ってください。","せっきょくてきにいけんをいってください。","sekkyokuteki ni iken o itte kudasai.","عبّر عن رأيك بإيجابية من فضلك."]]}
+]},
+
+N1:{name:"المستوى N1 — المتقدم",desc:"لغة الأخبار والأدب والمناقشات الأكاديمية.",lessons:[
+ {title:"مفردات مجردة",intro:"كلمات تظهر كثيراً في المقالات والتقارير.",
+  vocab:[
+   ["概念","がいねん","gainen","مفهوم"],["把握","はあく","haaku","استيعاب / إدراك"],["懸念","けねん","kenen","قلق / مخاوف"],["顕著","けんちょ","kencho","بارز / ملحوظ"],
+   ["抱負","ほうふ","houfu","طموح / عزم"],["妥協","だきょう","dakyou","تسوية / تنازل"],["貢献","こうけん","kouken","مساهمة"],["促進","そくしん","sokushin","تعزيز / تسريع"]],
+  grammar:[["الأسماء ذات الأصل الصيني + する","معظم هذه الكلمات تصبح أفعالاً بإضافة する: 貢献する، 促進する.",["社会に貢献する。","しゃかいにこうけんする。","shakai ni kouken suru.","يساهم في المجتمع."]]],
+  sentences:[
+   ["彼の説明で問題の本質を把握できた。","かれのせつめいでもんだいのほんしつをはあくできた。","kare no setsumei de mondai no honshitsu o haaku dekita.","بفضل شرحه استطعت فهم جوهر المشكلة."],
+   ["経済の成長が顕著になっている。","けいざいのせいちょうがけんちょになっている。","keizai no seichou ga kencho ni natte iru.","أصبح النمو الاقتصادي ملحوظاً."],
+   ["開発の促進に貢献する。","かいはつのそくしんにこうけんする。","kaihatsu no sokushin ni kouken suru.","يساهم في تعزيز التنمية."],
+   ["将来への抱負を語る。","しょうらいへのほうふをかたる。","shourai e no houfu o kataru.","يتحدث عن طموحاته للمستقبل."]]},
+ {title:"النحو الرسمي والأدبي",intro:"تعابير تظهر في الخطابات الرسمية والأخبار.",
+  vocab:[
+   ["本日","ほんじつ","honjitsu","اليوم (رسمي)"],["閉店","へいてん","heiten","إغلاق المتجر"],["実情","じつじょう","jitsujou","الواقع الفعلي"],["制度","せいど","seido","نظام / منظومة"],
+   ["縮小","しゅくしょう","shukushou","تقليص"],["経営","けいえい","keiei","إدارة أعمال"]],
+  grammar:[["～をもって / ～に即して / ～ならでは / ～んばかり / ～を余儀なくされる","بواسطة / وفقاً لـ / ميزة حصرية / كاد أن / اضطُرّ لـ",["本日をもって閉店いたします。","ほんじつをもってへいてんいたします。","honjitsu o motte heiten itashimasu.","سيُغلق المتجر نهائياً اعتباراً من اليوم."]]],
+  sentences:[
+   ["実情に即して、制度を見直す。","じつじょうにそくして、せいどをみなおす。","jitsujou ni sokushite, seido o minaosu.","نراجع النظام وفقاً للواقع."],
+   ["これは日本ならではの文化です。","これはにほんならではのぶんかです。","kore wa nihon naradewa no bunka desu.","هذه ثقافة يابانية بامتياز."],
+   ["彼は泣き出さんばかりの顔をしていた。","かれはなきださんばかりのかおをしていた。","kare wa nakidasan bakari no kao o shite ita.","كان وجهه كأنه على وشك البكاء."],
+   ["経営難で事業の縮小を余儀なくされた。","けいえいなんでじぎょうのしゅくしょうをよぎなくされた。","keieinan de jigyou no shukushou o yoginaku sareta.","اضطُرّت الشركة لتقليص نشاطها بسبب صعوبات مالية."]]},
+ {title:"تعابير متقدمة",intro:"تعابير تعطي كلامك طابعاً أكاديمياً وطبيعياً.",
+  vocab:[
+   ["踏まえる","ふまえる","fumaeru","يأخذ في الاعتبار"],["根拠","こんきょ","konkyo","دليل / أساس"],["模索","もさく","mosaku","يبحث متلمساً"],["打開","だかい","dakai","كسر الجمود / إيجاد مخرج"],
+   ["脆弱","ぜいじゃく","zeijaku","هش / ضعيف"],["衰退","すいたい","suitai","تراجع / انحدار"],["困難","こんなん","konnan","صعوبة"]],
+  grammar:[["～に至るまで / ～をものともせず / ～といえども","حتى... / متجاهلاً... / حتى لو كان...",["専門家といえども、間違えることはある。","せんもんかといえども、まちがえることはある。","senmonka to iedomo, machigaeru koto wa aru.","حتى الخبير قد يخطئ."]]],
+  sentences:[
+   ["最初から最後に至るまで、彼は本気だった。","さいしょからさいごにいたるまで、かれはほんきだった。","saisho kara saigo ni itaru made, kare wa honki datta.","من البداية حتى النهاية كان جاداً."],
+   ["困難をものともせず、前に進んだ。","こんなんをものともせず、まえにすすんだ。","konnan o mono tomo sezu, mae ni susunda.","تقدّم غير آبه بالصعوبات."],
+   ["データを踏まえて、結論を出す。","データをふまえて、けつろんをだす。","deeta o fumaete, ketsuron o dasu.","نستخلص النتيجة بناءً على البيانات."],
+   ["打開策を模索している。","だかいさくをもさくしている。","dakai-saku o mosaku shite iru.","نبحث عن حلّ للخروج من المأزق."]]}
+]}
+};
+
+/* ================= المحادثات ================= */
+const DIALOGS=[
+ {t:"1) التعارف",l:[
+  ["A","はじめまして。わたしはサリです。","はじめまして。わたしはサリです。","hajimemashite. watashi wa sari desu.","تشرفت بمعرفتك، أنا ساري."],
+  ["B","はじめまして。田中です。よろしくおねがいします。","はじめまして。たなかです。よろしくおねがいします。","hajimemashite. tanaka desu. yoroshiku onegaishimasu.","تشرفت، أنا تاناكا. سعيد بمعرفتك."],
+  ["B","おくには どちらですか。","おくにはどちらですか。","okuni wa dochira desu ka.","من أي بلد أنت؟"],
+  ["A","シリアです。日本語を勉強しています。","シリアです。にほんごをべんきょうしています。","shiria desu. nihongo o benkyou shite imasu.","من سوريا. أدرس اليابانية."],
+  ["B","すごいですね！","すごいですね！","sugoi desu ne!","رائع!"]]},
+ {t:"2) في المطعم",l:[
+  ["B","いらっしゃいませ。何名様ですか。","いらっしゃいませ。なんめいさまですか。","irasshaimase. nanmei sama desu ka.","أهلاً بك، كم شخصاً؟"],
+  ["A","ふたりです。","ふたりです。","futari desu.","اثنان."],
+  ["A","すみません、メニューをおねがいします。","すみません、メニューをおねがいします。","sumimasen, menyuu o onegaishimasu.","لو سمحت، القائمة من فضلك."],
+  ["A","ラーメンをひとつください。","ラーメンをひとつください。","raamen o hitotsu kudasai.","أعطني طبق رامن واحد."],
+  ["B","かしこまりました。","かしこまりました。","kashikomarimashita.","حاضر."],
+  ["A","おかいけいをおねがいします。","おかいけいをおねがいします。","okaikei o onegaishimasu.","الحساب من فضلك."]]},
+ {t:"3) في المتجر",l:[
+  ["A","すみません、これはいくらですか。","すみません、これはいくらですか。","sumimasen, kore wa ikura desu ka.","لو سمحت، بكم هذا؟"],
+  ["B","千五百円です。","せんごひゃくえんです。","sengohyaku en desu.","1500 ين."],
+  ["A","ちょっと高いですね。もう少し安いのはありますか。","ちょっとたかいですね。もうすこしやすいのはありますか。","chotto takai desu ne. mou sukoshi yasui no wa arimasu ka.","غالٍ قليلاً. هل يوجد أرخص؟"],
+  ["B","こちらはいかがですか。","こちらはいかがですか。","kochira wa ikaga desu ka.","ماذا عن هذا؟"],
+  ["A","では、それをください。","では、それをください。","dewa, sore o kudasai.","حسناً، أعطني هذا."]]},
+ {t:"4) السؤال عن الطريق",l:[
+  ["A","すみません、駅はどこですか。","すみません、えきはどこですか。","sumimasen, eki wa doko desu ka.","المعذرة، أين المحطة؟"],
+  ["B","まっすぐ行って、右に曲がってください。","まっすぐいって、みぎにまがってください。","massugu itte, migi ni magatte kudasai.","امشِ مباشرة ثم انعطف يميناً."],
+  ["A","ここから近いですか。","ここからちかいですか。","koko kara chikai desu ka.","هل هي قريبة من هنا؟"],
+  ["B","はい、歩いて五分です。","はい、あるいてごふんです。","hai, aruite gofun desu.","نعم، خمس دقائق مشياً."],
+  ["A","ありがとうございます。","ありがとうございます。","arigatou gozaimasu.","شكراً جزيلاً."]]},
+ {t:"5) في القطار",l:[
+  ["A","東京駅へ行きたいです。どの電車に乗りますか。","とうきょうえきへいきたいです。どのでんしゃにのりますか。","toukyou eki e ikitai desu. dono densha ni norimasu ka.","أريد الذهاب إلى محطة طوكيو. أي قطار أركب؟"],
+  ["B","山手線に乗ってください。","やまのてせんにのってください。","yamanote-sen ni notte kudasai.","اركب خط ياماناتي."],
+  ["A","何番線ですか。","なんばんせんですか。","nanbansen desu ka.","أي رصيف؟"],
+  ["B","三番線です。","さんばんせんです。","sanbansen desu.","الرصيف الثالث."],
+  ["A","ありがとうございます。","ありがとうございます。","arigatou gozaimasu.","شكراً."]]}
+];
+$("#dialogs").innerHTML=DIALOGS.map(d=>`<div class="dlg"><h3>${d.t}</h3>`+d.l.map(([who,jp,kana,ro,ar])=>
+ `<div class="line ${who==="B"?"b":""}"><div class="av">${who}</div><div class="bub" data-say="${esc(kana)}">
+  <div class="sent-jp">${jp}</div>${jp!==kana?`<div class="sent-kana">${kana}</div>`:""}<div class="sent-ro">${ro}</div><div class="sent-ar">${ar}</div></div></div>`).join("")+`</div>`).join("");
+
+/* ================= عرض المراحل ================= */
+const done=store.get("done",{});
+let curLv="N5";
+function lvStats(lv){const n=LEVELS[lv].lessons.length;let d=0;for(let i=0;i<n;i++)if(done[lv+"-"+i])d++;return{n,d,pct:Math.round(d/n*100)}}
+function sentHTML([jp,kana,ro,ar]){
+  return `<div class="sent"><div><div class="sent-jp">${jp}</div>${jp!==kana?`<div class="sent-kana">${kana}</div>`:""}<div class="sent-ro">${ro}</div><div class="sent-ar">${ar}</div></div>
+  <div class="sent-btns"><button data-say="${esc(kana)}" title="نطق عادي">🔊</button><button data-say="${esc(kana)}" data-slow="1" title="نطق بطيء">🐢</button></div></div>`;
+}
+function renderLevel(lv){
+  curLv=lv;const L=LEVELS[lv];
+  $$("#lvTabs .tab-btn").forEach(b=>b.classList.toggle("active",b.dataset.lv===lv));
+  const st=lvStats(lv);
+  let h=`<div class="lv-${lv}"><p><span class="lv-badge">${lv}</span> <b>${L.name}</b> — ${L.desc}</p>
+  <div class="bar"><i style="width:${st.pct}%"></i></div><p style="font-size:14px">أنجزت ${st.d} من ${st.n} دروس</p>`;
+  L.lessons.forEach((ls,i)=>{
+    const isDone=!!done[lv+"-"+i];
+    h+=`<details class="lesson"><summary><span class="t"><span class="num">${i+1}</span>${ls.title}</span>${isDone?'<span class="done-mark">✔ مُنجز</span>':""}<span class="chev">▾</span></summary><div class="lesson-body">
+    <p>${ls.intro}</p>
+    <div class="sub-title">📖 المفردات</div><div class="words-grid">`+
+    ls.vocab.map(([jp,kana,ro,ar])=>`<div class="word-card" data-say="${esc(kana.split(" / ")[0])}"><div><div class="word-jp">${jp}</div>${jp!==kana?`<div class="word-kana">${kana}</div>`:""}<div class="word-ro">${ro}</div><div class="word-ar">${ar}</div></div><span class="spk">🔊</span></div>`).join("")+
+    `</div><div class="sub-title">🧩 القواعد</div>`+
+    ls.grammar.map(([t,d,ex])=>`<div class="gram"><b>${t}</b><p>${d}</p>${sentHTML(ex)}</div>`).join("")+
+    `<div class="sub-title">💬 جمل للتدرّب</div>`+ls.sentences.map(sentHTML).join("")+
+    `<button class="btn-action done-btn ${isDone?"is-done":""}" data-done="${lv}-${i}">${isDone?"✔ مُنجز (اضغط للإلغاء)":"علّم الدرس كمُنجز ✓"}</button></div></details>`;
+  });
+  $("#lvContent").innerHTML=h+"</div>";
+}
+$("#lvTabs").innerHTML=Object.keys(LEVELS).map(lv=>`<button class="tab-btn lv-${lv}" data-lv="${lv}">${lv}</button>`).join("");
+$$("#lvTabs .tab-btn").forEach(b=>b.onclick=()=>renderLevel(b.dataset.lv));
+$("#lvContent").addEventListener("click",e=>{
+  const b=e.target.closest("[data-done]");if(!b)return;
+  const k=b.dataset.done;
+  const openIdx=$$("#lvContent details").findIndex(d=>d.open);
+  done[k]=!done[k];if(!done[k])delete done[k];
+  store.set("done",done);renderLevel(curLv);renderHome();
+  const ds=$$("#lvContent details");if(ds[openIdx])ds[openIdx].open=true;
+});
+function renderHome(){
+  $("#homeLevels").innerHTML=Object.keys(LEVELS).map(lv=>{const s=lvStats(lv);
+   return `<div class="card lv-${lv}" style="cursor:pointer" data-golevel="${lv}"><span class="lv-badge">${lv}</span><h3 style="margin-top:8px">${LEVELS[lv].name.split("— ")[1]}</h3><div class="bar"><i style="width:${s.pct}%"></i></div><small style="color:var(--sub)">${s.d} / ${s.n} دروس</small></div>`}).join("");
+}
+$("#homeLevels").addEventListener("click",e=>{const c=e.target.closest("[data-golevel]");if(c){renderLevel(c.dataset.golevel);go("curriculum")}});
+
+/* ================= الاختبارات ================= */
+const MODES=[["hira","هيراغانا"],["kata","كاتاكانا"],...Object.keys(LEVELS).map(l=>[l,"مفردات "+l])];
+$("#quizModes").innerHTML=MODES.map(([k,t])=>`<button class="tab-btn" data-mode="${k}">${t}</button>`).join("");
+const Q={mode:null,qs:[],i:0,score:0,lock:false};
+function buildQs(mode){
+  let pool;
+  if(mode==="hira"||mode==="kata"){pool=kanaPool(mode==="kata").map(([c,r])=>({q:c,a:r,say:c,kana:true}))}
+  else pool=LEVELS[mode].lessons.flatMap(l=>l.vocab).map(v=>({q:v[0],sub:(v[0]!==v[1]?v[1]:""),a:v[3],say:v[1].split(" / ")[0],kana:false}));
+  const picks=shuffle(pool).slice(0,10);
+  return picks.map(p=>{
+    const wrong=shuffle([...new Set(pool.filter(x=>x.a!==p.a).map(x=>x.a))]).slice(0,3);
+    return{...p,opts:shuffle([p.a,...wrong])};
+  });
+}
+function startQuiz(mode){
+  Q.mode=mode;Q.qs=buildQs(mode);Q.i=0;Q.score=0;Q.lock=false;
+  $$("#quizModes .tab-btn").forEach(b=>b.classList.toggle("active",b.dataset.mode===mode));
+  $("#quizResult").hidden=true;$("#quizBox").hidden=false;showQ();
+}
+function showQ(){
+  Q.lock=false;const q=Q.qs[Q.i];
+  $("#qFeed").className="feedback";$("#qFeed").style.display="none";
+  $("#qCounter").textContent=`السؤال ${Q.i+1} من ${Q.qs.length}`;
+  $("#qText").textContent=q.q;$("#qSub").textContent=q.sub||"";
+  $("#qPrompt").textContent=q.kana?"ما هو النطق الصحيح لهذا الحرف؟":"ما معنى هذه الكلمة بالعربية؟";
+  $("#qBar").style.width=(Q.i/Q.qs.length*100)+"%";
+  $("#qOpts").innerHTML=q.opts.map(o=>`<button class="opt">${o}</button>`).join("");
+  $$("#qOpts .opt").forEach(b=>b.onclick=()=>answer(b,q));
+}
+function answer(btn,q){
+  if(Q.lock)return;Q.lock=true;speak(q.say);
+  const ok=btn.textContent===q.a;const f=$("#qFeed");f.style.display="block";
+  if(ok){Q.score+=10;btn.classList.add("ok");f.textContent="✨ إجابة صحيحة! أحسنت!";f.className="feedback correct"}
+  else{btn.classList.add("no");$$("#qOpts .opt").forEach(b=>{if(b.textContent===q.a)b.classList.add("ok")});f.textContent=`❌ الإجابة الصحيحة: ${q.a}`;f.className="feedback wrong"}
+  setTimeout(()=>{Q.i++;Q.i<Q.qs.length?showQ():finish()},1500);
+}
+function finish(){
+  $("#qBar").style.width="100%";$("#quizBox").hidden=true;$("#quizResult").hidden=false;
+  const max=Q.qs.length*10;$("#qScore").textContent=`${Q.score} / ${max}`;
+  $("#qComment").textContent=Q.score===max?"🏆 ممتاز! كل الإجابات صحيحة!":Q.score>=max/2?"👍 نتيجة جيدة، واصل المراجعة!":"💪 لا بأس، راجع الدروس وأعد المحاولة!";
+  const best=store.get("best",{});if(!best[Q.mode]||Q.score>best[Q.mode])best[Q.mode]=Q.score;store.set("best",best);
+  $("#qBest").textContent=`أفضل نتيجة لك في هذا الاختبار: ${best[Q.mode]} / ${max}`;
+}
+$$("#quizModes .tab-btn").forEach(b=>b.onclick=()=>startQuiz(b.dataset.mode));
+$("#qRestart").onclick=()=>startQuiz(Q.mode);
+
+/* ================= المفكرة ================= */
+let diary=store.get("diary",null)||[
+ {t:"اليوم الأول: خطوة البداية",x:"تعلّمت طريقة نطق حروف الهيراغانا والعد من 1 إلى 5 باللغة اليابانية.",d:""},
+ {t:"اليوم الثاني: تركيب الجملة الأولى",x:"تعلّمت استخدام わたしは ... です لتقديم نفسي بطريقة بسيطة ومهذبة.",d:""}];
+function renderDiary(){
+  $("#diaryList").innerHTML=diary.map((e,i)=>`<div class="entry"><button class="del" data-del="${i}" title="حذف">✕</button><h3>${esc(e.t)}</h3><p style="color:var(--text)">${esc(e.x).replace(/\n/g,"<br>")}</p>${e.d?`<small>${e.d}</small>`:""}</div>`).join("")||"<p>لا توجد تدوينات بعد.</p>";
+}
+$("#diaryAdd").onclick=()=>{
+  const t=$("#diaryTitle").value.trim(),x=$("#diaryText").value.trim();if(!x)return;
+  diary.unshift({t:t||"تدوينة جديدة",x,d:new Date().toLocaleDateString("ar")});
+  store.set("diary",diary);$("#diaryTitle").value="";$("#diaryText").value="";renderDiary();
+};
+$("#diaryList").addEventListener("click",e=>{const b=e.target.closest("[data-del]");if(!b)return;diary.splice(+b.dataset.del,1);store.set("diary",diary);renderDiary()});
+
+/* ================= التنقل والمظهر ================= */
+function go(id){
+  if(!document.getElementById(id))id="home";
+  $$(".page-section").forEach(p=>p.classList.toggle("active-page",p.id===id));
+  $$("nav a").forEach(a=>a.classList.toggle("active-link",a.dataset.page===id));
+  $("#nav").classList.remove("open");
+  if(location.hash!=="#"+id)history.replaceState(null,"","#"+id);
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+document.addEventListener("click",e=>{
+  const l=e.target.closest("[data-page]");if(l){e.preventDefault();go(l.dataset.page)}
+});
+$("#menuBtn").onclick=()=>$("#nav").classList.toggle("open");
+window.addEventListener("hashchange",()=>go(location.hash.slice(1)));
+
+const root=document.documentElement;
+const saved=store.get("theme",null);
+const dark0=saved?saved==="dark":window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches;
+function setTheme(d){root.setAttribute("data-theme",d?"dark":"light");$("#themeBtn").textContent=d?"☀️":"🌙"}
+setTheme(dark0);
+$("#themeBtn").onclick=()=>{const d=root.getAttribute("data-theme")!=="dark";setTheme(d);store.set("theme",d?"dark":"light")};
+
+const topBtn=$("#topBtn");
+window.addEventListener("scroll",()=>topBtn.classList.toggle("show",window.scrollY>500));
+topBtn.onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
+
+renderLevel("N5");renderHome();renderDiary();
+if(location.hash)go(location.hash.slice(1));
+});
+</script>
+</body>
+</html>

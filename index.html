@@ -8,7 +8,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
-<style>
+ <link rel="stylesheet" href="theme.css">
+ 
+ <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#e5484d">
+
+ <style>
+  
 :root{
   --primary:#e5484d; --primary-hover:#c93a3f; --primary-soft:#fdecec;
   --accent:#f5a524; --bg:#f6f3ef; --card:#ffffff; --card-2:#faf8f5;
@@ -1038,10 +1044,21 @@ document.addEventListener("click",e=>{const t=e.target,g=a=>t.closest("["+a+"]")
   else if(b=g("data-page")){setTimeout(()=>({me:renderMe,bank:renderBank,grammar:renderGram}[b.dataset.page]||(()=>{}))(),0)}});
 window.addEventListener("hashchange",()=>({me:renderMe,bank:renderBank,grammar:renderGram}[location.hash.slice(1)]||(()=>{}))());
 renderBank();renderFav();renderMyw();wRedraw();gen(0);readRender();renderGram();renderMe();setAt(store.get("atmos",""));
-
+window.SARI={$,$$,esc,store,LEVELS,DIALOGS,MODES,done,renderLevel,renderHome,renderBank,renderGram,startQuiz};
 renderLevel("N5");renderHome();renderDiary();
 if(location.hash)go(location.hash.slice(1));
 });
+</script>
+<script src="dict-data.js"></script>
+<script src="langs-addon.js"></script>
+<script src="multilang.js"></script>
+<script src="spot-mistake.js"></script>
+<script src="pronunciation.js"></script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js');
+}
 </script>
 </body>
 </html>

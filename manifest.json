@@ -1,0 +1,20 @@
+{
+  "name": "منصة تعلّم اليابانية واللغات مع ساري",
+  "short_name": "ساري للغات",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#14171c",
+  "theme_color": "#e5484d",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "190x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "507x512",
+      "type": "image/png"
+    }
+  ]
+}

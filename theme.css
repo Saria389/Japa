@@ -1,0 +1,179 @@
+/* theme.css — مظهر أغنى وأريح للعين. حمّله بعد ستايل index.html وبعد multilang.js إن أمكن */
+
+/* ===== 1) المتغيرات ===== */
+:root{
+  --primary:#e5484d; --primary-hover:#cf3a40; --primary-soft:#fdeeee; --primary-2:#ff8a65;
+  --accent:#f5a524; --bg:#f7f4ef; --card:#ffffff; --card-2:#fbf9f6;
+  --text:#2a323d; --sub:#6b7480; --line:#ece6dd;
+  --grad:linear-gradient(135deg,#e5484d 0%,#ff7a59 60%,#f5a524 100%);
+  --shadow-sm:0 2px 8px rgba(60,40,20,.05);
+  --shadow:0 10px 30px rgba(60,40,20,.08);
+  --shadow-lg:0 18px 44px rgba(229,72,77,.18);
+  --radius:20px; --ease:cubic-bezier(.2,.7,.2,1);
+}
+html[data-theme="dark"]{
+  --bg:#101318; --card:#181d24; --card-2:#1e242c; --text:#edf0f4; --sub:#9aa5b2; --line:#2a323c;
+  --primary-soft:#352226; --shadow-sm:0 2px 8px rgba(0,0,0,.3); --shadow:0 12px 32px rgba(0,0,0,.4);
+}
+
+/* ===== 2) الأساس ===== */
+html{scroll-padding-top:84px}
+body{
+  line-height:1.85;letter-spacing:.1px;
+  background-image:
+    radial-gradient(900px 420px at 8% -5%,rgba(229,72,77,.10),transparent 60%),
+    radial-gradient(800px 420px at 100% 25%,rgba(245,165,36,.10),transparent 60%),
+    radial-gradient(700px 500px at 20% 100%,rgba(255,138,101,.08),transparent 60%);
+  background-attachment:fixed;
+}
+::selection{background:var(--primary);color:#fff}
+:focus-visible{outline:3px solid color-mix(in srgb,var(--primary) 55%,transparent);outline-offset:2px;border-radius:10px}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:color-mix(in srgb,var(--sub) 35%,transparent);border-radius:20px;border:2px solid var(--bg)}
+::-webkit-scrollbar-track{background:transparent}
+p{line-height:1.9}
+
+/* ===== 3) الهيدر والتنقل ===== */
+header{
+  background:color-mix(in srgb,var(--card) 80%,transparent);
+  backdrop-filter:saturate(1.4) blur(16px);-webkit-backdrop-filter:saturate(1.4) blur(16px);
+  border-bottom:1px solid color-mix(in srgb,var(--line) 70%,transparent);
+  box-shadow:0 6px 24px rgba(60,40,20,.04);padding:10px 24px;
+}
+.brand{letter-spacing:.2px}
+.brand .logo{background:var(--grad);box-shadow:0 8px 18px rgba(229,72,77,.35);transition:transform .4s var(--ease)}
+.brand:hover .logo{transform:rotate(-8deg) scale(1.06)}
+nav a{position:relative;transition:color .2s,background .2s}
+nav a::after{content:"";position:absolute;inset-inline:14px;bottom:2px;height:2px;border-radius:2px;background:var(--primary);transform:scaleX(0);transition:transform .25s var(--ease)}
+nav a:hover::after,nav a.active-link::after{transform:scaleX(1)}
+nav a.active-link{background:var(--primary-soft);color:var(--primary)}
+.icon-btn,#learnLang{background:var(--card-2);border:1px solid var(--line);transition:all .2s var(--ease)}
+.icon-btn:hover,#learnLang:hover{border-color:var(--primary);color:var(--primary);transform:translateY(-1px);box-shadow:var(--shadow-sm)}
+.more-list{border-radius:16px;box-shadow:var(--shadow);animation:pop .18s var(--ease)}
+.more-list a{border-radius:10px}
+
+/* ===== 4) الحاويات والعناوين ===== */
+section.box{
+  border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);
+  position:relative;overflow:hidden;transition:box-shadow .3s,transform .3s var(--ease);
+}
+section.box::before{content:"";position:absolute;inset-inline:0;top:0;height:3px;background:var(--grad);opacity:.85}
+h2{border:none;padding-inline-start:16px;position:relative;font-weight:900;letter-spacing:.2px}
+h2::before{content:"";position:absolute;inset-inline-start:0;top:.2em;bottom:.2em;width:5px;border-radius:6px;background:var(--grad)}
+.page-section.active-page{animation:rise .45s var(--ease)}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes pop{from{opacity:0;transform:translateY(-6px) scale(.97)}to{opacity:1;transform:none}}
+
+/* ===== 5) الهيرو ===== */
+.hero{
+  border-radius:28px;padding:54px 36px;background:var(--grad);background-size:160% 160%;
+  animation:shift 14s ease-in-out infinite;box-shadow:var(--shadow-lg);isolation:isolate;
+}
+@keyframes shift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.hero::before{content:"";position:absolute;width:320px;height:320px;border-radius:50%;inset-inline-end:-80px;top:-120px;background:radial-gradient(circle,rgba(255,255,255,.28),transparent 65%);z-index:-1}
+.hero::after{opacity:.14;animation:float 9s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-14px) rotate(3deg)}}
+.hero h2{font-size:clamp(26px,4.4vw,38px);line-height:1.35;text-shadow:0 2px 14px rgba(0,0,0,.14)}
+.hero h2::before{display:none}
+.hero p{font-size:clamp(15px,2vw,18px)}
+
+/* ===== 6) الأزرار ===== */
+.btn-action{
+  background:var(--grad);background-size:140% 140%;border-radius:14px;padding:10px 20px;font-weight:800;
+  box-shadow:0 8px 18px rgba(229,72,77,.28);transition:transform .2s var(--ease),box-shadow .2s,background-position .4s;
+}
+.btn-action:hover{background-position:100% 0;transform:translateY(-2px);box-shadow:0 12px 24px rgba(229,72,77,.36)}
+.btn-action:active{transform:translateY(0) scale(.98)}
+.hero .btn-action{background:#fff;color:var(--primary);box-shadow:0 10px 24px rgba(0,0,0,.18)}
+.btn-ghost{background:var(--card-2)!important;color:var(--text)!important;border:1px solid var(--line);box-shadow:none!important}
+.btn-ghost:hover{border-color:var(--primary);color:var(--primary)!important;background:var(--primary-soft)!important}
+
+/* ===== 7) التبويبات ===== */
+body .tabs{background:var(--card-2);border:1px solid var(--line);border-radius:16px;padding:5px;gap:4px;width:fit-content;max-width:100%}
+body .tab-btn{border:0;background:transparent;border-radius:12px;padding:7px 16px;font-size:14.5px;font-weight:700;color:var(--sub);transition:all .2s var(--ease)}
+body .tab-btn:hover{color:var(--primary);background:var(--primary-soft)}
+body .tab-btn.active{background:var(--primary);color:#fff;box-shadow:0 6px 14px rgba(229,72,77,.28)}
+body .lv-tabs .tab-btn.active{background:var(--lv);box-shadow:0 6px 14px color-mix(in srgb,var(--lv) 35%,transparent)}
+
+/* ===== 8) البطاقات ===== */
+.card{border-radius:18px;background:var(--card-2);transition:transform .3s var(--ease),box-shadow .3s,border-color .3s;position:relative}
+.card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:color-mix(in srgb,var(--primary) 60%,var(--line))}
+.card h3{font-weight:800}
+.lv-badge{border-radius:999px;padding:2px 14px;box-shadow:0 4px 10px color-mix(in srgb,var(--lv) 35%,transparent)}
+
+/* ===== 9) تقدّم ===== */
+.bar{height:10px;border-radius:99px;background:color-mix(in srgb,var(--line) 85%,transparent);overflow:hidden}
+.bar>i{border-radius:99px;background:linear-gradient(90deg,var(--lv,var(--primary)),color-mix(in srgb,var(--lv,var(--primary)) 55%,#fff));transition:width .6s var(--ease)}
+
+/* ===== 10) الحروف ===== */
+.kana-title{display:flex;align-items:center;gap:10px;font-weight:800}
+.kana-title::after{content:"";flex:1;height:1px;background:var(--line)}
+.letter-card{border:1.5px solid var(--line);border-radius:16px;background:var(--card);box-shadow:var(--shadow-sm);transition:all .25s var(--ease)}
+.letter-card:hover{border-color:var(--primary);background:var(--primary-soft);transform:translateY(-4px) scale(1.03);box-shadow:0 12px 22px rgba(229,72,77,.18)}
+.letter-card:active{transform:scale(.96)}
+.jp-char{font-weight:900}
+.speed-row{gap:10px}
+
+/* ===== 11) الدروس والكلمات ===== */
+details.lesson{border-radius:18px;background:var(--card-2);transition:box-shadow .3s,border-color .3s}
+details.lesson:hover{box-shadow:var(--shadow-sm)}
+details.lesson[open]{box-shadow:var(--shadow);background:var(--card)}
+details.lesson summary{padding:16px 22px}
+details.lesson summary .num{box-shadow:0 5px 12px color-mix(in srgb,var(--lv) 35%,transparent)}
+.lesson-body{animation:rise .35s var(--ease)}
+.sub-title{display:flex;align-items:center;gap:8px}
+.sub-title::after{content:"";flex:1;height:1px;background:var(--line)}
+.word-card{border-radius:14px;box-shadow:var(--shadow-sm);transition:all .25s var(--ease)}
+.word-card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.gram{border-radius:16px;background:linear-gradient(180deg,var(--card),var(--card-2))}
+.sent{border-radius:16px;transition:all .25s var(--ease)}
+.sent:hover{border-color:color-mix(in srgb,var(--primary) 55%,var(--line));transform:translateX(-2px)}
+[dir="ltr"] .sent:hover{transform:translateX(2px)}
+.sent-btns button{border-radius:12px}
+.done-btn.is-done{background:linear-gradient(135deg,#2e7d32,#43a047);box-shadow:0 8px 18px rgba(46,125,50,.28)}
+
+/* ===== 12) المحادثات ===== */
+.dlg{border-radius:20px;background:var(--card-2)}
+.line .av{box-shadow:0 5px 12px rgba(0,0,0,.14)}
+.line .bub{border-radius:18px;box-shadow:var(--shadow-sm);transition:all .25s var(--ease)}
+.line .bub:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.line:not(.b) .bub{border-start-start-radius:6px}
+.line.b .bub{border-start-end-radius:6px;background:color-mix(in srgb,var(--accent) 8%,var(--card))}
+
+/* ===== 13) الاختبارات ===== */
+.quiz-card{border-radius:24px;background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow);padding:30px}
+.quiz-q{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.opt{border-radius:14px;border:1.5px solid var(--line);background:var(--card-2);transition:all .2s var(--ease)}
+.opt:hover{border-color:var(--primary);background:var(--primary-soft);transform:translateY(-2px)}
+.opt.ok{background:var(--success-bg);border-color:var(--success);animation:pop .25s var(--ease)}
+.opt.no{background:var(--error-bg);border-color:var(--error);animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.feedback{border-radius:12px}
+.score{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-size:60px}
+
+/* ===== 14) حقول الإدخال والمفكرة ===== */
+textarea,input[type=text],select{border-radius:14px;border:1.5px solid var(--line);background:var(--card);transition:border-color .2s,box-shadow .2s}
+textarea:focus,input[type=text]:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 4px color-mix(in srgb,var(--primary) 16%,transparent)}
+.entry{border-radius:14px;border-inline-start:4px solid var(--primary);border-right-width:0;background:var(--card-2);box-shadow:var(--shadow-sm);padding:10px 16px}
+.entry .del{inset-inline-start:auto;inset-inline-end:10px;left:auto}
+
+/* ===== 15) الأسفل والعناصر العائمة ===== */
+footer{background:transparent;border-top:1px solid var(--line)}
+.top-btn{background:var(--grad);box-shadow:0 10px 22px rgba(229,72,77,.4);transition:opacity .3s,transform .25s var(--ease)}
+.top-btn:hover{transform:translateY(-3px)}
+.warn{border-radius:14px}
+.locked{filter:grayscale(.6)}
+
+/* ===== 16) شاشات صغيرة وحركة أقل ===== */
+@media(max-width:600px){
+  header{padding:8px 12px}
+  .hero{padding:34px 22px;border-radius:22px}
+  section.box{padding:20px 16px}
+  .quiz-card{padding:20px 14px}
+  body .tabs{width:100%;overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none}
+  body .tabs::-webkit-scrollbar{display:none}
+  body .tab-btn{white-space:nowrap}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}

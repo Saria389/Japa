@@ -12,5 +12,15 @@ come|gelmek|يأتي;see|görmek|يرى;hear|duymak|يسمع;speak|konuşmak|ي�
 new|yeni|جديد;old|eski|قديم;hot|sıcak|ساخن;cold|soğuk|بارد;fast|hızlı|سريع;slow|yavaş|بطيء;easy|kolay|سهل;difficult|zor|صعب;beautiful|güzel|جميل;happy|mutlu|سعيد;sad|üzgün|حزين;tired|yorgun|متعب;hungry|aç|جائع;expensive|pahalı|غالٍ;cheap|ucuz|رخيص;long|uzun|طويل;short|kısa|قصير;clean|temiz|نظيف;dirty|kirli|وسخ;rich|zengin|غني;poor|fakir|فقير;young|genç|شاب;strong|güçlü|قوي;empty|boş|فارغ;full|dolu|ممتلئ;
 money|para|مال;name|isim|اسم;question|soru|سؤال;answer|cevap|جواب;language|dil|لغة;word|kelime|كلمة;letter|harf|حرف;phone|telefon|هاتف;computer|bilgisayar|حاسوب;music|müzik|موسيقى;game|oyun|لعبة;story|hikaye|قصة;world|dünya|عالم;country|ülke|دولة;people|insanlar|ناس;
 I|ben|أنا;you|sen|أنت;we|biz|نحن;here|burada|هنا;there|orada|هناك;where|nerede|أين;what|ne|ماذا;why|neden|لماذا;how|nasıl|كيف;who|kim|من;when|ne zaman|متى;
-good morning|günaydın|صباح الخير;good night|iyi geceler|تصبح على خير;goodbye|hoşça kal|مع السلامة;sorry|özür dilerim|آسف;welcome|hoş geldiniz|أهلا وسهلا;excuse me|affedersiniz|المعذرة;how are you|nasılsın|كيف حالك;I love you|seni seviyorum|أحبك`
+good morning|günaydın|صباح الخير;good night|iyi geceler|تصبح على خير;goodbye|hoşça kal|مع السلامة;sorry|özür dilerim|آسف;welcome|hoş geldiniz|أهلا وسهلا;excuse me|affedersiniz|المعذرة;how are you|nasılsın|كيف حالك;I love you|seni seviyorum|أحبك;
+bus|otobüs|حافلة;train|tren|قطار;plane|uçak|طائرة;bicycle|bisiklet|دراجة;ticket|bilet|تذكرة;road|yol|طريق;bridge|köprü|جسر;
+shirt|gömlek|قميص;shoes|ayakkabı|حذاء;dress|elbise|فستان;hat|şapka|قبعة;bag|çanta|حقيبة;jacket|ceket|سترة;
+teacher|öğretmen|معلّم;doctor|doktor|طبيب;nurse|hemşire|ممرضة;engineer|mühendis|مهندس;student|öğrenci|طالب;driver|şoför|سائق;chef|aşçı|طاهٍ;police|polis|شرطة;
+kitchen|mutfak|مطبخ;bed|yatak|سرير;table|masa|طاولة;chair|sandalye|كرسي;key|anahtar|مفتاح;bathroom|banyo|حمّام;
+angry|kızgın|غاضب;afraid|korkmuş|خائف;excited|heyecanlı|متحمس;calm|sakin|هادئ;
+summer|yaz|صيف;winter|kış|شتاء;spring|ilkbahar|ربيع;autumn|sonbahar|خريف;cloud|bulut|غيمة;
+travel|seyahat etmek|يسافر;pay|ödemek|يدفع;call|aramak|يتصل;listen|dinlemek|يستمع;watch|izlemek|يشاهد;forget|unutmak|ينسى;begin|başlamak|يبدأ;finish|bitirmek|ينهي;
+together|birlikte|معاً;again|tekrar|مرة أخرى;very|çok|جداً;slowly|yavaşça|ببطء;
+breakfast|kahvaltı|فطور;lunch|öğle yemeği|غداء;dinner|akşam yemeği|عشاء;water bottle|su şişesi|زجاجة ماء;
+good luck|iyi şanslar|بالتوفيق;congratulations|tebrikler|مبروك;see you later|sonra görüşürüz|أراك لاحقاً`
 .split(";").map(s => s.trim().split("|")).filter(a => a.length === 3);

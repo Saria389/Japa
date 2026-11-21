@@ -1,20 +1,25 @@
 {
   "name": "منصة تعلّم اليابانية واللغات مع ساري",
   "short_name": "ساري للغات",
+  "description": "تعلّم اليابانية والإنجليزية والتركية والعربية: حروف بنطق صوتي، دروس، محادثات، اختبارات ومراجعة متباعدة.",
+  "lang": "ar",
+  "dir": "rtl",
+  "id": "./",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
-  "background_color": "#14171c",
+  "orientation": "portrait",
+  "background_color": "#f6f3ef",
   "theme_color": "#e5484d",
+  "categories": ["education"],
   "icons": [
-    {
-      "src": "icon-192.png",
-      "sizes": "190x192",
-      "type": "image/png"
-    },
-    {
-      "src": "icon-512.png",
-      "sizes": "507x512",
-      "type": "image/png"
-    }
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "الاختبارات", "url": "./index.html#quiz" },
+    { "name": "المراجعة المتباعدة", "url": "./index.html#bank" },
+    { "name": "الحروف", "url": "./index.html#letters" }
   ]
 }

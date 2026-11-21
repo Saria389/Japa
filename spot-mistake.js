@@ -15,7 +15,13 @@ ja: ["これは/本を/です。|1|本|です لا تأتي بعد を، نكت�
   "明日/学校を/行きます。|1|学校へ|الاتجاه يأخذ へ (أو に) وليس を.|غداً أذهب إلى المدرسة.",
   "この町は/静かな/です。|1|静か|صفة な تأخذ な فقط قبل الاسم، وقبل です نتركها بدونها.|هذه المدينة هادئة.",
   "この本は/高いくないです。|1|高くないです。|نفي صفات い: نحذف い ونضيف くない.|هذا الكتاب ليس غالياً.",
-  "六時を/起きます。|0|六時に|الوقت المحدد يأخذ الأداة に.|أستيقظ الساعة السادسة."],
+  "六時を/起きます。|0|六時に|الوقت المحدد يأخذ الأداة に.|أستيقظ الساعة السادسة.",
+  "わたしを/学生です。|0|わたしは|موضوع الجملة يأخذ は وليس を.|أنا طالب.",
+  "日本を/行ったことが/あります。|0|日本へ|الاتجاه يأخذ へ أو に.|سبق أن ذهبت إلى اليابان.",
+  "これは/わたし/本です。|1|わたしの|الملكية تحتاج الأداة の بين الاسمين.|هذا كتابي.",
+  "きれい/花ですね。|0|きれいな|صفة な تحتاج な قبل الاسم.|يا لها من زهرة جميلة!",
+  "昨日は/寒いです。|1|寒かったです。|ماضي صفات い: نحذف い ونضيف かった.|كان الجو بارداً أمس.",
+  "日本語が/話しません。|1|話せません。|مع が نستخدم صيغة القدرة: 話せる.|لا أستطيع التحدث باليابانية."],
 en: ["She go to school every day.|1|goes|مع he/she/it نضيف s أو es للفعل.|هي تذهب إلى المدرسة كل يوم.",
   "I am agree with you.|1|(احذفها)|agree فعل بحد ذاته ولا يحتاج am.|أنا أوافقك.",
   "He have a new car.|1|has|مع he نستخدم has وليس have.|عنده سيارة جديدة.",
@@ -23,17 +29,33 @@ en: ["She go to school every day.|1|goes|مع he/she/it نضيف s أو es لل�
   "I didn't saw him yesterday.|2|see|بعد didn't يأتي الفعل بصيغته الأصلية.|لم أره أمس.",
   "She is more taller than me.|2|(احذفها)|taller مقارنة جاهزة فلا نضيف more.|هي أطول مني.",
   "We goes to the park.|1|go|مع we نستخدم الفعل دون s.|نحن نذهب إلى الحديقة.",
-  "I have 20 years old.|1|am|العمر في الإنجليزية يأخذ am وليس have.|عمري 20 سنة."],
+  "I have 20 years old.|1|am|العمر في الإنجليزية يأخذ am وليس have.|عمري 20 سنة.",
+  "He don't like coffee.|1|doesn't|مع he/she/it نستخدم doesn't.|هو لا يحب القهوة.",
+  "I can to swim.|2|(احذفها)|بعد can يأتي الفعل مباشرة دون to.|أستطيع السباحة.",
+  "She has two childs.|3|children.|جمع child غير منتظم: children.|عندها طفلان.",
+  "I went to home early.|2|(احذفها)|مع home لا نستخدم to بعد went.|ذهبت إلى البيت مبكراً.",
+  "They was at the park.|1|were|مع they نستخدم were.|كانوا في الحديقة.",
+  "I am living here since 2020.|1|have been|مع since نستخدم المضارع التام.|أعيش هنا منذ 2020."],
 tr: ["Ben okula gidiyor.|2|gidiyorum.|مع Ben نضيف اللاحقة um للفعل.|أنا أذهب إلى المدرسة.",
   "Ben su içiyorsun.|2|içiyorum.|sun تعني «أنت»، ومع Ben نستخدم um.|أنا أشرب الماء.",
   "O okula gidiyorum.|0|Ben|الفعل gidiyorum يخص «أنا» فيجب أن يكون الضمير Ben.|أنا أذهب إلى المدرسة.",
   "Ben öğrenciyiz.|1|öğrenciyim.|iz للجمع (نحن)، و im للمفرد (أنا).|أنا طالب.",
-  "Biz kitabı okuyorum.|2|okuyoruz.|مع Biz (نحن) نستخدم uz.|نحن نقرأ الكتاب."],
+  "Biz kitabı okuyorum.|2|okuyoruz.|مع Biz (نحن) نستخدم uz.|نحن نقرأ الكتاب.",
+  "Biz okula gidiyorsunuz.|2|gidiyoruz.|مع Biz نستخدم uz.|نحن نذهب إلى المدرسة.",
+  "Sen çay içiyorum.|2|içiyorsun.|مع Sen نستخدم sun.|أنت تشرب الشاي.",
+  "Ben dün okula gidiyorum.|3|gittim.|dün (أمس) يحتاج صيغة الماضي -di.|ذهبت إلى المدرسة أمس.",
+  "Kitap masa.|1|masada.|للمكان نضيف -da: masada = على الطاولة.|الكتاب على الطاولة.",
+  "Ben öğretmenler.|1|öğretmenim.|مع Ben نضيف -im وليس لاحقة الجمع.|أنا معلّم."],
 ar: ["الولد ذهبت إلى المدرسة.|1|ذهب|Verb must agree with a masculine subject.|The boy went to school.",
   "البنت جميل.|1|جميلة|Adjective must agree in gender (feminine).|The girl is beautiful.",
   "أنا يذهب إلى السوق.|1|أذهب|With أنا the verb starts with أ.|I go to the market.",
   "هذه كتاب جديد.|0|هذا|كتاب is masculine so we use هذا.|This is a new book.",
-  "الكتاب كبيرة.|1|كبير|Adjective must match a masculine noun.|The book is big."] };
+  "الكتاب كبيرة.|1|كبير|Adjective must match a masculine noun.|The book is big.",
+  "البنت ذهب إلى السوق.|1|ذهبت|The verb must be feminine with a feminine subject.|The girl went to the market.",
+  "هؤلاء الطالب مجتهدون.|1|الطلاب|هؤلاء needs a plural noun.|These students are hardworking.",
+  "نحن يذهب إلى المدرسة.|1|نذهب|With نحن the verb starts with ن.|We go to school.",
+  "الشمس كبير.|1|كبيرة|الشمس is feminine, so the adjective is feminine.|The sun is big.",
+  "ذهبت إلى المدرسة غداً.|3|أمس.|ذهبت is past tense, so use أمس (yesterday), not غداً.|I went to school yesterday."] };
 
 document.head.insertAdjacentHTML("beforeend", `<style>.sp-tok{margin:4px;font-size:20px;padding:10px 16px}.sp-fix{font-size:20px;font-weight:800;margin:8px 0}</style>`);
 $("#nav").insertAdjacentHTML("beforeend", `<a href="#spot" data-page="spot" data-ar="🔍 اكتشف الخطأ">🔍 اكتشف الخطأ</a>`);
@@ -41,7 +63,7 @@ $("main").insertAdjacentHTML("beforeend", `<div id="spot" class="page-section"><
 
 const speak = (t, l) => { if (!("speechSynthesis" in window)) return; speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(t); u.lang = VC[l]; u.rate = .85; speechSynthesis.speak(u) };
 const toks = t => t.includes("/") ? t.split("/") : t.split(" ");
-const join = (l, a) => l === "ja" || toks.length === 0 ? a.join("") : a.join(" ");
+const join = (l, a) => l === "ja" ? a.join("") : a.join(" ");
 let Q = null;
 
 function intro() {

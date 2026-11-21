@@ -19,7 +19,7 @@ const S = { en: [["Sam goes to school every day.","Sam her gün okula gider.","�
 /* ===== واجهة بلغتين ===== */
 const T = { ar: { nav: "اللغات", t: "تعلّم الإنجليزية والتركية والعربية 🌍", lang: "اللغة التي أتعلمها", nat: "لغتي", cards: "بطاقات", quiz: "اختبار", listen: "استماع", timed: "تحدي زمني", review: "مراجعة أخطائي", stories: "قصص", me: "تقدّمي", flip: "اقلب", know: "أعرفها ✅", dont: "لا أعرفها ❌", score: "النتيجة", again: "إعادة", shareR: "مشاركة النتيجة", shareQ: "مشاركة هذا الاختبار", mastered: "كلمة متقنة", goal: "هدف اليوم", streak: "أيام متتالية", none: "لا أخطاء للمراجعة 🎉", name: "اكتب اسمك للبدء", go: "ابدأ", sw: "تبديل المستخدم", imp: "استيراد قاموس (JSON)", words: "كلمات في القاموس", tr: "إظهار الترجمة", copied: "تم النسخ ✔", hi: "أهلاً", pick: "اختر وضعاً للبدء", dict: "القاموس", letters: "الحروف" },
   en: { nav: "Languages", t: "Learn English, Turkish & Arabic 🌍", lang: "I'm learning", nat: "My language", cards: "Flashcards", quiz: "Quiz", listen: "Listening", timed: "Timed", review: "Review mistakes", stories: "Stories", me: "Progress", flip: "Flip", know: "I know ✅", dont: "Not yet ❌", score: "Score", again: "Again", shareR: "Share result", shareQ: "Share this quiz", mastered: "words mastered", goal: "Daily goal", streak: "day streak", none: "No mistakes to review 🎉", name: "Enter your name to start", go: "Start", sw: "Switch user", imp: "Import dictionary (JSON)", words: "words in dictionary", tr: "Show translation", copied: "Copied ✔", hi: "Hello", pick: "Pick a mode to start", dict: "Dictionary", letters: "Alphabet" } };
-const NAV_EN = { home: "Home", letters: "Letters", curriculum: "Levels", conversations: "Dialogues", quiz: "Quizzes", diary: "Diary", bank: "Word bank", kanji: "Kanji", challenge: "Challenges", lab: "Reading", grammar: "Grammar", me: "My progress", about: "About" };
+const NAV_EN = { home: "Home", letters: "Letters", curriculum: "Levels", conversations: "Dialogues", quiz: "Quizzes", diary: "Diary", bank: "Word bank", kanji: "Kanji", challenge: "Challenges", lab: "Reading", grammar: "Grammar", me: "My progress", about: "About", spot: "🔍 Spot the mistake", pron: "🎤 Pronunciation", phrases: "🗣️ Quick phrases" };
 $$("nav a").forEach(a => a.dataset.ar = a.textContent);
 let ui = store.g("sari_ui", "ar"), lang = store.g("sari_lang", "en"), nat = store.g("sari_nat", "ar");
 const t = k => T[ui][k];
@@ -54,7 +54,7 @@ document.addEventListener("click", e => { if (e.target.closest('[data-page="lang
 function apply() {
   const H = document.documentElement; H.lang = ui; H.dir = ui === "ar" ? "rtl" : "ltr"; tb.textContent = ui === "ar" ? "EN" : "ع";
   $$("nav a").forEach(a => { const p = a.dataset.page; a.textContent = ui === "ar" ? a.dataset.ar : (p === "langs" ? T.en.nav : NAV_EN[p] || a.dataset.ar) });
-  if (ui === "en") { const h = $("#home .hero h2"); if (h) h.textContent = "Start your journey from zero to mastery 🌸"; $(".brand span:last-child").textContent = "Learn with Sari" } else { $("#home .hero h2").textContent = "ابدأ رحلتك مع اليابانية من الصفر حتى N1 🌸"; $(".brand span:last-child").textContent = "تعلّم اليابانية مع ساري" }
+  /* نص الهيرو والشعار يديرهما multilang.js حسب لغة التعلّم، فلا نكتب فوقهما هنا */
   $("#lgT").textContent = t("t"); if (cur) view("hub");
 }
 

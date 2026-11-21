@@ -2,16 +2,23 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#e5484d">
 <title>منصة تعلّم اليابانية مع ساري 🇯🇵 | من الصفر حتى الإتقان</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
- <link rel="stylesheet" href="theme.css">
- 
- <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#e5484d">
+<meta name="description" content="تعلّم اليابانية من الصفر حتى N1 مجاناً بالعربية: هيراغانا وكاتاكانا بنطق صوتي، دروس ومفردات، محادثات، كانجي، اختبارات ومراجعة متباعدة. وأيضاً الإنجليزية والتركية.">
+<meta property="og:title" content="تعلّم اليابانية مع ساري 🇯🇵">
+<meta property="og:description" content="حروف بنطق صوتي، دروس من N5 إلى N1، محادثات، كانجي واختبارات تفاعلية.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="icon-512.png">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="ساري للغات">
 
  <style>
   
@@ -221,6 +228,9 @@ html[data-atmos] body{background-image:var(--atm)}
 html[data-theme=dark][data-atmos] body{background-image:linear-gradient(rgba(10,12,16,.8),rgba(10,12,16,.8)),var(--atm)}
 .locked{opacity:.45}
 </style>
+<link rel="stylesheet" href="theme.css">
+<link rel="stylesheet" href="ui.css">
+
 </head>
 <body>
 
@@ -252,6 +262,13 @@ html[data-theme=dark][data-atmos] body{background-image:linear-gradient(rgba(10,
 <!-- الرئيسية -->
 <div id="home" class="page-section active-page">
   <div class="hero">
+    <svg class="hero-art" viewBox="0 0 240 180" aria-hidden="true" focusable="false">
+      <circle class="sun" cx="176" cy="54" r="28" fill="#fff" opacity=".92"/>
+      <path d="M8 172 L95 62 Q120 44 145 62 L232 172 Z" fill="#fff" opacity=".3"/>
+      <path d="M80 81 L95 62 Q120 44 145 62 L160 81 L148 76 L136 86 L122 75 L108 86 L94 76 Z" fill="#fff" opacity=".95"/>
+      <g fill="#fff" opacity=".9"><rect x="26" y="110" width="62" height="7" rx="3.5"/><rect x="33" y="123" width="48" height="5" rx="2"/><rect x="38" y="116" width="7" height="56" rx="2"/><rect x="69" y="116" width="7" height="56" rx="2"/></g>
+      <g fill="#fff" opacity=".75"><circle cx="200" cy="120" r="4"/><circle cx="214" cy="104" r="3"/><circle cx="190" cy="98" r="2.5"/></g>
+    </svg>
     <h2>ابدأ رحلتك مع اليابانية من الصفر حتى N1 🌸</h2>
     <p>حروف كاملة بنطق صوتي، خمس مستويات (N5 → N1)، جمل مترجمة مع طريقة النطق، محادثات يومية، واختبارات تفاعلية — كل شيء في مكان واحد.</p>
     <button class="btn-action" data-page="letters">ابدأ بالحروف ←</button>
@@ -389,7 +406,7 @@ html[data-theme=dark][data-atmos] body{background-image:linear-gradient(rgba(10,
 <div class="tabs sub"><button class="tab-btn active" data-t="pGen">مولد الجمل</button><button class="tab-btn" data-t="pRead">قراءة متدرجة</button></div>
 <div id="pGen" class="tab-content active"><p>اختر الفعل والفاعل والمفعول لتتكوّن جملة بنمط ＡはＢを〜ます.</p>
 <div class="speed-row"><select id="gS"></select><select id="gV"></select><select id="gO"></select><button class="btn-action" id="gRnd">🎲 عشوائي</button></div><div id="gOut"></div></div>
-<div id="pRead" class="tab-content"><div class="speed-row"><select id="rSel"><option value="0">نص 1 — مبتدئ (N5)</option><option value="1">نص 2 — N4</option></select><label><input type="checkbox" id="rKa" checked> القراءة</label><label><input type="checkbox" id="rAr"> الترجمة</label></div><p>ابدأ بإخفاء القراءة والترجمة، وأظهرها عند الحاجة. اضغط الجملة لسماعها.</p><div id="rOut"></div></div>
+<div id="pRead" class="tab-content"><div class="speed-row"><select id="rSel"><option value="0">نص 1 — مبتدئ (N5)</option><option value="1">نص 2 — N4</option><option value="2">نص 3 — عائلتي (N5)</option><option value="3">نص 4 — جبل فوجي (N4)</option><option value="4">نص 5 — آداب الحياة في اليابان (N3)</option></select><label><input type="checkbox" id="rKa" checked> القراءة</label><label><input type="checkbox" id="rAr"> الترجمة</label></div><p>ابدأ بإخفاء القراءة والترجمة، وأظهرها عند الحاجة. اضغط الجملة لسماعها.</p><div id="rOut"></div></div>
 </section></div>
 
 <div id="grammar" class="page-section"><section class="box"><h2>دليل القواعد الشامل 🧩</h2>
@@ -877,7 +894,7 @@ function finish(){
   $("#qBest").textContent=`أفضل نتيجة لك في هذا الاختبار: ${best[Q.mode]} / ${max}`;
 }
 $$("#quizModes .tab-btn").forEach(b=>b.onclick=()=>startQuiz(b.dataset.mode));
-$("#qRestart").onclick=()=>startQuiz(Q.mode);
+$("#qRestart").onclick=()=>{if(Q.mode)startQuiz(Q.mode)};
 
 /* ================= المفكرة ================= */
 let diary=store.get("diary",null)||[
@@ -962,7 +979,7 @@ $("#srsBox").onclick=e=>{const r=e.target.closest("[data-rate]");if(!r)return;co
   save();srsShow()};
 
 /* الكانجي والكتابة */
-const KJ="日|ニチ|ひ|شمس / يوم;月|ゲツ|つき|قمر / شهر;火|カ|ひ|نار;水|スイ|みず|ماء;木|モク|き|شجرة;金|キン|かね|ذهب / مال;土|ド|つち|تراب;人|ジン|ひと|إنسان;山|サン|やま|جبل;川|セン|かわ|نهر;大|ダイ|おおきい|كبير;小|ショウ|ちいさい|صغير;中|チュウ|なか|وسط / داخل;学|ガク|まなぶ|يتعلّم;生|セイ|いきる|حياة / ولادة;本|ホン|もと|كتاب / أصل;口|コウ|くち|فم;目|モク|め|عين;手|シュ|て|يد;足|ソク|あし|قدم;上|ジョウ|うえ|فوق;下|カ|した|تحت;年|ネン|とし|سنة;食|ショク|たべる|يأكل;見|ケン|みる|يرى;行|コウ|いく|يذهب;来|ライ|くる|يأتي;休|キュウ|やすむ|يستريح;国|コク|くに|دولة;先|セン|さき|سابق / أمام".split(";").map(x=>x.split("|"));
+const KJ="日|ニチ|ひ|شمس / يوم;月|ゲツ|つき|قمر / شهر;火|カ|ひ|نار;水|スイ|みず|ماء;木|モク|き|شجرة;金|キン|かね|ذهب / مال;土|ド|つち|تراب;人|ジン|ひと|إنسان;山|サン|やま|جبل;川|セン|かわ|نهر;大|ダイ|おおきい|كبير;小|ショウ|ちいさい|صغير;中|チュウ|なか|وسط / داخل;学|ガク|まなぶ|يتعلّم;生|セイ|いきる|حياة / ولادة;本|ホン|もと|كتاب / أصل;口|コウ|くち|فم;目|モク|め|عين;手|シュ|て|يد;足|ソク|あし|قدم;上|ジョウ|うえ|فوق;下|カ|した|تحت;年|ネン|とし|سنة;食|ショク|たべる|يأكل;見|ケン|みる|يرى;行|コウ|いく|يذهب;来|ライ|くる|يأتي;休|キュウ|やすむ|يستريح;国|コク|くに|دولة;先|セン|さき|سابق / أمام;一|イチ|ひとつ|واحد;二|ニ|ふたつ|اثنان;三|サン|みっつ|ثلاثة;四|シ|よっつ|أربعة;五|ゴ|いつつ|خمسة;六|ロク|むっつ|ستة;七|シチ|ななつ|سبعة;八|ハチ|やっつ|ثمانية;九|キュウ|ここのつ|تسعة;十|ジュウ|とお|عشرة;百|ヒャク|ひゃく|مئة;千|セン|ち|ألف;万|マン|まん|عشرة آلاف;円|エン|まるい|ين / دائرة;時|ジ|とき|وقت / ساعة;分|ブン|わける|دقيقة / يقسم;半|ハン|なかば|نصف;午|ゴ|うま|ظهر;前|ゼン|まえ|قبل / أمام;後|ゴ|うしろ|بعد / خلف;東|トウ|ひがし|شرق;西|セイ|にし|غرب;南|ナン|みなみ|جنوب;北|ホク|きた|شمال;名|メイ|な|اسم;女|ジョ|おんな|امرأة;男|ダン|おとこ|رجل;子|シ|こ|طفل;父|フ|ちち|أب;母|ボ|はは|أم;友|ユウ|とも|صديق;外|ガイ|そと|خارج;語|ゴ|かたる|لغة / كلام;話|ワ|はなす|يتكلم / حديث;読|ドク|よむ|يقرأ;書|ショ|かく|يكتب;聞|ブン|きく|يسمع / يسأل;白|ハク|しろ|أبيض;何|カ|なに|ماذا;毎|マイ|ごと|كل;今|コン|いま|الآن;週|シュウ|しゅう|أسبوع;天|テン|あめ|سماء;気|キ|き|روح / مزاج;雨|ウ|あめ|مطر;電|デン|でん|كهرباء;車|シャ|くるま|سيارة;校|コウ|こう|مدرسة;高|コウ|たかい|عالٍ / غالٍ;安|アン|やすい|رخيص / آمن;長|チョウ|ながい|طويل / رئيس;新|シン|あたらしい|جديد;古|コ|ふるい|قديم;右|ウ|みぎ|يمين;左|サ|ひだり|يسار;出|シュツ|でる|يخرج;入|ニュウ|はいる|يدخل;立|リツ|たつ|يقف;会|カイ|あう|يقابل;社|シャ|やしろ|شركة / معبد;店|テン|みせ|متجر;駅|エキ|えき|محطة;道|ドウ|みち|طريق;花|カ|はな|زهرة;空|クウ|そら|سماء / فارغ;犬|ケン|いぬ|كلب;耳|ジ|みみ|أذن;力|リョク|ちから|قوة".split(";").map(x=>x.split("|"));
 $("#kList").innerHTML=KJ.map(([c,on,kun,ar])=>`<div class="card" style="text-align:center"><div class="jp-char" style="font-size:46px">${c}</div><div class="word-ar">${ar}</div><div class="word-kana">音 ${on} · 訓 ${kun}</div><div class="sent-btns" style="justify-content:center;margin-top:8px"><button data-say="${kun}">🔊</button><button data-wr="${c}">✍</button></div></div>`).join("");
 $("#wSel").innerHTML=`<optgroup label="هيراغانا">${kanaPool(false).map(([c])=>`<option>${c}</option>`).join("")}</optgroup><optgroup label="كاتاكانا">${kanaPool(true).map(([c])=>`<option>${c}</option>`).join("")}</optgroup><optgroup label="كانجي">${KJ.map(k=>`<option>${k[0]}</option>`).join("")}</optgroup>`;
 const cv=$("#wCv"),cx=cv.getContext("2d");let guide=true,pen=false;
@@ -1004,7 +1021,10 @@ function gen(sp){const s=G.s[+$("#gS").value],v=V[+$("#gV").value],o=G.o[+$("#gO
 $("#gV").onchange=()=>{fillO();gen(1)};$("#gS").onchange=$("#gO").onchange=()=>gen(1);
 $("#gRnd").onclick=()=>{$("#gS").value=Math.floor(Math.random()*4);$("#gV").value=Math.floor(Math.random()*4);fillO();const os=$("#gO").options;$("#gO").selectedIndex=Math.floor(Math.random()*os.length);gen(1)};
 const READ=[{s:[["わたしは日本語を勉強しています。","わたしはにほんごをべんきょうしています。","أنا أدرس اللغة اليابانية."],["まいにち二十分、本を読みます。","まいにちにじゅっぷん、ほんをよみます。","كل يوم أقرأ كتاباً عشرين دقيقة."],["日本のアニメが好きです。","にほんのアニメがすきです。","أحب الأنمي الياباني."],["いつか日本に住みたいです。","いつかにほんにすみたいです。","أريد أن أعيش في اليابان يوماً ما."]]},
-{s:[["昨日、友だちと東京へ行きました。","きのう、ともだちととうきょうへいきました。","ذهبت أمس مع صديقي إلى طوكيو."],["駅の近くのレストランで昼ご飯を食べました。","えきのちかくのレストランでひるごはんをたべました。","تناولنا الغداء في مطعم قرب المحطة."],["ラーメンはとてもおいしかったです。","ラーメンはとてもおいしかったです。","كان الرامن لذيذاً جداً."],["また行きたいと思います。","またいきたいとおもいます。","أفكّر في الذهاب مرة أخرى."]]}];
+{s:[["昨日、友だちと東京へ行きました。","きのう、ともだちととうきょうへいきました。","ذهبت أمس مع صديقي إلى طوكيو."],["駅の近くのレストランで昼ご飯を食べました。","えきのちかくのレストランでひるごはんをたべました。","تناولنا الغداء في مطعم قرب المحطة."],["ラーメンはとてもおいしかったです。","ラーメンはとてもおいしかったです。","كان الرامن لذيذاً جداً."],["また行きたいと思います。","またいきたいとおもいます。","أفكّر في الذهاب مرة أخرى."]]},
+{s:[["わたしの家族は四人です。","わたしのかぞくはよにんです。","عائلتي أربعة أشخاص."],["父は会社員で、母は先生です。","ちちはかいしゃいんで、ははははせんせいです。","أبي موظف وأمي معلّمة."],["妹は高校生です。","いもうとはこうこうせいです。","أختي الصغرى طالبة في الثانوية."],["週末はみんなで晩ご飯を食べます。","しゅうまつはみんなでばんごはんをたべます。","في عطلة الأسبوع نتناول العشاء معاً."],["家族といっしょの時間が一番好きです。","かぞくといっしょのじかんがいちばんすきです。","أكثر ما أحبه هو الوقت مع عائلتي."]]},
+{s:[["先週の土曜日、はじめて富士山に登りました。","せんしゅうのどようび、はじめてふじさんにのぼりました。","يوم السبت الماضي صعدت جبل فوجي لأول مرة."],["朝早く出発したので、とても眠かったです。","あさはやくしゅっぱつしたので、とてもねむかったです。","انطلقنا باكراً جداً فكنت نعساناً جداً."],["上に着いたとき、空がだんだん明るくなりました。","うえについたとき、そらがだんだんあかるくなりました。","عندما وصلنا إلى القمة بدأت السماء تضيء شيئاً فشيئاً."],["日の出を見て、本当に感動しました。","ひのでをみて、ほんとうにかんどうしました。","تأثرت كثيراً عندما رأيت شروق الشمس."],["疲れましたが、一生忘れられない経験になりました。","つかれましたが、いっしょうわすれられないけいけんになりました。","تعبت، لكنها أصبحت تجربة لن أنساها طوال حياتي."]]},
+{s:[["日本では、電車の中で電話で話すのはマナー違反だと考えられている。","にほんでは、でんしゃのなかででんわではなすのはマナーいはんだとかんがえられている。","في اليابان يُعدّ التحدث بالهاتف داخل القطار مخالفاً للآداب."],["周りの人に迷惑をかけないようにするためだ。","まわりのひとにめいわくをかけないようにするためだ。","وذلك لتجنّب إزعاج من حولك."],["また、ゴミは種類ごとに分けて出さなければならない。","また、ゴミはしゅるいごとにわけてださなければならない。","كذلك يجب فرز القمامة حسب نوعها قبل إخراجها."],["最初は大変だと感じる外国人も多いが、慣れれば自然にできるようになる。","さいしょはたいへんだとかんじるがいこくじんもおおいが、なれればしぜんにできるようになる。","كثير من الأجانب يجدونها صعبة في البداية، لكن مع التعوّد تصبح طبيعية."]]}];
 function readRender(){$("#rOut").innerHTML=READ[+$("#rSel").value].s.map(([jp,ka,ar])=>`<div class="sent" data-say="${esc(ka)}" style="cursor:pointer"><div><div class="sent-jp">${jp}</div>${$("#rKa").checked?`<div class="sent-kana">${ka}</div>`:""}${$("#rAr").checked?`<div class="sent-ar">${ar}</div>`:""}</div><span class="spk">🔊</span></div>`).join("")}
 $("#rSel").onchange=$("#rKa").onchange=$("#rAr").onchange=readRender;
 
@@ -1050,14 +1070,19 @@ if(location.hash)go(location.hash.slice(1));
 });
 </script>
 <script src="dict-data.js"></script>
+<script src="audio.js"></script>
+<script src="content-ja.js"></script>
+<script src="phrases.js"></script>
 <script src="langs-addon.js"></script>
 <script src="multilang.js"></script>
 <script src="spot-mistake.js"></script>
 <script src="pronunciation.js"></script>
+<script src="extras.js"></script>
+<script src="ui.js"></script>
 
 <script>
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./sw.js');
+  window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(() => {}));
 }
 </script>
 </body>

@@ -37,6 +37,11 @@ html body #learnLang.u-hide-sel{position:absolute!important;width:1px!important;
 .u-mi-tx b{font-size:15.5px;line-height:1.4}
 .u-mi-tx small{font-size:12.5px;color:var(--sub);line-height:1.6;margin-top:2px}
 .u-chips{display:flex;flex-wrap:wrap;gap:6px}
+.lb{list-style:none;padding:0;margin:10px 0;display:flex;flex-direction:column;gap:6px}
+.lb li{display:flex;align-items:center;gap:12px;padding:10px 14px;border:1px solid var(--line);border-radius:14px;background:var(--card-2)}
+.lb li b{width:28px;text-align:center}.lb li span{flex:1;font-weight:700}.lb li small{color:var(--sub)}
+.lb li.me{border-color:var(--primary);background:var(--primary-soft)}
+#cloudBox input{margin:4px 0}
 .lv-B1{--lv:#f2994a}.lv-B2{--lv:#9b51e0}.lv-C1{--lv:#e5484d}.lv-C2{--lv:#1f2937}
 html[data-theme="dark"] .lv-C2{--lv:#94a3b8}
 html body .brand span:last-child{unicode-bidi:plaintext}

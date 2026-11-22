@@ -1,6 +1,6 @@
 /* sw.js — يعمل الموقع بدون إنترنت، ويجلب التحديثات تلقائياً.
    عند تعديل أي ملف ارفع رقم الإصدار هنا ليتحدّث عند المستخدمين. */
-const CACHE_NAME = 'sari-app-v6';
+const CACHE_NAME = 'sari-app-v7';
 const FILES_TO_CACHE = [
   './',
   './index.html',
@@ -19,6 +19,7 @@ const FILES_TO_CACHE = [
   './culture.js',
   './ui.js',
   './themes.js',
+  './cloud.js',
   './assistant.js',
   './langs-addon.js',
   './multilang.js',

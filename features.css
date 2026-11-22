@@ -42,6 +42,14 @@ html body #learnLang.u-hide-sel{position:absolute!important;width:1px!important;
 .lb li b{width:28px;text-align:center}.lb li span{flex:1;font-weight:700}.lb li small{color:var(--sub)}
 .lb li.me{border-color:var(--primary);background:var(--primary-soft)}
 #cloudBox input{margin:4px 0}
+.lb-fab{position:fixed;z-index:1740;inset-inline-start:18px;bottom:calc(84px + var(--safe-b,0px));width:50px;height:50px;border-radius:50%;border:1px solid var(--line);background:var(--card);box-shadow:0 10px 24px rgba(0,0,0,.15);font-size:24px;cursor:pointer;display:grid;place-items:center;transition:transform .2s var(--ease)}
+.lb-fab:hover{transform:translateY(-3px) scale(1.05)}
+.lb-fab:focus-visible{outline:none;box-shadow:var(--ring)}
+@media(max-width:860px){.lb-fab{bottom:calc(var(--bn-h,64px) + var(--safe-b,0px) + 74px);width:46px;height:46px;font-size:21px}}
+.ai-thinking span{display:inline-block;animation:aiDot 1s infinite}.ai-thinking span:nth-child(2){animation-delay:.15s}.ai-thinking span:nth-child(3){animation-delay:.3s}
+@keyframes aiDot{0%,100%{opacity:.25}50%{opacity:1}}
+.ai-msg .ai-md p{margin:4px 0}.ai-msg .ai-md ul,.ai-msg .ai-md ol{margin:4px 0;padding-inline-start:20px}
+.ai-badge{font-size:11px;font-weight:800;padding:1px 8px;border-radius:999px;background:rgba(255,255,255,.25)}
 .lv-B1{--lv:#f2994a}.lv-B2{--lv:#9b51e0}.lv-C1{--lv:#e5484d}.lv-C2{--lv:#1f2937}
 html[data-theme="dark"] .lv-C2{--lv:#94a3b8}
 html body .brand span:last-child{unicode-bidi:plaintext}

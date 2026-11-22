@@ -17,7 +17,7 @@ const speak = (t, l) => window.SARI_AUDIO && SARI_AUDIO.speak(t, l ? { lang: l }
 const streakOf = days => { let n = 0; const d = new Date(); while (days.includes(d.toISOString().slice(0, 10))) { n++; d.setDate(d.getDate() - 1) } return n };
 const goPage = p => { const a = $(`nav a[data-page="${p}"]`) || $(`[data-page="${p}"]`); if (a) a.click() };
 
-const CHIPS = [["📅 خطتي اليوم", "خطتي اليوم"], ["🔎 معنى كلمة", "معنى كلمة"], ["🎯 اختبرني", "اختبرني"], ["💡 نصيحة", "نصيحة"], ["🌏 هل تعلم؟", "هل تعلم"], ["📊 تقدّمي", "تقدمي"], ["❓ أسئلة شائعة", "أسئلة شائعة"], ["🧭 الأقسام", "الأقسام"]];
+const CHIPS = [["📅 خطتي اليوم", "خطتي اليوم"], ["🔎 معنى كلمة", "معنى كلمة"], ["🎯 اختبرني", "اختبرني"], ["💡 نصيحة", "نصيحة"], ["🌏 هل تعلم؟", "هل تعلم"], ["📊 تقدّمي", "تقدمي"], ["🏆 المتصدرين", "لوحة المتصدرين"], ["❓ أسئلة شائعة", "أسئلة شائعة"], ["🧭 الأقسام", "الأقسام"]];
 const TIPS = ["⏱️ 20 دقيقة كل يوم أفضل من 3 ساعات مرة في الأسبوع. الاستمرارية هي السر.", "🔁 استخدم «المراجعة المتباعدة» في بنك المفردات: تراجع الكلمة قبل أن تنساها مباشرة.", "🗣️ جرّب «الشادوينغ»: استمع لجملة ثم كررها فوراً بنفس النبرة والسرعة.", "✍️ اكتب الكلمات الجديدة بيدك؛ الكتابة تثبّت الذاكرة أكثر من القراءة فقط.", "🏷️ ضع ملصقات بأسماء الأشياء في بيتك باللغة التي تتعلّمها.", "🎧 استمع لمحتوى بسيط يومياً حتى لو لم تفهم كل شيء؛ أذنك تتعوّد تدريجياً.", "📓 اكتب 3 جمل عن يومك في «المفكرة».", "🎯 احفظ الجمل كاملة لا الكلمات المنفردة فقط؛ الجملة تعطيك القاعدة والسياق معاً.", "😴 النوم بعد المذاكرة يساعد الدماغ على تثبيت ما تعلّمته.", "🤝 لا تخف من الخطأ؛ كل خطأ خطوة للأمام.", "🧠 اربط الكلمة بصورة أو قصة مضحكة لتتذكرها أسرع.", "📱 غيّر لغة هاتفك إلى اللغة التي تتعلّمها لأسبوع كتجربة.", "🏋️ بعد كل درس جرّب تمريناً واحداً في «التدريب» ليثبت الدرس."];
 const PAGE_T = { letters: "الحروف والنطق", curriculum: "مراحل التعلّم", conversations: "المحادثات", practice: "التدريب", exam: "نماذج الامتحان", phrases: "عبارات سريعة", bank: "بنك المفردات", grammar: "القواعد", kanji: "كانجي وكتابة", lab: "الجمل والقراءة", challenge: "التحديات", spot: "اكتشف الخطأ", pron: "اختبار النطق", culture: "ثقافة ومعلومات", diary: "المفكرة", quiz: "الاختبارات" };
 const NAVK = [[/(حروف|هيراغانا|هيرغانا|ابجديه)/, "letters", "الحروف كلها مع النطق العادي والبطيء"], [/(دروس|الدرس|مراحل|منهج|مستويات)/, "curriculum", "الدروس مرتبة حسب المستوى"], [/(محادث|حوار)/, "conversations", "المحادثات اليومية مع الاستماع للحوار كاملاً"], [/(تدريب|تمرين|تمارين)/, "practice", "التمارين: أكمل الفراغ، التصريف، المطابقة، الاستماع"], [/(نموذج|نماذج|امتحان تجريبي)/, "exam", "نماذج الامتحان التجريبية بمؤقت ونتيجة"], [/(عبارات|سفر|طوارئ)/, "phrases", "العبارات الجاهزة للسفر والطوارئ"], [/(بنك|مفردات|مفضله|مراجعه)/, "bank", "كل الكلمات والمفضلة والمراجعة المتباعدة"], [/(قواعد|قاعده)/, "grammar", "كل القواعد مع البحث والأمثلة"], [/(كتابه|خط اليد)/, "kanji", "تدريب الكتابة بالإصبع"], [/(قراءه|نصوص|مولد)/, "lab", "نصوص القراءة ومولّد الجمل"], [/(تحدي|تحديات)/, "challenge", "التحديات: استماع، زمني، ترتيب، إملاء"], [/(اكتشف الخطا|الخطا)/, "spot", "اختبار «اكتشف الخطأ»"], [/(اختبار النطق|ميكروفون|مايك)/, "pron", "اختبار النطق بالميكروفون"], [/(ثقافه|عادات)/, "culture", "عادات البلد ومعلومات عن اللغة"], [/(مفكره|مذكرات|يوميات)/, "diary", "المفكرة لتدوين ما تعلّمته"], [/(الاختبارات|اختبار المفردات)/, "quiz", "اختبارات الحروف والمفردات"]];
@@ -67,6 +67,7 @@ function addMsg(w, html, o = {}) {
 }
 const bot = (html, o = {}) => addMsg("b", html + (o.acts ? `<div class="ai-acts">${o.acts.map(([t, a]) => `<button type="button" class="ai-act" data-ai-act="${esc(a)}">${t}</button>`).join("")}</div>` : ""), o);
 function openAI(q) {
+  setBadge();
   $("#aiPanel").hidden = false; $("#aiFab").hidden = true; $("#aiFab").setAttribute("aria-expanded", "true");
   if (!started) { started = true; if (LOG.length) LOG.forEach(m => addMsg(m.w, m.h, { np: 1 })); else hello() }
   if (q) send(q); else if (!matchMedia("(pointer:coarse)").matches) $("#aiIn").focus();
@@ -81,7 +82,7 @@ function send(raw) {
 /* ===== الردود ===== */
 function hello() {
   const n = store.get("ai_name", ""), st = store.get("stats", {}), s = streakOf(st.days || []);
-  bot(`أهلاً${n ? " " + esc(n) : ""}! 👋 أنا <b>ساري</b>، مساعدك الشخصي لتعلّم ${LN[lg()]}.<br>نقاطك ⭐ ${st.xp || 0} · أيامك المتتالية 🔥 ${s}<br>اسألني عن معنى أي كلمة، أو اطلب خطة اليوم، أو اختبرني 👇`,
+  bot(`أهلاً${n ? " " + esc(n) : ""}! 👋 أنا <b>ساري</b>، مساعدك الشخصي لتعلّم ${LN[lg()]}.<br>نقاطك ⭐ ${st.xp || 0} · أيامك المتتالية 🔥 ${s}<br>اسألني عن معنى أي كلمة، أو اطلب خطة اليوم، أو اختبرني 👇${window.SARI_CLOUD && SARI_CLOUD.user() ? "<br>✨ ويمكنك سؤالي أي شيء بحرّية: اشرح قاعدة، صحّح جملتي، أو حادثني بالـ" + LN[lg()] + "." : "<br>💡 سجّل الدخول من ⚙️ الإعدادات لتفعيل الذكاء الاصطناعي والإجابة عن أي سؤال."}`,
     { acts: [["📅 خطتي اليوم", "q:خطتي اليوم"], ["🎯 اختبرني", "q:اختبرني"], ["❓ ماذا تستطيع؟", "q:ماذا تستطيع"]] });
 }
 function help() {
@@ -181,8 +182,42 @@ function quizAnswer(b) {
   if (!ok) b.classList.add("no"); else AQ.sc++;
   AQ.i++; setTimeout(askQ, 900);
 }
+/* ===== المساعد الذكي الحقيقي (عبر Supabase Edge Function «sari-ai») ===== */
+let aiOff = false;
+const plain = h => { const d = document.createElement("div"); d.innerHTML = h; d.querySelectorAll(".ai-acts,.ai-opts").forEach(x => x.remove()); return d.textContent.trim() };
+const ACT_OK = /^(go:[a-z]+|pr:[a-z]+|exam:[A-Z0-9]+|board|srs|set|menu|q:.{1,80}|say:.{1,120})$/;
+function md(t) {
+  const acts = []; t = t.replace(/\[\[([^|\]]+)\|([^\]]+)\]\]/g, (_, a, l) => { if (ACT_OK.test(a.trim()) && acts.length < 3) acts.push([esc(l.trim()), a.trim()]); return "" });
+  const html = esc(t.trim()).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").split(/\n{2,}/).map(p => {
+    const ls = p.split("\n");
+    return ls.every(l => /^\s*[-•]\s/.test(l)) ? `<ul>${ls.map(l => `<li>${l.replace(/^\s*[-•]\s/, "")}</li>`).join("")}</ul>` : `<p>${ls.join("<br>")}</p>`;
+  }).join("");
+  return { html: `<div class="ai-md">${html}</div>`, acts };
+}
+async function askAI() {
+  const C = window.SARI_CLOUD; if (aiOff || !C || !C.user()) return false;
+  const th = addMsg("b", `<span class="ai-thinking"><span>●</span><span>●</span><span>●</span></span> يفكّر…`, { np: 1 });
+  const hist = [];
+  LOG.slice(-12).forEach(m => { const role = m.w === "u" ? "user" : "assistant", c = plain(m.h); if (!c) return; const last = hist[hist.length - 1]; if (last && last.role === role) last.content += "\n" + c; else hist.push({ role, content: c }) });
+  while (hist.length && hist[0].role !== "user") hist.shift();
+  const st = store.get("stats", {}), rk = await C.myRank().catch(() => null);
+  const ctx = { lang: lg(), levels: Object.keys(S.LEVELS).join(","), xp: st.xp || 0, streak: streakOf(st.days || []), done: Object.keys(S.done).length, due: Object.values(store.get("srs", {})).filter(c => c.due <= td()).length, rank: rk && rk.rank, name: store.get("ai_name", "") };
+  try {
+    const { data, error } = await C.sb.functions.invoke("sari-ai", { body: { messages: hist, ctx } });
+    th.remove();
+    if (error) {
+      const s = error.context && error.context.status;
+      if (s === 503) { aiOff = true; return false }
+      if (s === 429) { bot("وصلت إلى حدّ 40 رسالة ذكية اليوم 🌙 أكمل غداً، وما زلت أستطيع مساعدتك بالأوامر السريعة (المعاني، الخطة، الاختبار...)."); return true }
+      return false;
+    }
+    const r = md(data.text || ""); bot(r.html, { acts: r.acts.length ? r.acts : null }); return true;
+  } catch (e) { th.remove(); return false }
+}
+function setBadge() { const h = $("#aiPanel .ai-head small"); if (!h) return; const on = window.SARI_CLOUD && SARI_CLOUD.user() && !aiOff; h.innerHTML = on ? `<span class="ai-badge">✨ ذكاء اصطناعي</span> اسألني أي شيء بحرّية` : "سجّل الدخول من ⚙️ لتفعيل الذكاء الاصطناعي" }
+
 /* فهم السؤال */
-function answer(t) {
+async function answer(t) {
   const n = norm(t); let m;
   if (waitWord) { waitWord = false; return lookup("معنى " + t) }
   if ((m = t.match(/^(?:اسمي|انا اسمي|أنا اسمي|ناديني)\s+(.{1,20})$/))) { store.set("ai_name", m[1].trim()); return bot(`تشرفت بك يا ${esc(m[1].trim())}! 😊 سأتذكر اسمك.`) }
@@ -196,14 +231,21 @@ function answer(t) {
   if (/(اختبرني|اسالني|امتحني|اختبار سريع|سؤال سريع|quiz)/.test(n)) return quizStart();
   if (/(نصيحه|نصائح|نصايح|كيف احفظ|انسي|ما بحفظ|تحفيز|حمسني)/.test(n)) return bot("💡 " + pick(TIPS), { acts: [["💡 نصيحة أخرى", "q:نصيحة"]] });
   if (/(هل تعلم|معلومه|حقيقه|حقائق)/.test(n)) return bot("🌏 <b>هل تعلم؟</b> " + esc(window.SARI_CULTURE ? SARI_CULTURE.fact(lg()) : pick(TIPS)), { acts: [["↻ معلومة أخرى", "q:هل تعلم"], ["🌏 ثقافة ومعلومات", "go:culture"]] });
+  if (/(متصدر|المتصدرين|ترتيبي|الترتيب|لوحه الشرف|منافس|المركز)/.test(n)) {
+    const rk = window.SARI_CLOUD ? await SARI_CLOUD.myRank().catch(() => null) : null;
+    return bot(`🏆 <b>لوحة المتصدرين</b> ترتّب المتعلّمين حسب النقاط.${rk ? `<br>أنت في المركز <b>${rk.rank}</b> بـ ⭐ ${rk.xp} نقطة. واصل لتصعد!` : "<br>سجّل الدخول لتظهر فيها وتنافس الآخرين."}`, { acts: [["🏆 افتح لوحة المتصدرين", "board"], ["🏋️ اجمع نقاطاً بالتدريب", "pr:fill"]] });
+  }
   if (/(تقدمي|نقاطي|نقاط|احصا|مستواي|انجازات|كم تعلمت)/.test(n)) return stats();
   if (/(الاعدادات|اعدادات|الوضع الليلي|حجم الخط|المؤثرات|الاجواء|سرعه النطق)/.test(n)) return bot("كل الإعدادات هنا: الوضع الليلي، حجم الخط، الأجواء والمؤثرات، وسرعة النطق والأصوات ⚙️", { acts: [["⚙️ افتح الإعدادات", "set"]] });
   if ((m = t.match(/^(?:انطق|أنطق|قل|لفظ|اقرأ|اقرا)\s+(.+)/))) { speak(m[1]); return bot(`🔊 أنطق لك: <b class="jp">${esc(m[1])}</b>`, { acts: [["🔁 مرة أخرى", "say:" + m[1]]] }) }
   if (/(معني|ترجم|يعني|كيف اقول|كيف بقول|شلون اقول|بالياباني|بالانجليزي|بالانكليزي|بالتركي|بالعربي)/.test(n)) return lookup(t);
+  if (n.split(" ").length > 3 && await askAI()) return;   // الأسئلة الطويلة للذكاء الاصطناعي أولاً
   for (const [re, p, d] of NAVK) if (re.test(n)) return bot(`${d} 👇`, { acts: [[`افتح «${PAGE_T[p]}»`, "go:" + p]] });
   if (/(الاقسام|القايمه|القائمه|الصفحات|وين القي|اين اجد|فين)/.test(n)) return bot("هذه كل أقسام المنصة مع شرح كل قسم 👇", { acts: [["🧭 كل الأقسام", "menu"]] });
+  if (n.split(" ").length > 1 && await askAI()) return;
   if ((/[a-zçğıöşü぀-ヿ一-鿿]/i.test(t) || n.split(" ").length <= 2) && lookup(t, true)) return;
   if (grammarSearch(n)) return;
+  if (await askAI()) return;
   bot("لم أفهم سؤالك تماماً 🤔 جرّب أن تسأل بطريقة أخرى، أو اختر:", { acts: [["🔎 معنى كلمة", "q:معنى كلمة"], ["📅 خطتي اليوم", "q:خطتي اليوم"], ["❓ أسئلة شائعة", "q:أسئلة شائعة"], ["🧭 كل الأقسام", "menu"]] });
 }
 function act(a) {
@@ -218,6 +260,7 @@ function act(a) {
   else if (k === "exam") { if (window.SARI_EXAM) SARI_EXAM.start(v); small() }
   else if (k === "set") { closeAI(); if (window.SARI_UI) SARI_UI.openSettings() }
   else if (k === "menu") { closeAI(); if (window.SARI_UI) SARI_UI.openMenu() }
+  else if (k === "board") { small(); if (window.SARI_CLOUD) SARI_CLOUD.openBoard() }
 }
 
 /* ===== الأحداث ===== */

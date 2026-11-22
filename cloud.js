@@ -126,8 +126,24 @@ async function board() {
   const { data, error } = await sb.from("profiles").select("id,display_name,xp,streak").order("xp", { ascending: false }).limit(20);
   const html = n => error ? "<p>تعذّر تحميل اللوحة (تحتاج اتصالاً بالإنترنت).</p>" : data.length ? `<ol class="lb">${data.slice(0, n).map((p, i) => `<li class="${user && p.id === user.id ? "me" : ""}"><b>${["🥇", "🥈", "🥉"][i] || i + 1}</b><span>${esc(p.display_name)}</span><small>⭐ ${p.xp} · 🔥 ${p.streak}</small></li>`).join("")}</ol>` : "<p>لا يوجد متصدرون بعد. كن الأول!</p>";
   const l = $("#lbList"); if (l) l.innerHTML = html(20);
+  const sh = $("#lbSheetList"); if (sh) sh.innerHTML = html(20);
   const s = $("#lbMini"); if (s) s.innerHTML = html(5) + `<button type="button" class="u-playall" data-page="me">عرض اللوحة كاملة ←</button>`;
 }
+/* زر عائم + نافذة لوحة المتصدرين */
+document.body.insertAdjacentHTML("beforeend", `<button type="button" class="lb-fab" id="lbFab" aria-label="لوحة المتصدرين" title="لوحة المتصدرين">🏆</button>
+<div class="u-sheet" id="lbSheet" hidden><div class="u-panel" role="dialog" aria-modal="true" aria-labelledby="lbT"><div class="u-grab"></div>
+<div class="u-head"><h3 id="lbT">🏆 لوحة المتصدرين</h3><button type="button" class="icon-btn" id="lbClose" aria-label="إغلاق">✕</button></div>
+<p class="u-note" id="lbHint"></p><div id="lbSheetList"><p class="u-note">جارٍ التحميل…</p></div></div></div>`);
+function openBoard() {
+  $("#lbSheet").hidden = false; document.body.classList.add("u-lock");
+  $("#lbHint").innerHTML = user ? "مرتبة حسب النقاط ⭐. اجمع نقاطاً من الدروس والاختبارات والتمارين لتصعد!" : "سجّل الدخول من ⚙️ الإعدادات لتظهر في اللوحة وتنافس الآخرين.";
+  board();
+}
+const closeBoard = () => { $("#lbSheet").hidden = true; document.body.classList.remove("u-lock") };
+$("#lbFab").onclick = openBoard; $("#lbClose").onclick = closeBoard;
+$("#lbSheet").addEventListener("click", e => { if (e.target.id === "lbSheet") closeBoard() });
+document.addEventListener("keydown", e => { if (e.key === "Escape" && !$("#lbSheet").hidden) closeBoard() });
+window.SARI_CLOUD = { sb, user: () => user, openBoard, myRank: async () => { if (!user) return null; const { data } = await sb.from("profiles").select("id,xp").order("xp", { ascending: false }).limit(200); const i = (data || []).findIndex(p => p.id === user.id); return i < 0 ? null : { rank: i + 1, xp: data[i].xp, total: data.length } } };
 document.addEventListener("click", e => { if (e.target.closest('[data-page="me"]')) { board(); if (e.target.closest("#lbMini") && window.SARI_UI) SARI_UI.closeSheet() } });
 
 sb.auth.onAuthStateChange((ev, session) => {

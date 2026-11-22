@@ -5,7 +5,19 @@ document.addEventListener("DOMContentLoaded", () => {
 const S = window.SARI; if (!S || !window.supabase) return;
 const $ = S.$, store = S.store, esc = S.esc;
 // flowType "pkce": العودة من Google ومن روابط البريد تأتي بـ ?code= في الرابط، فلا يمسحها تنقّل الصفحة (#home)
-const sb = supabase.createClient("https://nmrfnlfomolgsleywbig.supabase.co", "sb_publishable_tu7eKBjAqi-u7UzvOskN5w_5UPo7sFN", { auth: { flowType: "pkce", detectSessionInUrl: true, persistSession: true } });
+const sb = supabase.createClient("https://nmrfnlfomolgsleywbig.supabase.co", "sb_publishable_tu7eKBjAqi-u7UzvOskN5w_5UPo7sFN", { auth: { flowType: "pkce", detectSessionInUrl: false, persistSession: true } });
+/* إكمال الدخول من الرابط المحفوظ في <head> (لأن الصفحة تغيّر الرابط قبل وصولنا) */
+setTimeout(async () => {
+  let cb = null; try { cb = sessionStorage.getItem("sb_cb"); sessionStorage.removeItem("sb_cb") } catch (e) {}
+  if (!cb) return;
+  const u = new URL(cb), h = new URLSearchParams(u.hash.slice(1)), code = u.searchParams.get("code");
+  const err = u.searchParams.get("error_description") || h.get("error_description");
+  if (code) { const { error } = await sb.auth.exchangeCodeForSession(code); if (error) console.warn("exchange", error.message) }
+  else if (h.get("access_token")) await sb.auth.setSession({ access_token: h.get("access_token"), refresh_token: h.get("refresh_token") });
+  if (h.get("type") === "recovery" || u.searchParams.get("type") === "recovery") recovering = true;
+  history.replaceState(null, "", location.pathname + (location.hash && !/access_token|code=/.test(location.hash) ? location.hash : "#home"));
+  if (err) setTimeout(() => alert("تعذّر تسجيل الدخول: " + err), 300);
+}, 0);
 const BACK = location.origin + location.pathname;
 let recovering = false;
 const SKIP = k => k.startsWith("sb-") || k === "cloud_ts" || k === "ai_log";
@@ -123,7 +135,7 @@ sb.auth.onAuthStateChange((ev, session) => {
   if (ev === "PASSWORD_RECOVERY") { recovering = true; if (window.SARI_UI) SARI_UI.openSettings() }
   render();
   if (user && !was && ev !== "TOKEN_REFRESHED" && !recovering) pull().then(() => { render(); board() });
-  if (user && !was && /[?&]code=/.test(location.search)) history.replaceState(null, "", BACK + location.hash);
+  if (user && !was && ev === "SIGNED_IN" && window.SARI_UI) SARI_UI.openSettings();
   if (!user) board();
 });
 render(); board();

@@ -13,6 +13,8 @@
 <meta property="og:description" content="حروف بنطق صوتي، دروس من N5 إلى N1، محادثات، كانجي واختبارات تفاعلية.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="icon-512.png">
+<script>/* يحفظ رابط العودة من Google/البريد قبل أن يغيّره التنقّل داخل الصفحة (cloud.js يكمل الدخول منه) */
+try { if (/[?&#](code|access_token|error)=/.test(location.href)) sessionStorage.setItem("sb_cb", location.href) } catch (e) {}</script>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -1088,7 +1090,7 @@ if(location.hash)go(location.hash.slice(1));
 <script src="ui.js"></script>
 <script src="themes.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="cloud.js"></script>
+<script src="cloud.js?v=4"></script>
 <script src="assistant.js"></script>
 
 <script>

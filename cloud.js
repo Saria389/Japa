@@ -36,7 +36,7 @@ document.addEventListener("click", async e => {
     const email = $("#cEmail").value.trim(), password = $("#cPass").value;
     if (!email || password.length < 6) return msg("اكتب البريد وكلمة مرور من 6 أحرف على الأقل.", 1);
     msg("لحظة…");
-    const { data, error } = id === "cIn" ? await sb.auth.signInWithPassword({ email, password }) : await sb.auth.signUp({ email, password });
+    const { data, error } = id === "cIn" ? await sb.auth.signInWithPassword({ email, password }) : await sb.auth.signUp({ email, password, options: { emailRedirectTo: location.origin + location.pathname } });
     if (error) return msg(error.message === "Invalid login credentials" ? "البريد أو كلمة المرور غير صحيحة." : error.message, 1);
     if (id === "cUp" && !data.session) return msg("✅ تم إنشاء الحساب. افتح بريدك واضغط رابط التأكيد، ثم سجّل الدخول.");
   }

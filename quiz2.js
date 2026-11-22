@@ -70,9 +70,33 @@ function build(it, pool) {
 const playBtns = t => `<div class="speed-row" style="justify-content:center"><button type="button" class="btn-action" data-say="${esc(t)}" style="font-size:24px">🔊 استمع</button><button type="button" class="btn-action btn-ghost" data-say="${esc(t)}" data-slow="1">🐢 ببطء</button></div>`;
 const TYN = { mean: "📖 المعنى", rev: "🔄 عكسي", lis: "🎧 استماع", read: "🔤 القراءة", smean: "💬 جملة", slis: "🎧 جملة مسموعة", char: "🔤 نطق الحرف", rom: "🔤 من النطق للحرف", lis2: "" };
 
+/* ===== 🤖 الأسئلة الذكية (يولّدها الذكاء الاصطناعي في كل مرة) ===== */
+const C = () => window.SARI_CLOUD;
+const mini = t => esc(t || "").replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/\n/g, "<br>");
+function aiPick() {
+  const lvs = Object.keys(S.LEVELS), cur = store.get("qz_ailv_" + lg(), lvs[0]);
+  card.innerHTML = `<h3>🤖 أسئلة ذكية</h3><p>يكتب الذكاء الاصطناعي أسئلة جديدة تماماً في كل مرة، بأنواع متنوعة، حسب المستوى الذي تختاره.</p>
+  <div class="speed-row" style="justify-content:center"><span>المستوى:</span>${lvs.map(l => `<button type="button" class="tab-btn lv-${l}${l === cur ? " active" : ""}" data-ailv="${l}">${l}</button>`).join("")}</div>
+  <label class="speed-row" style="justify-content:center">ركّز على (اختياري): <input type="text" id="aiFocus" placeholder="مثلاً: الأدوات، الأفعال، الطعام..." style="max-width:260px"></label>
+  <button type="button" class="btn-action" id="aiGo">✨ أنشئ الاختبار</button>
+  ${C() && C().user() ? "" : `<p class="u-note">${C() ? C().AI_ERR.login : ""}</p>`}`;
+}
+async function aiStart() {
+  const lv = store.get("qz_ailv_" + lg(), Object.keys(S.LEVELS)[0]), focus = ($("#aiFocus") || {}).value || "";
+  if (!C() || !C().user()) { aiPick(); return }
+  card.innerHTML = `<h3>🤖 يكتب الذكاء الاصطناعي أسئلتك…</h3><p class="ai-thinking"><span>●</span><span>●</span><span>●</span></p><p class="u-note">مستوى ${lv} · قد يستغرق ذلك بضع ثوانٍ</p>`;
+  const recent = store.get("qz_ai_recent", []);
+  const { data, err } = await C().ai("quiz", { n: store.get("qz_len", 10) > 15 ? 15 : store.get("qz_len", 10), level: lv, focus, avoid: recent });
+  if (err || !data || !data.questions) { card.innerHTML = `<p>${err ? C().AI_ERR[err] : "لم يتمكن الذكاء الاصطناعي من إنشاء الأسئلة، حاول مرة أخرى."}</p><button type="button" class="btn-action" data-qz="ai">🔄 حاول مجدداً</button>`; return }
+  store.set("qz_ai_recent", recent.concat(data.questions.map(q => q.q)).slice(-40));
+  Q = { mode: "ai", i: 0, sc: 0, miss: [], qs: data.questions.map(q => ({ it: { k: "ai|" + q.q }, ty: "ai", tyName: "🤖 " + (q.type || "سؤال ذكي"), q: `<div class="pr-sent" style="font-size:20px">${mini(q.q)}</div>${q.say ? playBtns(q.say) : ""}`, plain: q.q, o: q.o, a: q.o[q.a], say: q.say || "", note: q.ex || "" })) };
+  show();
+}
+
 /* ===== تشغيل الاختبار ===== */
 let Q = null;
 function start(mode, n) {
+  if (mode === "ai") { $$("#quizModes .tab-btn").forEach(b => b.classList.toggle("active", b.dataset.mode === "ai")); aiPick(); return }
   n = n || store.get("qz_len", 10);
   const items = itemsFor(mode);
   if (items.length < 4) { card.innerHTML = `<p>${mode === "wrong" ? "🎉 لا توجد أخطاء محفوظة للمراجعة الآن!" : "لا توجد عناصر كافية في هذا المستوى بعد."}</p>`; return }
@@ -87,7 +111,7 @@ function show() {
   const seen = store.get(SEEN(), {}); seen[q.it.k] = Date.now();
   const ks = Object.keys(seen); if (ks.length > 3000) ks.sort((a, b) => seen[a] - seen[b]).slice(0, 500).forEach(k => delete seen[k]);
   store.set(SEEN(), seen);
-  card.innerHTML = `<div class="ex-top"><span class="ex-sec">${TYN[q.ty] || ""}</span><span>السؤال ${Q.i + 1} / ${Q.qs.length}</span><span>✔ ${Q.sc}</span></div>
+  card.innerHTML = `<div class="ex-top"><span class="ex-sec">${q.tyName || TYN[q.ty] || ""}</span><span>السؤال ${Q.i + 1} / ${Q.qs.length}</span><span>✔ ${Q.sc}</span></div>
   <div class="bar"><i style="width:${Q.i / Q.qs.length * 100}%"></i></div>${q.q}
   <div class="quiz-options">${q.o.map((o, i) => `<button type="button" class="opt${/[぀-ヿ一-鿿]/.test(o) ? " jp" : ""}" data-qi="${i}">${esc(o)}</button>`).join("")}</div><div id="qzFeed"></div>`;
   $$("#quiz [data-qi]").forEach(b => b.onclick = () => answer(b, q));
@@ -97,11 +121,13 @@ function answer(b, q) {
   if (Q.lock) return; Q.lock = true;
   const ok = q.o[+b.dataset.qi] === q.a, wrong = new Set(store.get(WRONG(), []));
   $$("#quiz [data-qi]").forEach(x => { if (q.o[+x.dataset.qi] === q.a) x.classList.add("ok") }); if (!ok) b.classList.add("no");
-  if (ok) { Q.sc++; wrong.delete(q.it.k) } else { wrong.add(q.it.k); Q.miss.push(q) }
+  if (ok) { Q.sc++; wrong.delete(q.it.k) } else { if (q.ty !== "ai") wrong.add(q.it.k); Q.miss.push(q) }
   store.set(WRONG(), [...wrong].slice(-400));
-  if (q.ty !== "lis" && q.ty !== "slis") speak(q.say);
+  if (q.say && q.ty !== "lis" && q.ty !== "slis") speak(q.say);
+  Q.last = { q, chosen: q.o[+b.dataset.qi] };
   $("#qzFeed").innerHTML = `<div class="feedback ${ok ? "correct" : "wrong"}" style="display:block">${ok ? "✨ صحيح!" : "❌ الصحيح: " + esc(q.a)}</div>
-  <p class="jp" style="margin:8px 0">${esc(q.note)} <button type="button" class="u-playall" data-say="${esc(q.say)}">🔊</button></p>
+  <p class="jp" style="margin:8px 0">${q.ty === "ai" ? mini(q.note) : esc(q.note)} ${q.say ? `<button type="button" class="u-playall" data-say="${esc(q.say)}">🔊</button>` : ""}</p>
+  ${ok ? "" : `<button type="button" class="u-playall" id="qzWhy">🤖 اشرح لي لماذا</button><div id="qzWhyOut" class="ai-md" style="text-align:start;margin:8px 0"></div>`}
   <button type="button" class="btn-action" id="qzNext">${Q.i === Q.qs.length - 1 ? "النتيجة 🏁" : "التالي ←"}</button>`;
   $("#qzNext").onclick = () => { Q.lock = false; Q.i++; show() };
 }
@@ -124,12 +150,21 @@ function intro() {
 /* أزرار الأنماط: نضيف «مختلط» و«أخطائي» ونأخذ التحكم بكل الأزرار */
 function decorate() {
   const m = $("#quizModes"); if (!m || m.querySelector('[data-mode="mix"]')) return;
-  m.insertAdjacentHTML("beforeend", `<button class="tab-btn" data-mode="mix">🎲 مختلط</button><button class="tab-btn" data-mode="wrong">🔁 أخطائي</button>`);
+  m.insertAdjacentHTML("beforeend", `<button class="tab-btn" data-mode="mix">🎲 مختلط</button><button class="tab-btn" data-mode="wrong">🔁 أخطائي</button><button class="tab-btn" data-mode="ai">🤖 أسئلة ذكية</button>`);
 }
 new MutationObserver(() => { decorate(); intro() }).observe($("#quizModes"), { childList: true });
 document.addEventListener("click", e => {
   const b = e.target.closest("#quizModes [data-mode]"); if (b) { e.stopPropagation(); e.preventDefault(); start(b.dataset.mode); return }
   const r = e.target.closest("[data-qz]"); if (r) { start(r.dataset.qz); return }
+  const lvb = e.target.closest("[data-ailv]"); if (lvb) { store.set("qz_ailv_" + lg(), lvb.dataset.ailv); $$("[data-ailv]").forEach(x => x.classList.toggle("active", x === lvb)); return }
+  if (e.target.closest("#aiGo")) { aiStart(); return }
+  if (e.target.closest("#qzWhy") && Q && Q.last) {
+    const w = e.target.closest("#qzWhy"), out = $("#qzWhyOut"), { q, chosen } = Q.last;
+    if (!C()) return; w.disabled = true; out.innerHTML = `<span class="ai-thinking"><span>●</span><span>●</span><span>●</span></span> يشرح…`;
+    C().ai("explain", { q: q.plain || (card.querySelector(".quiz-q,.pr-sent,p") || {}).textContent || "", o: q.o, chosen, correct: q.a, note: q.note }).then(({ data, err }) => {
+      out.innerHTML = err ? C().AI_ERR[err] : mini(data.text); w.remove();
+    });
+  }
   const l = e.target.closest("[data-qzlen]"); if (l) { store.set("qz_len", +l.dataset.qzlen); intro() }
 }, true);
 document.addEventListener("keydown", e => { if (e.key === "Enter" && $("#qzNext") && $("#quiz").classList.contains("active-page") && !/input|textarea/i.test(e.target.tagName)) { e.preventDefault(); $("#qzNext").click() } });

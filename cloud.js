@@ -143,7 +143,17 @@ const closeBoard = () => { $("#lbSheet").hidden = true; document.body.classList.
 $("#lbFab").onclick = openBoard; $("#lbClose").onclick = closeBoard;
 $("#lbSheet").addEventListener("click", e => { if (e.target.id === "lbSheet") closeBoard() });
 document.addEventListener("keydown", e => { if (e.key === "Escape" && !$("#lbSheet").hidden) closeBoard() });
-window.SARI_CLOUD = { sb, user: () => user, openBoard, myRank: async () => { if (!user) return null; const { data } = await sb.from("profiles").select("id,xp").order("xp", { ascending: false }).limit(200); const i = (data || []).findIndex(p => p.id === user.id); return i < 0 ? null : { rank: i + 1, xp: data[i].xp, total: data.length } } };
+/* طلب من الذكاء الاصطناعي: task = quiz | explain | correct | chat. يرجع {data} أو {err: login|limit|off|fail} */
+async function ai(task, body) {
+  if (!user) return { err: "login" };
+  try {
+    const { data, error } = await sb.functions.invoke("sari-ai", { body: { task, ctx: { lang: store.get("learnLang", "ja") }, ...body } });
+    if (error) { const s = error.context && error.context.status; return { err: s === 429 ? "limit" : s === 503 ? "off" : s === 401 ? "login" : "fail" } }
+    return { data };
+  } catch (e) { return { err: "fail" } }
+}
+const AI_ERR = { login: "🔐 سجّل الدخول من ⚙️ الإعدادات لتستخدم الذكاء الاصطناعي.", limit: "🌙 وصلت إلى حدّ استخدام الذكاء الاصطناعي اليوم. أكمل غداً!", off: "الذكاء الاصطناعي غير مفعّل حالياً.", fail: "تعذّر الاتصال بالذكاء الاصطناعي، تحقق من الإنترنت وحاول مجدداً." };
+window.SARI_CLOUD = { sb, ai, AI_ERR, user: () => user, openBoard, myRank: async () => { if (!user) return null; const { data } = await sb.from("profiles").select("id,xp").order("xp", { ascending: false }).limit(200); const i = (data || []).findIndex(p => p.id === user.id); return i < 0 ? null : { rank: i + 1, xp: data[i].xp, total: data.length } } };
 document.addEventListener("click", e => { if (e.target.closest('[data-page="me"]')) { board(); if (e.target.closest("#lbMini") && window.SARI_UI) SARI_UI.closeSheet() } });
 
 sb.auth.onAuthStateChange((ev, session) => {

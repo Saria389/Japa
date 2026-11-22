@@ -85,7 +85,7 @@ $("#nav").insertAdjacentHTML("beforeend", `<a href="#practice" data-page="practi
 $("main").insertAdjacentHTML("beforeend", `<div id="practice" class="page-section"><section class="box"><h2>التدريب 🏋️</h2>
 <p>تمارين قصيرة (حوالي 5 دقائق) تثبّت ما تعلّمته وتمنحك نقاط XP. تتغير التمارين حسب اللغة التي تتعلّمها.</p>
 <div class="tabs" id="prTabs"></div><div class="quiz-card" id="prBox"></div></section></div>`);
-const TABS = [["fill", "✏️ أكمل الفراغ", "اختر الكلمة الناقصة في الجملة وتعلّم السبب"], ["conj", "🔄 تصريف الأفعال", "حوّل الفعل إلى الصيغة المطلوبة"], ["match", "🧩 مطابقة الكلمات", "طابق كل كلمة مع معناها بأسرع وقت"], ["listen", "🎧 فهم الاستماع", "استمع للجملة واختر معناها"], ["kana", "⌨️ كتابة الكانا", "اكتب نطق الحرف الياباني بالحروف اللاتينية", "ja"]];
+const TABS = [["fill", "✏️ أكمل الفراغ", "اختر الكلمة الناقصة في الجملة وتعلّم السبب"], ["conj", "🔄 تصريف الأفعال", "حوّل الفعل إلى الصيغة المطلوبة"], ["match", "🧩 مطابقة الكلمات", "طابق كل كلمة مع معناها بأسرع وقت"], ["listen", "🎧 فهم الاستماع", "استمع للجملة واختر معناها"], ["kana", "⌨️ كتابة الكانا", "اكتب نطق الحرف الياباني بالحروف اللاتينية", "ja"], ["write", "✍️ اكتب وصحّح 🤖", "اكتب جملاً عن موضوع، والذكاء الاصطناعي يصحّحها ويشرح أخطاءك"]];
 const tabsFor = () => TABS.filter(t => !t[3] || t[3] === lg());
 let P = null;
 function intro() {
@@ -198,7 +198,43 @@ function kanaQ() {
   if (!matchMedia("(pointer:coarse)").matches) inp.focus();
 }
 
-const RUN = { fill, conj, match, listen, kana };
+/* ✍️ اكتب وصحّح (بالذكاء الاصطناعي) */
+const TOPICS = ["عرّف بنفسك: اسمك، من أين أنت، وماذا تعمل", "صف يومك من الصباح حتى المساء", "ماذا أكلت اليوم؟ وما طعامك المفضل؟", "تحدّث عن عائلتك", "ما خططك لعطلة نهاية الأسبوع؟", "صف مدينتك أو حيّك", "ما هوايتك المفضلة ولماذا؟", "اكتب رسالة قصيرة لصديق تدعوه فيها لزيارتك", "صف الطقس اليوم وما تحب أن تفعل فيه", "لماذا تتعلّم هذه اللغة؟"];
+const mini = t => esc(t || "").replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/\n/g, "<br>");
+function correctionHTML(r) {
+  return `<div class="feedback ${r.score >= 7 ? "correct" : "wrong"}" style="display:block">التقييم: ${r.score} / 10 ${r.praise ? "· " + esc(r.praise) : ""}</div>
+  ${r.corrected ? `<p><b>✔ بعد التصحيح:</b></p><div class="pr-full"><span>${esc(r.corrected)}</span><button type="button" class="u-playall" data-say="${esc(r.corrected)}">🔊</button></div>` : ""}
+  ${r.notes && r.notes.length ? `<p><b>📝 الملاحظات:</b></p><ul style="text-align:start">${r.notes.map(n => `<li>${mini(n)}</li>`).join("")}</ul>` : ""}
+  ${r.better ? `<p><b>💡 صياغة أكثر طبيعية:</b> <span class="jp">${esc(r.better)}</span> <button type="button" class="u-playall" data-say="${esc(r.better)}">🔊</button></p>` : ""}
+  ${r.meaning ? `<p class="u-note">المعنى: ${esc(r.meaning)}</p>` : ""}`;
+}
+async function aiCorrect(text, topic, out) {
+  const Cl = window.SARI_CLOUD; if (!Cl) return;
+  if (!Cl.user()) { out.innerHTML = `<p>${Cl.AI_ERR.login}</p>`; return null }
+  out.innerHTML = `<p class="ai-thinking"><span>●</span><span>●</span><span>●</span></p><p class="u-note">يصحّح الذكاء الاصطناعي كتابتك…</p>`;
+  const { data, err } = await Cl.ai("correct", { text, task_prompt: topic });
+  if (err || !data || !data.result) { out.innerHTML = `<p>${err ? Cl.AI_ERR[err] : "تعذّر التصحيح، حاول مجدداً."}</p>`; return null }
+  out.innerHTML = correctionHTML(data.result); return data.result;
+}
+function write() {
+  P = { key: "write", topic: TOPICS[Math.random() * TOPICS.length | 0] };
+  $("#prBox").innerHTML = `<p class="quiz-hint">✍️ اكتب باللغة التي تتعلّمها (جملتان إلى خمس جمل)</p><h3 style="margin:10px 0">${esc(P.topic)}</h3>
+  <textarea id="prWrite" rows="4" placeholder="اكتب هنا…" style="direction:auto"></textarea>
+  <div class="speed-row" style="justify-content:center"><button type="button" class="btn-action" id="prFix">🤖 صحّح كتابتي</button><button type="button" class="btn-action btn-ghost" id="prTopic">موضوع آخر ↻</button></div><div id="prFeed" style="text-align:start"></div>`;
+  $("#prTopic").onclick = write;
+  $("#prFix").onclick = async () => {
+    const t = $("#prWrite").value.trim(); if (t.length < 2) return;
+    $("#prFix").disabled = true; const r = await aiCorrect(t, P.topic, $("#prFeed")); $("#prFix").disabled = false;
+    if (r) document.dispatchEvent(new CustomEvent("quizdone", { detail: r.score * 10 }));
+  };
+}
+/* 🤖 تصحيح المفكرة */
+const dAdd = $("#diaryAdd");
+if (dAdd) {
+  dAdd.insertAdjacentHTML("afterend", ` <button type="button" class="btn-action btn-ghost" id="diaryFix" style="margin-top:10px">🤖 صحّح بالذكاء الاصطناعي</button><div id="diaryFixOut" style="margin-top:10px"></div>`);
+  $("#diaryFix").onclick = () => { const t = $("#diaryText").value.trim(); if (t) aiCorrect(t, "تدوينة يومية في مفكرة التعلّم", $("#diaryFixOut")) };
+}
+const RUN = { fill, conj, match, listen, kana, write };
 function open(k) {
   if (!RUN[k] || !tabsFor().some(t => t[0] === k)) k = "fill";
   if (!$("#practice").classList.contains("active-page")) { const a = $('nav a[data-page="practice"]') || $('[data-page="practice"]'); if (a) a.click() }

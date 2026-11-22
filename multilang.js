@@ -43,7 +43,13 @@ en: { levels: { ...lvl("", "أساسيات الإنجليزية: التحيات�
     "Tokyo is bigger than Kyoto.||طوكيو أكبر من كيوتو.;This is the best day of my life.||هذا أفضل يوم في حياتي.;Gold is more expensive than silver.||الذهب أغلى من الفضة."),
   les("السفر والفندق", "عبارات السفر والحجز.", "passport||جواز سفر;luggage||أمتعة;reservation||حجز;room||غرفة;key||مفتاح;flight||رحلة طيران;arrive||يصل;leave||يغادر",
     [G("Can / Could (الطلب المهذب)", "could أكثر تهذيباً من can عند الطلب.", "Could you help me with my luggage?||هل يمكنك مساعدتي في أمتعتي؟")],
-    "I have a reservation for two nights.||لدي حجز لليلتين.;What time is check-out?||متى موعد المغادرة؟;My flight leaves at nine.||تغادر رحلتي الساعة التاسعة.")]) },
+    "I have a reservation for two nights.||لدي حجز لليلتين.;What time is check-out?||متى موعد المغادرة؟;My flight leaves at nine.||تغادر رحلتي الساعة التاسعة."),
+  les("الصحة والجسم", "وصف الألم عند الطبيب والصيدلية.", "head||رأس;stomach||معدة / بطن;tooth||سن;fever||حرارة;cough||سعال;medicine||دواء;pharmacy||صيدلية;appointment||موعد",
+    [G("have a ...ache", "للألم نقول I have a + ache: headache (صداع)، toothache، stomachache.", "I have a headache.||عندي صداع.")],
+    "I don't feel well.||لا أشعر أنني بخير.;You should take this medicine twice a day.||يجب أن تتناول هذا الدواء مرتين يومياً.;Where is the nearest pharmacy?||أين أقرب صيدلية؟"),
+  les("العمل والدراسة", "الحديث عن الدراسة والعمل والمقابلات.", "job||وظيفة;office||مكتب;manager||مدير;salary||راتب;interview||مقابلة;university||جامعة;exam||امتحان;homework||واجب",
+    [G("Present continuous للخطط القريبة", "نستخدم am / is / are + ing أيضاً للخطط المؤكدة القريبة.", "I am starting a new job next week.||سأبدأ عملاً جديداً الأسبوع القادم.")],
+    "What do you do?||ماذا تعمل؟;I work in an office.||أعمل في مكتب.;I have an exam tomorrow.||عندي امتحان غداً.")]) },
   dialogs: [DL("1) التعارف", "A|Hello! My name is Sari.||مرحباً! اسمي ساري.;B|Nice to meet you, Sari.||تشرفت بمعرفتك يا ساري.;B|Where are you from?||من أين أنت؟;A|I am from Syria.||أنا من سوريا."),
     DL("2) في المطعم", "B|Hello! Are you ready to order?||مرحباً! هل أنت مستعد للطلب؟;A|Yes, I'd like the chicken, please.||نعم، أريد الدجاج من فضلك.;B|Anything to drink?||هل تريد شيئاً للشرب؟;A|Just water, thank you.||ماء فقط، شكراً.;A|Can I have the bill, please?||الفاتورة من فضلك."),
     DL("3) السؤال عن الطريق", "A|Excuse me, where is the station?||المعذرة، أين المحطة؟;B|Go straight and turn right.||امشِ مباشرة ثم انعطف يميناً.;A|Is it far?||هل هي بعيدة؟;B|No, it's about five minutes on foot.||لا، حوالي خمس دقائق مشياً.;A|Thank you very much!||شكراً جزيلاً!"),
@@ -79,7 +85,13 @@ tr: { levels: { ...lvl("", "أساسيات التركية: التحيات، ال
     "Bu çanta daha ucuz.||هذه الحقيبة أرخص.;En sevdiğim renk mavi.||لوني المفضل الأزرق.;Kahve çaydan daha pahalı.||القهوة أغلى من الشاي."),
   les("السفر والفندق", "عبارات السفر.", "pasaport||جواز سفر;bavul||حقيبة سفر;rezervasyon||حجز;oda||غرفة;anahtar||مفتاح;uçak||طائرة;otel||فندق;kahvaltı||فطور",
     [G("الطلب المهذب: -ebilir miyim?", "هل يمكنني...؟ : alabilir miyim = هل يمكنني أن آخذ؟", "Anahtarı alabilir miyim?||هل يمكنني أخذ المفتاح؟")],
-    "Rezervasyonum var.||لدي حجز.;Kahvaltı saat kaçta?||في أي ساعة الفطور؟;Uçağım saat dokuzda kalkıyor.||تقلع طائرتي الساعة التاسعة.")]) },
+    "Rezervasyonum var.||لدي حجز.;Kahvaltı saat kaçta?||في أي ساعة الفطور؟;Uçağım saat dokuzda kalkıyor.||تقلع طائرتي الساعة التاسعة."),
+  les("الصحة", "عند الطبيب والصيدلية.", "baş||رأس;karın||بطن;diş||سن;ateş||حرارة;öksürük||سعال;ilaç||دواء;eczane||صيدلية;doktor||طبيب",
+    [G("الألم: ... ağrıyor", "Başım ağrıyor = رأسي يؤلمني (العضو + لاحقة الملكية + ağrıyor).", "Dişim ağrıyor.||سني يؤلمني.")],
+    "Kendimi iyi hissetmiyorum.||لا أشعر أنني بخير.;Ateşim var.||عندي حرارة.;En yakın eczane nerede?||أين أقرب صيدلية؟"),
+  les("العمل والدراسة", "المهن والدراسة.", "iş||عمل;ofis||مكتب;müdür||مدير;maaş||راتب;üniversite||جامعة;sınav||امتحان;öğrenci||طالب;ödev||واجب",
+    [G("المهنة: -im / -sin", "Ben öğretmenim = أنا معلّم، Sen doktorsun = أنت طبيب.", "Ben mühendisim.||أنا مهندس.")],
+    "Ne iş yapıyorsun?||ماذا تعمل؟;Üniversitede okuyorum.||أدرس في الجامعة.;Yarın sınavım var.||عندي امتحان غداً.")]) },
   dialogs: [DL("1) التعارف", "A|Merhaba! Benim adım Sari.||مرحباً! اسمي ساري.;B|Memnun oldum Sari.||تشرفت يا ساري.;B|Nerelisin?||من أين أنت؟;A|Suriyeliyim.||أنا سوري."),
     DL("2) في المطعم", "B|Hoş geldiniz! Ne alırsınız?||أهلاً بكم! ماذا تطلبون؟;A|Bir tavuk döner, lütfen.||شاورما دجاج واحدة من فضلك.;B|İçecek ister misiniz?||هل تريد مشروباً؟;A|Bir ayran, lütfen.||عيران واحد من فضلك.;A|Hesap lütfen.||الحساب من فضلك."),
     DL("3) السؤال عن الطريق", "A|Affedersiniz, metro nerede?||المعذرة، أين المترو؟;B|Düz gidin, sonra sola dönün.||امشِ مستقيماً ثم انعطف يساراً.;A|Uzak mı?||هل هو بعيد؟;B|Hayır, beş dakika yürüyerek.||لا، خمس دقائق مشياً.;A|Çok teşekkürler!||شكراً جزيلاً!")] },
@@ -114,13 +126,19 @@ ar: { levels: { ...lvl("", "Arabic basics (meanings in English): greetings, numb
     "هذا أرخص من ذلك|hadha arkhas min dhalik|This is cheaper than that.;أنت أفضل صديق|anta afdal sadiq|You are the best friend.;الشاي أرخص من القهوة|ash-shay arkhas min al-qahwa|Tea is cheaper than coffee."),
   les("السفر والفندق", "Travel phrases.", "جواز سفر|jawaz safar|passport;حقيبة|haqiba|bag;حجز|hajz|reservation;غرفة|ghurfa|room;مفتاح|miftah|key;طائرة|ta'ira|airplane;فندق|funduq|hotel;مطار|matar|airport",
     [G("Polite requests: هل يمكنني...؟", "هل يمكنني (hal yumkinuni) = Can I...?", "هل يمكنني أن أدفع بالبطاقة؟|hal yumkinuni an adfa' bil-bitaqa?|Can I pay by card?")],
-    "عندي حجز|'indi hajz|I have a reservation.;متى الفطور؟|mata al-futur?|When is breakfast?;أين المطار؟|ayna al-matar?|Where is the airport?")]) },
+    "عندي حجز|'indi hajz|I have a reservation.;متى الفطور؟|mata al-futur?|When is breakfast?;أين المطار؟|ayna al-matar?|Where is the airport?"),
+  les("الصحة", "At the doctor and the pharmacy.", "رأس|ra's|head;بطن|batn|stomach;سن|sinn|tooth;حرارة|harara|fever;سعال|su'al|cough;دواء|dawa'|medicine;صيدلية|saydaliyya|pharmacy;طبيب|tabib|doctor",
+    [G("Pain: يؤلمني", "يؤلمني + body part = my ... hurts.", "يؤلمني رأسي|yu'limuni ra'si|My head hurts.")],
+    "أنا مريض|ana marid|I am sick.;عندي حرارة|'indi harara|I have a fever.;أين أقرب صيدلية؟|ayna aqrab saydaliyya?|Where is the nearest pharmacy?"),
+  les("العمل والدراسة", "Jobs and studies.", "عمل|'amal|work;مكتب|maktab|office;مدير|mudir|manager;راتب|ratib|salary;جامعة|jami'a|university;امتحان|imtihan|exam;طالب|talib|student;واجب|wajib|homework",
+    [G("Jobs: أنا + profession", "No verb 'to be' in the present: أنا مهندس = I am an engineer.", "أنا طبيب|ana tabib|I am a doctor.")],
+    "ماذا تعمل؟|madha ta'mal?|What do you do?;أدرس في الجامعة|adrus fi al-jami'a|I study at the university.;عندي امتحان غداً|'indi imtihan ghadan|I have an exam tomorrow.")]) },
   dialogs: [DL("1) التعارف", "A|مرحبا! اسمي ساري.|marhaba! ismi Sari.|Hello! My name is Sari.;B|تشرفت بمعرفتك.|tasharraftu bima'rifatik.|Nice to meet you.;B|من أين أنت؟|min ayna anta?|Where are you from?;A|أنا من سوريا.|ana min suriya.|I am from Syria."),
     DL("2) في المطعم", "B|أهلاً وسهلاً! ماذا تطلب؟|ahlan wa sahlan! madha tatlub?|Welcome! What would you like?;A|أريد دجاجاً وأرزاً من فضلك.|urid dajajan wa aruzzan min fadlik.|I'd like chicken and rice, please.;B|وماذا تشرب؟|wa madha tashrab?|And what will you drink?;A|ماء من فضلك.|ma' min fadlik.|Water, please.;A|الحساب من فضلك.|al-hisab min fadlik.|The bill, please."),
     DL("3) السؤال عن الطريق", "A|عفواً، أين المحطة؟|'afwan, ayna al-mahatta?|Excuse me, where is the station?;B|امشِ مستقيماً ثم إلى اليمين.|imshi mustaqiman thumma ila al-yamin.|Walk straight, then to the right.;A|هل هي بعيدة؟|hal hiya ba'ida?|Is it far?;B|لا، خمس دقائق مشياً.|la, khams daqa'iq mashyan.|No, five minutes on foot.;A|شكراً جزيلاً!|shukran jazilan!|Thank you very much!")] } };
 const AL = { en: "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z", tr: "A B C Ç D E F G Ğ H I İ J K L M N O Ö P R S Ş T U Ü V Y Z", ar: "ا ب ت ث ج ح خ د ذ ر ز س ش ص ض ط ظ ع غ ف ق ك ل م ن ه و ي" };
 const VC = { ja: "ja-JP", en: "en-US", tr: "tr-TR", ar: "ar-SA" };
-const HERO = { ja: ["ابدأ رحلتك مع اليابانية من الصفر حتى N1 🌸", "تعلّم اليابانية مع ساري"], en: ["ابدأ رحلتك مع الإنجليزية من الصفر 🇬🇧", "تعلّم الإنجليزية مع ساري"], tr: ["ابدأ رحلتك مع التركية من الصفر 🇹🇷", "تعلّم التركية مع ساري"], ar: ["Start your Arabic journey from zero 🇸🇦", "Learn Arabic with Sari"] };
+const HERO = { ja: ["ابدأ رحلتك مع اليابانية من الصفر حتى N1 🌸", "تعلّم اليابانية مع ساري"], en: ["ابدأ رحلتك مع الإنجليزية من الصفر 🗽", "تعلّم الإنجليزية مع ساري"], tr: ["ابدأ رحلتك مع التركية من الصفر 🌷", "تعلّم التركية مع ساري"], ar: ["Start your Arabic journey from zero 🌙", "Learn Arabic with Sari"] };
 const JA = { L: { ...S.LEVELS }, D: [...S.DIALOGS] };
 const heroP = $("#home .hero p").textContent;
 

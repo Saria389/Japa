@@ -10,7 +10,7 @@ const LS = { get(k, d) { try { const v = localStorage.getItem(k); return v == nu
 const CFG = Object.assign({ speed: 1, fx: true, voices: {} }, LS.get("audio_cfg", {}));
 const save = () => LS.set("audio_cfg", CFG);
 const TAG = { ja: "ja-JP", en: "en-US", tr: "tr-TR", ar: "ar-SA" };
-const NAME = { ja: "🇯🇵 اليابانية", en: "🇬🇧 الإنجليزية", tr: "🇹🇷 التركية", ar: "🇸🇦 العربية" };
+const NAME = { ja: "اليابانية", en: "الإنجليزية", tr: "التركية", ar: "العربية" };   // بدون أعلام: ويندوز يعرضها كحروف (JP, GB)
 const BASE = { ja: .88, en: .92, tr: .9, ar: .85 };   // سرعة عادية واضحة لكل لغة
 const SAMPLE = { ja: "こんにちは。わたしはサリです。よろしくおねがいします。", en: "Hello! My name is Sari. Nice to meet you.", tr: "Merhaba! Benim adım Sari. Memnun oldum.", ar: "مرحباً، اسمي ساري. تشرفت بمعرفتك." };
 const learn = () => LS.get("learnLang", "ja");

@@ -174,6 +174,7 @@ footer{background:transparent;border-top:1px solid var(--line)}
   body .tabs::-webkit-scrollbar{display:none}
   body .tab-btn{white-space:nowrap}
 }
+/* «تقليل الحركة» من النظام يطفئ الحركة تلقائياً، إلا إذا اختار المستخدم «تشغيل المؤثرات» من ⚙️ (data-fx="on") */
 @media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  html:not([data-fx="on"]) *,html:not([data-fx="on"]) *::before,html:not([data-fx="on"]) *::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }

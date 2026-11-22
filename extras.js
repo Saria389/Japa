@@ -14,7 +14,7 @@ const shuffle = a => { a = [...a]; for (let i = a.length - 1; i > 0; i--) { cons
 const VOCAB = () => Object.values(S.LEVELS).flatMap(L => L.lessons.flatMap(l => l.vocab));
 const say1 = v => String(v[1]).split(" / ")[0];
 const isJa = () => lg() === "ja";
-const PAGE_NAMES = { letters: "الحروف والنطق", curriculum: "مراحل التعلم", conversations: "المحادثات", quiz: "الاختبارات", diary: "المفكرة", bank: "بنك المفردات", kanji: "كانجي وكتابة", challenge: "التحديات", lab: "الجمل والقراءة", grammar: "القواعد", me: "تقدّمي", spot: "اكتشف الخطأ", pron: "النطق", langs: "اللغات", phrases: "عبارات سريعة" };
+const PAGE_NAMES = { letters: "الحروف والنطق", curriculum: "مراحل التعلم", conversations: "المحادثات", quiz: "الاختبارات", diary: "المفكرة", bank: "بنك المفردات", kanji: "كانجي وكتابة", challenge: "التحديات", lab: "الجمل والقراءة", grammar: "القواعد", me: "تقدّمي", spot: "اكتشف الخطأ", pron: "النطق", langs: "اللغات", phrases: "عبارات سريعة", practice: "التدريب", exam: "نماذج الامتحان", culture: "ثقافة ومعلومات" };
 
 document.head.insertAdjacentHTML("beforeend", `<style>
 .x-dash{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
@@ -172,7 +172,7 @@ document.addEventListener("keydown", e => {
   if (e.key === "/") { e.preventDefault(); openSearch(); return }
   const vis = el => el && el.offsetParent !== null;
   if (/^[1-4]$/.test(e.key)) { const o = $$(".page-section.active-page .opt").filter(vis); if (o[+e.key - 1]) o[+e.key - 1].click() }
-  if (e.key === "Enter") { const n = ["#xNext", "#sNext", "#pNext"].map(s => $(s)).find(vis); if (n) { e.preventDefault(); n.click() } }
+  if (e.key === "Enter") { const n = ["#xNext", "#sNext", "#pNext", "#prNext", "#exNext"].map(s => $(s)).find(vis); if (n) { e.preventDefault(); n.click() } }
 });
 
 /* ===== 6) تثبيت التطبيق ===== */

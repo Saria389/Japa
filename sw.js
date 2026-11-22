@@ -1,16 +1,22 @@
 /* sw.js — يعمل الموقع بدون إنترنت، ويجلب التحديثات تلقائياً.
    عند تعديل أي ملف ارفع رقم الإصدار هنا ليتحدّث عند المستخدمين. */
-const CACHE_NAME = 'sari-app-v4';
+const CACHE_NAME = 'sari-app-v5';
 const FILES_TO_CACHE = [
   './',
   './index.html',
   './theme.css',
   './ui.css',
+  './features.css',
   './dict-data.js',
   './audio.js',
   './content-ja.js',
   './phrases.js',
+  './practice.js',
+  './exam.js',
+  './culture.js',
   './ui.js',
+  './themes.js',
+  './assistant.js',
   './langs-addon.js',
   './multilang.js',
   './spot-mistake.js',

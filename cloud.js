@@ -152,7 +152,7 @@ async function ai(task, body) {
     return { data };
   } catch (e) { return { err: "fail" } }
 }
-const AI_ERR = { login: "🔐 سجّل الدخول من ⚙️ الإعدادات لتستخدم الذكاء الاصطناعي.", limit: "🌙 وصلت إلى حدّ استخدام الذكاء الاصطناعي اليوم. أكمل غداً!", off: "الذكاء الاصطناعي غير مفعّل حالياً.", fail: "تعذّر الاتصال بالذكاء الاصطناعي، تحقق من الإنترنت وحاول مجدداً." };
+const AI_ERR = { login: "🔐 سجّل الدخول من ⚙️ الإعدادات لتستخدم الذكاء الاصطناعي.", limit: "🌙 وصلت إلى حدّ استخدام الذكاء الاصطناعي اليوم. أكمل غداً!", off: "الذكاء الاصطناعي غير مفعّل حالياً.", fail: "⏳ الذكاء الاصطناعي مشغول الآن بسبب ضغط كبير على خدمة Google، حاول بعد دقيقة." };
 window.SARI_CLOUD = { sb, ai, AI_ERR, user: () => user, openBoard, myRank: async () => { if (!user) return null; const { data } = await sb.from("profiles").select("id,xp").order("xp", { ascending: false }).limit(200); const i = (data || []).findIndex(p => p.id === user.id); return i < 0 ? null : { rank: i + 1, xp: data[i].xp, total: data.length } } };
 document.addEventListener("click", e => { if (e.target.closest('[data-page="me"]')) { board(); if (e.target.closest("#lbMini") && window.SARI_UI) SARI_UI.closeSheet() } });
 

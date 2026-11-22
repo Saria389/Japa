@@ -181,7 +181,7 @@ function apply(l) {
   Object.keys(S.done).forEach(k => delete S.done[k]); Object.assign(S.done, d); store.set("done", S.done);
   LG = l; VL = VC[l]; store.set("learnLang", l); sel.value = l;
   const ja = l === "ja";
-  Object.keys(S.LEVELS).forEach(k => delete S.LEVELS[k]); Object.assign(S.LEVELS, ja ? JA.L : DATA[l].levels);
+  Object.keys(S.LEVELS).forEach(k => delete S.LEVELS[k]); Object.assign(S.LEVELS, ja ? JA.L : { ...DATA[l].levels, ...((window.SARI_MORE || {})[l] || {}) });
   S.DIALOGS.length = 0; S.DIALOGS.push(...(ja ? JA.D : DATA[l].dialogs));
   const ks = Object.keys(S.LEVELS);
   S.MODES.length = 0; S.MODES.push(...(ja ? [["hira", "هيراغانا"], ["kata", "كاتاكانا"]] : []), ...ks.map(k => [k, "مفردات " + k]));
